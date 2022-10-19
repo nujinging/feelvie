@@ -1,80 +1,24 @@
 <template>
-      <swiper :slidesPerView="'auto'" :spaceBetween="30" :pagination="{
-    clickable: true,
-  }" :modules="modules" class="mySwiper">
     <swiper-slide class="item_card">
-      <picture>
-        <img v-if="movies.length !== 0" :src="`https:/image.tmdb.org/t/p/original${movies[7].poster_path}`">
-      </picture>
-      <h3>디어 시스터</h3>
-
+      <img :src="image(path)" alt="Image 2">
     </swiper-slide>
-
-    <swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide><swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide><swiper-slide class="item_card">
-      <picture>
-        <img class="loaded css-1a1r0s4 execn1x0"
-          src="https://image.tving.com/upload/cms/caip/CAIP0900/P001637397.jpg/dims/resize/400" alt="작은 아씨들">
-      </picture>
-      <h3>디어 시스터</h3>
-
-    </swiper-slide>
-  </swiper>
 </template>
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
 export default {
   name: 'Item_List',
   components: {
-    Swiper,
     SwiperSlide,
+  },
+  props: {
+    path:Array
+  },
+ methods: {
+    image(img) {
+      return `https://image.tmdb.org/t/p/w300/${img}`
+    },
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -100,4 +44,6 @@ export default {
   .swiper-slide {width:120px}
   .item_card picture {width:120px;height:180px}
 }
+.item_card {color:#fff}
+img {display:block}
 </style>

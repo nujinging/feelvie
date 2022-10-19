@@ -1,39 +1,42 @@
 <template>
   <Header></Header>
   <div class="container">
-      <ItemList></ItemList>
+      <ItemCard :movieList="nowPlaying"></ItemCard>
+      <ItemList :movieList="nowPlaying"></ItemList>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import ItemCard from './components/ItemCard.vue'
 import ItemList from './components/ItemList.vue'
-import axios from 'axios'
+import { movieApi } from './utils/axios';
 
 export default {
   name: 'App',
   data() {
     return {
-      movies: [],
+      nowPlaying: {},
     }
   },
   components: {
     Header,
+    ItemCard,
     ItemList,
   },
+  async mounted() {
+   const { data } = await movieApi.nowPlaying();
+      console.log(data.results);
+      this.movieList = data.results;
+      console.log(this.movieList);
 
-  created() {
-    // 서버에서 데이터가져오는 코드
-    const API_KEY = process.env.VUE_APP_API_KEY
-    const URL = 'https://api.themoviedb.org/3/movie'
-    axios.get(`${URL}/top_rated`, {
-      params: {
-        api_key: API_KEY
-      }
-    }).then(({data}) => {
-      this.movies = data.results
-      console.log(`https://image.tmdb.org/t/p/w500${this.movies[2].poster_path}`)
-    })
+      const { nowPlaying } = movieApi;
+      const requestArr = [nowPlaying];
+      const [now] = await Promise.all(
+        requestArr.map((li) => li().then((res) => res.data.results))
+      );
+
+      this.nowPlaying = now;
   },
 }
 </script>

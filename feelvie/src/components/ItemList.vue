@@ -1,18 +1,40 @@
 <template>
   <div class="item_container">
     <Title></Title>
-    <ItemCard></ItemCard>
+    <swiper :slidesPerView="'auto'" :spaceBetween="30" :pagination="{
+      clickable: true,
+    }" :modules="modules" class="mySwiper" v-if="movieList">
+      <ItemCard v-for="li in movieList"
+      :key="li.id" :path="li.poster_path"></ItemCard>
+    </swiper>
+    
   </div>
 </template>
 <script>
 import Title from './Title.vue'
 import ItemCard from './ItemCard.vue'
+import { Swiper } from 'swiper/vue';
+import 'swiper/css';
 
 export default {
   name: 'Item_List',
   components: {
     Title,
-    ItemCard
+    ItemCard,
+    Swiper
+  },
+  props: ['movieList'],
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+    };
   },
 }
 </script>
