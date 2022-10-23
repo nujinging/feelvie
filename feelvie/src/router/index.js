@@ -1,34 +1,17 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Main from "../views/Main.vue";
-import MovieDetail from "../views/MovieDetail.vue";
-import Search from "../views/Search.vue";
 
-Vue.use(VueRouter);
+import {createWebHistory, createRouter} from "vue-router";
+import Main from "../components/Main.vue";
+import MovieDetail from "../components/MovieDetail.vue";
 
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Main,
-  },
 
-  {
-    path: "/detail/:id",
-    name: "Detail",
-    component:MovieDetail
-  },
-  {
-    path:"/search",
-    name:"Search",
-    component:Search
-  }
-];
+const routes =  [
+  { path: "/", component: Main },
+  { path: "/:id", component: MovieDetail },
+]
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
-});
+const router = createRouter({
+  history :createWebHistory(),
+  routes
+})
 
 export default router;

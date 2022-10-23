@@ -10,15 +10,11 @@ const request = axios.create({
 });
 export const movieApi = {
   nowPlaying: () => request.get("movie/now_playing"),
+  popular: () => request.get("movie/popular"),
+  TopRated: () => request.get("movie/top_rated"),
   movieDetail: (id) =>
     request.get(`movie/${id}`, {
       params: { append_to_response: "videos" },
     }),
-
-  search: (keyword) =>
-    request.get("search/movie", {
-      params: {
-        query: keyword,
-      },
-    }),
+    
 };

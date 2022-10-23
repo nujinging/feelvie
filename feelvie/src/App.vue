@@ -1,43 +1,15 @@
 <template>
-  <Header></Header>
-  <div class="container">
-      <ItemCard :movieList="nowPlaying"></ItemCard>
-      <ItemList :movieList="nowPlaying"></ItemList>
-  </div>
+  <router-view />
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import ItemCard from './components/ItemCard.vue'
-import ItemList from './components/ItemList.vue'
-import { movieApi } from './utils/axios';
-
 export default {
   name: 'App',
   data() {
     return {
-      nowPlaying: {},
     }
   },
-  components: {
-    Header,
-    ItemCard,
-    ItemList,
-  },
-  async mounted() {
-   const { data } = await movieApi.nowPlaying();
-      console.log(data.results);
-      this.movieList = data.results;
-      console.log(this.movieList);
-
-      const { nowPlaying } = movieApi;
-      const requestArr = [nowPlaying];
-      const [now] = await Promise.all(
-        requestArr.map((li) => li().then((res) => res.data.results))
-      );
-
-      this.nowPlaying = now;
-  },
+  
 }
 </script>
 
@@ -67,9 +39,6 @@ blockquote, q {quotes: none;}
 blockquote:before, blockquote:after,
 q:before, q:after {content: '';content: none;}
 table {border-collapse: collapse;border-spacing: 0;}
-body {background:#000}
+body {color:#fff;background:#000}
 
-.container {margin-top:69px}
-.container .item_container {padding:3.125vw 0 0 3.125vw}
-.container .item_container+.item_container {margin-top:30px}
 </style>

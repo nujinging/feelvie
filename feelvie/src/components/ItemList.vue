@@ -4,26 +4,38 @@
     <swiper :slidesPerView="'auto'" :spaceBetween="30" :pagination="{
       clickable: true,
     }" :modules="modules" class="mySwiper" v-if="movieList">
-      <ItemCard v-for="li in movieList"
-      :key="li.id" :path="li.poster_path"></ItemCard>
+      <swiper-slide class="item_card" v-for="li in movieList"
+      :key="li.id" @click="goDetail(li.id)">
+        <img :src="image(li.poster_path)" alt="Image 2">
+        <h3> {{ li.title }}</h3>
+      </swiper-slide>
     </swiper>
-    
   </div>
 </template>
 <script>
+
 import Title from './Title.vue'
-import ItemCard from './ItemCard.vue'
-import { Swiper } from 'swiper/vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
 export default {
   name: 'Item_List',
   components: {
     Title,
-    ItemCard,
-    Swiper
+    Swiper,
+    SwiperSlide
   },
   props: ['movieList'],
+  methods: {
+    image(img) {
+      return `https://image.tmdb.org/t/p/w300/${img}`
+    },
+    goDetail(id){
+      console.log(id);
+      this.$router.push(`detail/${id}`);
+    }
+    
+  },
   setup() {
     const onSwiper = (swiper) => {
       console.log(swiper);
@@ -41,11 +53,10 @@ export default {
 
 <style>
 .item_card {width:220px}
-.item_card picture {display:block;height:330px;background:#fff}
-.item_card picture img {width:100%}
+.item_card img {display:block;width:100%;height:330px;}
 .item_card h3 {margin-top:10px;color:#fff;font-size:16px}
 @media (max-width: 767px) {
   .swiper-slide {width:120px}
-  .item_card picture {width:120px;height:180px}
+  .item_card img {width:120px;height:180px}
 }
 </style>
