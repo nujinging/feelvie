@@ -41,4 +41,7 @@ q:before, q:after {content: '';content: none;}
 table {border-collapse: collapse;border-spacing: 0;}
 body {color:#fff;background:#000}
 
+.container {padding-top:69px}
+.container .item_container {position:relative;padding:3.125vw 0 0 3.125vw}
+.container .item_container+.item_container {margin-top:30px}
 </style>

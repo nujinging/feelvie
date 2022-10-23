@@ -1,12 +1,12 @@
 
 import {createWebHistory, createRouter} from "vue-router";
 import Main from "../components/Main.vue";
-import MovieDetail from "../components/MovieDetail.vue";
+import itemDetail from "../components/itemDetail.vue";
 
 
 const routes =  [
   { path: "/", component: Main },
-  { path: "/:id", component: MovieDetail },
+  { path: "/detail/:id", component: itemDetail },
 ]
 
 const router = createRouter({

@@ -44,7 +44,5 @@ export default {
 </script>
 
 <style>
-.container {margin-top:69px}
-.container .item_container {padding:3.125vw 0 0 3.125vw}
-.container .item_container+.item_container {margin-top:30px}
+
 </style>

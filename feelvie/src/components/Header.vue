@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style>
-.wrap_header {position:fixed;top:0;display:flex;align-items:center;margin:0 32px;padding:20px 0;width:100%}
+.wrap_header {position:fixed;top:0;display:flex;align-items:center;margin:0 32px;padding:20px 0;width:100%;z-index:9999}
 .wrap_header .navigation {display:flex;align-items:center;margin-left:35px}
 .wrap_header .navigation li a {color:#fff;font-size:22px;font-weight:bold;line-height:20px}
 .wrap_header .navigation li+li {margin-left:20px}

@@ -1,6 +1,8 @@
 <template>
   <div>
-sss
+    <div class="item_container">
+      
+    </div>
   </div>
 </template>
 

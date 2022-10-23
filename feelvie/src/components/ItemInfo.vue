@@ -30,10 +30,6 @@ export default {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-    goDetail(id){
-      this.$router.push(`/detail/${id}`);
-    }
-    
   },
   setup() {
     const onSwiper = (swiper) => {
