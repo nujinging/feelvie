@@ -75,15 +75,9 @@ export default {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-    // test() {
-    //   '--test-color' = ee
-    // },
   },
 
   computed() {
-    
-      // return `https://themoviedb.org/t/p/w1920_and_h800_multi_faces${this.movieDetail.backdrop_path}`
-  
   },
 
   async mounted() {
