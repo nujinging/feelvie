@@ -15,7 +15,6 @@
 
 <script>
 import Header from './Header.vue'
-// import { movieApi } from '../utils/axios';
 
 export default {
   name: 'item_search',
