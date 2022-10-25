@@ -1,4 +1,5 @@
 <template>
+  <router-link to="/search">Search</router-link>
   <router-view />
 </template>
 
