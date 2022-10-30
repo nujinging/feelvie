@@ -2,38 +2,65 @@
   <Header></Header>
   <main class="container">
     <section class="search_container">
+      <form @submit.prevent="onSearch">
+        <label class="search_input" for="search_input">
+          <input id="search_input" type="text" v-model="debounceValue" @keyup="debounceMethods($event)" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요"
+            class="search_txt">
+          <button type="button" class="icon_search">검색</button>
+        </label>
+      </form>
 
-      <label class="search_input" for="search_input">
-        <input id="search_input" type="text" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt"
-          >
-        <button type="button" class="icon_search">검색</button>
-      </label>
+      <p>{{ keyword }}</p>
     </section>
   </main>
+  <SearchList :movieList="movieList"></SearchList>
+  <ItemList :movieList="movieList"></ItemList>
 
 </template>
 
 <script>
 import Header from './Header.vue'
+import ItemList from './ItemList.vue'
+import SearchList from './SearchList.vue'
+import { movieApi } from '../utils/axios';
+import { debounce } from 'lodash'
 
 export default {
   name: 'item_search',
   data() {
     return {
       keyword: "",
+      movieList: "",
+      debounceValue: '',
     };
+  },
+  watch: {
+    keyword(a) {
+      console.log(a);
+    }
   },
   components: {
     Header,
+    ItemList,
+    SearchList
   },
   async mounted() {
-    console.log(this.$route);
-    console.log(this.$route.query);
-    // const { keyword } = this.$route.params;
-    // const { data } = await movieApi.search(keyword);
-    // console.log(data);
-    // this.keyword = data;
+
   },
+  
+  methods: {
+    async onSearch() {
+      const { data } = await movieApi.search(this.debounceValue);
+      this.movieList = data.results;
+      console.log(this.movieList)
+    },
+
+    debounceMethods: debounce(async (event) => {
+      const { data } = await movieApi.search(event);
+      this.movieList = data.results; //얘를 어떻게 바깥으로 꺼내야할지 ----
+      console.log(this.movieList)
+    },1000),
+  }
 }
 </script>
 

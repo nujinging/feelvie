@@ -1,27 +1,30 @@
 <template>
    <ul class="search_result">
-        <li><button type="button" class="title"><span>쇼</span> 미 더 파더</button></li>
-        <li><button type="button" class="title">원나잇 호러 <span>쇼</span></button></li>
-        <li><button type="button" class="title">위대한 <span>쇼</span></button></li>
-        <li><button type="button" class="title">김창옥 <span>쇼</span></button></li>
-        <li><button type="button" class="title">분노의 질주- 홉스＆<span>쇼</span></button></li>
-        <li><button type="button" class="title">록키 호러 픽쳐 <span>쇼</span></button></li>
-        <li><button type="button" class="title">스타일 <span>쇼</span></button></li>
+        <li v-for="li in movieList" :key="li.id" @click="goDetail(li.id)">{{ li.title }}</li>
       </ul>
 </template>
 
 <script>
-
 export default {
   name: 'item_search',
   data() {
     return {
+      searchMovieList: this.movieList,
     };
   },
+  props: [
+    'movieList'
+  ],
   methods: {
-    
+    goDetail(id){
+      this.$router.push(`/detail/${id}`);
+    },
   },
-  async mounted() {
+  computed: {
+    viewMovieList() {
+      console.log(this.searchMovieList)
+      return this.searchMovieList
+    }
   }
 }
 </script>

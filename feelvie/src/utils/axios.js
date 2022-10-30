@@ -22,6 +22,4 @@ export const movieApi = {
     request.get(`movie/${id}`, {
       params: { append_to_response: "videos" },
     }),
-
-
 };
