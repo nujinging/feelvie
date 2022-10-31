@@ -10,7 +10,7 @@
         </label>
       </form>
 
-      <p>{{ keyword }}</p>
+      <p>{{ data }}</p>
     </section>
   </main>
   <SearchList :movieList="movieList"></SearchList>
@@ -30,8 +30,9 @@ export default {
   data() {
     return {
       keyword: "",
-      movieList: "",
+      movieList: '',
       debounceValue: '',
+      data:'',
     };
   },
   watch: {
@@ -52,13 +53,14 @@ export default {
     async onSearch() {
       const { data } = await movieApi.search(this.debounceValue);
       this.movieList = data.results;
-      console.log(this.movieList)
+      console.log(data.results)
     },
 
     debounceMethods: debounce(async (event) => {
-      const { data } = await movieApi.search(event);
-      this.movieList = data.results; //얘를 어떻게 바깥으로 꺼내야할지 ----
-      console.log(this.movieList)
+      const { data } = await movieApi.search(event.target.value);
+      // this.movieList = data.results; //얘를 어떻게 바깥으로 꺼내야할지 ----
+      console.log(event.target.id)
+      console.log(data.results)
     },1000),
   }
 }
