@@ -36,9 +36,6 @@ export default {
     };
   },
   watch: {
-    keyword(a) {
-      console.log(a);
-    }
   },
   components: {
     Header,
@@ -51,15 +48,14 @@ export default {
   
   methods: {
     async onSearch() {
-      const { data } = await movieApi.search(this.debounceValue);
-      this.movieList = data.results;
-      console.log(data.results)
+      // const { data } = await movieApi.search(this.debounceValue);
+      // this.movieList = data.results;
+      // console.log(data.results)
     },
 
     debounceMethods: debounce(async (event) => {
       const { data } = await movieApi.search(event.target.value);
-      // this.movieList = data.results; //얘를 어떻게 바깥으로 꺼내야할지 ----
-      console.log(event.target.id)
+      this.movieList = data.results
       console.log(data.results)
     },1000),
   }
