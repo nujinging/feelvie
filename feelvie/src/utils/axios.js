@@ -12,6 +12,7 @@ export const movieApi = {
   nowPlaying: () => request.get("movie/now_playing"),
   popular: () => request.get("movie/popular"),
   TopRated: () => request.get("movie/top_rated"),
+  genre: () => request.get("genre/movie/list"),
   search: (keyword) =>
     request.get("search/movie", {
       params: {

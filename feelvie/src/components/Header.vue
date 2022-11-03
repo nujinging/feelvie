@@ -8,7 +8,7 @@
         <a href="detail.html">영화</a>
       </li>
       <li>
-        <a href="">TV프로그램</a>
+        <a href="ganre.html">TV프로그램</a>
       </li>
       <li>
         <a href="">인물</a>

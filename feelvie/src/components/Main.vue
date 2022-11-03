@@ -25,7 +25,7 @@ export default {
     ItemList,
   },
   async mounted() {
-   const { data } = await movieApi.nowPlaying();
+    const { data } = await movieApi.nowPlaying();
       console.log(data.results);
       this.movieList = data.results;
       console.log(this.movieList);
