@@ -1,34 +1,40 @@
 <template>
-  <Header></Header>
-  <p>s</p>
-  <SearchList :movieList="movieList"></SearchList>
-  <ItemList :movieList="movieList"></ItemList>
-
+  <ul v-if="genres" style="display:flex">
+    <li v-for="genreList in genres" :key="genreList.id" @click="goDetail(genreList.id)" style="margin:0 10px">
+      {{ genreList.name }}
+    </li>
+  </ul>
+  <ul>
+    <li>ss</li>
+  </ul>
 </template>
 
 <script>
-import Header from './Header.vue'
-import ItemList from './ItemList.vue'
-import SearchList from './SearchList.vue'
 import { movieApi } from '../utils/axios';
 
 export default {
   name: 'ganre_',
   data() {
     return {
-      ganre: {}
+      genres: {}
     };
   },
   watch: {
   },
+
+  methods: {
+    goDetail(id){
+      this.$router.push(`/genre/${id}/movie`);
+    },
+  },
   components: {
-    Header,
-    ItemList,
-    SearchList
   },
   async mounted() {
     const { data } = await movieApi.genre();
-    console.log(data.results);
+    this.genres = data.genres;
+    console.log(this.genres);
+
+  
   },
 }
 </script>
