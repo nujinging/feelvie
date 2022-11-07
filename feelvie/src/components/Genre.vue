@@ -4,8 +4,9 @@
       {{ genreList.name }}
     </li>
   </ul>
-  <ul>
-    <li>ss</li>
+  <ul v-if="test">
+    <li v-for="item in test" :key="item.id">
+    {{item.title}}</li>
   </ul>
 </template>
 
@@ -16,6 +17,7 @@ export default {
   name: 'ganre_',
   data() {
     return {
+      test: {},
       genres: {}
     };
   },
@@ -23,21 +25,23 @@ export default {
   },
 
   methods: {
-    goDetail(id){
-      this.$router.push(`/genre/${id}/movie`);
+    async goDetail(value) {
+      const { data } = await movieApi.genreList(value);
+      this.test = data.results;
+      console.log(this.test);
+      console.log(data);
     },
   },
   components: {
   },
   async mounted() {
     const { data } = await movieApi.genre();
-    this.genres = data.genres;
-    console.log(this.genres);
-
-  
+      this.genres = data.genres;
+      console.log(this.genres);
   },
 }
 </script>
 
 <style>
+
 </style>
