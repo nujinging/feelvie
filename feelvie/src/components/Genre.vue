@@ -5,8 +5,8 @@
     </li>
   </ul>
   <ul v-if="test">
-    <li v-for="item in test" :key="item.id">
-    {{item.title}}</li>
+    <li v-for="item in test" :key="item.id" @click="goDetail2(item.id)">
+    <img :src="image(item.poster_path)" alt=""></li>
   </ul>
 </template>
 
@@ -31,6 +31,15 @@ export default {
       console.log(this.test);
       console.log(data);
     },
+
+    goDetail2(id){
+      this.$router.push(`/detail/${id}`);
+    },
+    image(img) {
+      return `https://image.tmdb.org/t/p/w300/${img}`
+    },
+
+
   },
   components: {
   },

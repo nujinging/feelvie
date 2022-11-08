@@ -14,6 +14,7 @@ export const movieApi = {
   TopRated: () => request.get("movie/top_rated"),
   genre: () =>  request.get(`genre/movie/list`),
   genreList: (value) =>  request.get(`discover/movie?with_genres=${value}`),
+  similar: (value) =>  request.get(`movie/${value}/similar`),
   search: (keyword) =>
     request.get("search/movie", {
       params: {

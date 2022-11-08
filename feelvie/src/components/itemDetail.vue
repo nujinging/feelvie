@@ -4,6 +4,7 @@
     <div class="container" :style="background" style>
     <section class="detail_container">
     <div class="detail_info">
+      <p @click="similar">ssss</p>
       <h1>{{ movieDetail.title }}</h1>
       <div class="meta">
         <span class="badge">15</span>
@@ -53,6 +54,7 @@
     </div>
     </section>
     <ItemInfo></ItemInfo>
+   
   </div>
   
 </template>
@@ -68,13 +70,18 @@ export default {
   data() {
     return {
       movieDetail: {},
-      Bg: 'red'
+      Bg: 'red',
+      similar: {},
     };
   },
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
+    async Similar() {
+      const { data } = await movieApi.similar(this.similar);
+      console.log(data)
+    }
   },
 
   computed() {
@@ -89,6 +96,9 @@ export default {
     console.log(data);
     this.movieDetail = data;
     this.backGround = this.movieDetail.backdrop_path
+    this.similar = data.id;
+    console.log(this.similar)
+
   },
   components: {
     Header,
