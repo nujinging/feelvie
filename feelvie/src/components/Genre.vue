@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       test: {},
-      page : {},
+      page : 2,
       genres: {}
     };
   },
@@ -32,7 +32,7 @@ export default {
     const { scrollHeight, scrollTop, clientHeight } = e.target;
     const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
     if(isAtTheBottom) {
-      alert('2')
+      this.page++;
     }
   },
 
@@ -44,7 +44,7 @@ export default {
   },
 
     async goDetail(value) {
-      const { data } = await movieApi.genreList(value);
+      const { data } = await movieApi.genreList(value, this.page);
       this.test = data.results;
       this.page = data.page;
       console.log(this.test);
