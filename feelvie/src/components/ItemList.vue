@@ -1,27 +1,21 @@
 <template>
   <div class="item_container">
-    <Title></Title>
-    <swiper :slidesPerView="'auto'" :spaceBetween="30" :pagination="{
-      clickable: true,
-    }" :modules="modules" class="mySwiper" v-if="movieList">
-      <swiper-slide class="item_card" v-for="li in movieList"
-      :key="li.id" @click="goDetail(li.id)">
-        <img :src="image(li.poster_path)" alt="Image 2">
+    <swiper :slidesPerView="'auto'" :spaceBetween="30" :pagination="{clickable: true}" :modules="modules" class="mySwiper" v-if="movieList">
+      <swiper-slide class="item_card" v-for="li in movieList" :key="li.id" @click="goDetail(li.id)">
+        <img :src="image(li.poster_path)" alt="Poster">
         <h3> {{ li.title }}</h3>
       </swiper-slide>
     </swiper>
   </div>
 </template>
-<script>
 
-import Title from './Title.vue'
+<script>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
 export default {
-  name: 'Item_List',
+  name: 'ItemList_',
   components: {
-    Title,
     Swiper,
     SwiperSlide
   },
@@ -33,7 +27,6 @@ export default {
     goDetail(id){
       this.$router.push(`/detail/${id}`);
     }
-    
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -51,11 +44,11 @@ export default {
 </script>
 
 <style>
-.item_card {width:220px}
-.item_card img {display:block;width:100%;height:330px;}
-.item_card h3 {margin-top:10px;color:#fff;font-size:16px}
-@media (max-width: 767px) {
-  .swiper-slide {width:120px}
-  .item_card img {width:120px;height:180px}
-}
+  .item_card {width:220px}
+  .item_card img {display:block;width:100%;height:330px;}
+  .item_card h3 {margin-top:10px;color:#fff;font-size:16px}
+  @media (max-width: 767px) {
+    .swiper-slide {width:120px}
+    .item_card img {width:120px;height:180px}
+  }
 </style>

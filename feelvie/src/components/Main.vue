@@ -26,16 +26,12 @@ export default {
   },
   async mounted() {
     const { data } = await movieApi.nowPlaying();
-      console.log(data.results);
       this.movieList = data.results;
-      console.log(this.movieList);
-
       const { nowPlaying, popular, TopRated } = movieApi;
       const requestArr = [nowPlaying, popular ,TopRated ];
       const [now, pop, top] = await Promise.all(
         requestArr.map((li) => li().then((res) => res.data.results))
       );
-
       this.nowPlaying = now;
       this.popular = pop;
       this.TopRated = top;

@@ -1,71 +1,64 @@
 <template>
   <Header></Header>
-  <!-- <div class="container" :style="{ backgroundImage :`url(${background(movieDetail.backdrop_path)})`} "> -->
-    <div class="container" :style="background" style>
+  <div class="container" :style="background">
     <section class="detail_container">
-    <div class="detail_info">
-      <p @click="similar">ssss</p>
-      <h1>{{ movieDetail.title }}</h1>
-      <div class="meta">
-        <span class="badge">15</span>
-        <span class="txt">가족,애니메이션,코미디</span>
+      <div class="detail_info">
+        <h1>{{ movieDetail.title }}</h1>
+        <div class="meta">
+          <span class="badge">15</span>
+          <span class="txt">가족,애니메이션,코미디</span>
+        </div>
+        <a href="" class="trailer" v-if="movieDetail.videos?.results.length">
+          트레일러 보기
+        </a>
+        <div class="comment">
+          <p class="quotes">{{ movieDetail.tagline }}</p>
+          <p class="intro">{{ movieDetail.overview }}</p>
+        </div>
       </div>
-      <a href="" class="trailer" v-if="movieDetail.videos?.results.length">
-        트레일러 보기
-      </a>
-      <div class="comment">
-        <p class="quotes">{{ movieDetail.tagline }}</p>
-        <p class="intro">
-          {{ movieDetail.overview }}
-        </p>
+      <div class="detail_poster">
+        <ul class="social_links">
+          <li>
+            <a href="" class="facebook">
+              <span class="blind">페이스북</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="tritter">
+              <span class="blind">트위터</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="instargram">
+              <span class="blind">인스타그램</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="just_watch">
+              <span class="blind">인스타그램</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="link">
+              <span class="blind">인스타그램</span>
+            </a>
+          </li>
+        </ul>
+        <picture>
+          <img :src="image(movieDetail.poster_path)" alt="Image 2">
+        </picture>
       </div>
-    </div>
-    <div class="detail_poster">
-      <ul class="social_links">
-        <li>
-          <a href="" class="facebook">
-            <span class="blind">페이스북</span>
-          </a>
-        </li>
-        <li>
-          <a href="" class="tritter">
-            <span class="blind">트위터</span>
-          </a>
-        </li>
-        <li>
-          <a href="" class="instargram">
-            <span class="blind">인스타그램</span>
-          </a>
-        </li>
-        <li>
-          <a href="" class="just_watch">
-            <span class="blind">인스타그램</span>
-          </a>
-        </li>
-        <li>
-          <a href="" class="link">
-            <span class="blind">인스타그램</span>
-          </a>
-        </li>
-      </ul>
-      <picture>
-      <img :src="image(movieDetail.poster_path)" alt="Image 2">
-      </picture>
-    </div>
     </section>
-    <ItemInfo></ItemInfo>
-   
   </div>
-  
+
 </template>
 
 <script>
 import Header from './Header.vue'
-import ItemInfo from './ItemInfo.vue';
 import { movieApi } from '../utils/axios';
 
 export default {
-  name: 'item_detail',
+  name: 'ItemDetail_',
   props: ['movieList'],
   data() {
     return {
@@ -83,10 +76,6 @@ export default {
       console.log(data)
     }
   },
-
-  computed() {
-  },
-
   async mounted() {
     console.log(this.$route);
     console.log(this.$route.params.id);
@@ -102,11 +91,9 @@ export default {
   },
   components: {
     Header,
-    ItemInfo
-  }  
+  }
 }
 </script>
-
 <style>
 :root {--test-color: red;}
 .detail_container {display:flex;margin-bottom:110px;padding:3.125vw 3.125vw 0;color:#fff;background:var(--test-color)}
@@ -167,6 +154,5 @@ export default {
     .detail_container .detail_poster .social_links li a {width:24px;height:24px;}
     
 }
-
-
 </style>
+

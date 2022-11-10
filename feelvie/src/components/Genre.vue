@@ -15,7 +15,7 @@
 import { movieApi } from '../utils/axios';
 
 export default {
-  name: 'ganre_',
+  name: 'Ganre_',
   data() {
     return {
       test: {},
@@ -24,16 +24,12 @@ export default {
       genres: {}
     };
   },
-  watch: {
-  },
-
   methods: {
-
     handleNotificationListScroll(e) {
-    const { scrollHeight, scrollTop, clientHeight } = e.target;
-    const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
-    if (isAtTheBottom) this.handleLoadMore();
-  },
+      const { scrollHeight, scrollTop, clientHeight } = e.target;
+      const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
+      if (isAtTheBottom) this.handleLoadMore();
+    },
 
     async handleLoadMore() {
       const { data } = await movieApi.genreList(this.page);
@@ -54,10 +50,6 @@ export default {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-
-
-  },
-  components: {
   },
   async mounted() {
     const { data } = await movieApi.genre();

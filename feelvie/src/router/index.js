@@ -10,7 +10,6 @@ const routes =  [
   { path: "/detail/:id", component: itemDetail },
   { path: "/genre", component: Genre},
   { path: "/search", component: Search}
-
 ]
 
 const router = createRouter({
