@@ -2,10 +2,9 @@
   <Header></Header>
   <main class="container">
     <section class="search_container">
-      <form @submit.prevent="onSearch">
+      <form>
         <label class="search_input" for="search_input">
-          <input id="search_input" type="text" @keyup="autoSearch($event)" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요"
-            class="search_txt">
+          <input id="search_input" type="text" @keyup="autoSearch($event)" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt">
           <button type="button" class="icon_search">검색</button>
         </label>
       </form>

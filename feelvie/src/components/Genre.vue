@@ -4,10 +4,10 @@
       {{ genreList.name }}
     </li>
   </ul>
-  <ul v-if="test" @scroll="handleNotificationListScroll" style="height: 500px;
-  overflow: auto;">
+  <ul v-if="test" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
     <li v-for="item in test" :key="item.id" @click="goDetail2(item.id)">
-    <img :src="image(item.poster_path)" alt=""></li>
+      <img :src="image(item.poster_path)" alt="">
+    </li>
   </ul>
 </template>
 
@@ -19,8 +19,8 @@ export default {
   data() {
     return {
       test: {},
-      page : '',
-      page2 : 1,
+      page: '',
+      page2: 1,
       genres: {}
     };
   },
@@ -41,20 +41,21 @@ export default {
     async goDetail(value) {
       const { data } = await movieApi.genreList(value, this.page);
       this.test = data.results;
-      
+
     },
 
-    goDetail2(id){
+    goDetail2(id) {
       this.$router.push(`/detail/${id}`);
     },
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
+
   },
   async mounted() {
     const { data } = await movieApi.genre();
-      this.genres = data.genres;
-      console.log(this.genres);
+    this.genres = data.genres;
+    console.log(this.genres);
   },
 }
 </script>

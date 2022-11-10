@@ -1,6 +1,6 @@
 <template>
   <div class="item_container">
-    <swiper :slidesPerView="'auto'" :spaceBetween="30" :pagination="{clickable: true}" :modules="modules" class="mySwiper" v-if="movieList">
+    <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper" v-if="movieList">
       <swiper-slide class="item_card" v-for="li in movieList" :key="li.id" @click="goDetail(li.id)">
         <img :src="image(li.poster_path)" alt="Poster">
         <h3> {{ li.title }}</h3>
