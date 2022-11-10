@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       test: {},
-      page : 2,
+      page : '',
+      page2 : 1,
       genres: {}
     };
   },
@@ -31,25 +32,20 @@ export default {
     handleNotificationListScroll(e) {
     const { scrollHeight, scrollTop, clientHeight } = e.target;
     const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
-    if(isAtTheBottom) {
-      this.page++;
-    }
+    if (isAtTheBottom) this.handleLoadMore();
   },
 
-  // 내려오면 api를 호출하여 아래에 더 추가,
-  handleLoadMore() {
-    console.log("리스트 추가")
-    // api를 호출하여 리스트 추가하면 됨, 현재는 pushList에 1개의 index 추가
-    this.pushList.push(2)
-  },
+    async handleLoadMore() {
+      const { data } = await movieApi.genreList(this.page);
+      console.log(data)
+
+      // this.page.push(this.page2++)
+    },
 
     async goDetail(value) {
       const { data } = await movieApi.genreList(value, this.page);
       this.test = data.results;
-      this.page = data.page;
-      console.log(this.test);
-      console.log(data);
-      console.log(data.page);
+      
     },
 
     goDetail2(id){
