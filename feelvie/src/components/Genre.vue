@@ -21,7 +21,8 @@ export default {
       test: {},
       page: '',
       page2: 1,
-      genres: {}
+      genres: {},
+      genre: ''
     };
   },
   methods: {
@@ -30,18 +31,20 @@ export default {
       const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
       if (isAtTheBottom) this.handleLoadMore();
     },
-
+    // 스크롤이 닿으면 호출되는 함수
     async handleLoadMore() {
-      const { data } = await movieApi.genreList(this.page);
-      console.log(data)
-
-      // this.page.push(this.page2++)
+      this.page2++
+      const {data} = await movieApi.genreList(this.genre, this.page2)
+      this.test = [...this.test, ...data.results];  // spread연산자 ==> 배열이나, 객체를 풀어내는 것
+  
+      console.log(this.page2)
+      console.log(data);
     },
 
     async goDetail(value) {
-      const { data } = await movieApi.genreList(value, this.page);
+      this.genre = value
+      const { data } = await movieApi.genreList(this.genre, this.page2);
       this.test = data.results;
-
     },
 
     goDetail2(id) {
