@@ -6,7 +6,9 @@
         <h1>{{ movieDetail.title }}</h1>
         <div class="meta">
           <span class="badge">15</span>
-          <span class="txt">가족,애니메이션,코미디</span>
+          <span class="txt" v-for="list in movieDetail.genres" :key="list.id">
+            {{ list.name }}
+          </span>
         </div>
         <a href="" class="trailer" v-if="movieDetail.videos?.results.length">
           트레일러 보기
@@ -51,6 +53,17 @@
     </section>
   </div>
 
+  <ul v-if="similarList">
+    <li v-for="item in similarList" :key="item.id" >
+      {{ item.title }}
+    </li>
+  </ul>
+  <ul v-if="personList">
+    <li v-for="item in personList" :key="item.id">
+      <img :src="profile(item.profile_path)" alt="Image 2">
+      {{ item.original_name }}
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -64,29 +77,33 @@ export default {
     return {
       movieDetail: {},
       Bg: 'red',
-      similar: {},
+      similarList: {},
+      personList: {},
     };
   },
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-    async Similar() {
-      const { data } = await movieApi.similar(this.similar);
-      console.log(data)
+    profile(img) {
+      return `https://image.tmdb.org/t/p/w138_and_h175_face/${img}`
     }
   },
   async mounted() {
-    console.log(this.$route);
-    console.log(this.$route.params.id);
     const { id } = this.$route.params;
     const { data } = await movieApi.movieDetail(id);
-    // axios 요청 보내기
-    console.log(data);
     this.movieDetail = data;
+    console.log(this.movieDetail)
     this.backGround = this.movieDetail.backdrop_path
-    this.similar = data.id;
-    console.log(this.similar)
+
+    const similar = await movieApi.similar(this.movieDetail.id);
+    this.similarList = similar.data.results
+
+    const person = await movieApi.person(this.movieDetail.id);
+    this.personList = person.data.cast;
+
+    const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
+    console.log(mediaImages)
 
   },
   components: {
