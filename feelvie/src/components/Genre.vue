@@ -1,17 +1,29 @@
 <template>
-  <ul v-if="genres" style="display:flex">
-    <li v-for="genreList in genres" :key="genreList.id" @click="goDetail(genreList.id)" style="margin:0 10px">
-      {{ genreList.name }}
-    </li>
-  </ul>
-  <ul v-if="test" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
-    <li v-for="item in test" :key="item.id" @click="goDetail2(item.id)">
-      <img :src="image(item.poster_path)" alt="">
-    </li>
-  </ul>
+  <Header></Header>
+  <div class="container">
+    <div class="item_container">
+
+      <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="genres">
+        <swiper-slide class="category_list" v-for="genreList in genres" :key="genreList.id" @click="goDetail(genreList.id)" >
+          {{ genreList.name }}
+        </swiper-slide>
+      </swiper>
+
+      <ul v-if="test" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
+        <li v-for="item in test" :key="item.id" @click="goDetail2(item.id)">
+          <img :src="image(item.poster_path)" alt="">
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
 </template>
 
 <script>
+import Header from './Header.vue'
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
 import { movieApi } from '../utils/axios';
 
 export default {
@@ -50,16 +62,33 @@ export default {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-
+    setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+    };
+  },
   },
   async mounted() {
     const { data } = await movieApi.genre();
     this.genres = data.genres;
     console.log(this.genres);
   },
+  components: {
+    Header,
+    Swiper,
+    SwiperSlide
+  }
 }
 </script>
 
 <style>
-
+.category_list {width:auto;padding:10px 20px;color:#fff;font-size:20px;border-radius:32px;cursor:pointer;background:#0372D2}
+.category_list:hover {color:#0372D2;background:#fff}
 </style>
