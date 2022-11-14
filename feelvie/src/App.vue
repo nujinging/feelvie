@@ -41,8 +41,9 @@ blockquote, q {quotes: none;}
 blockquote:before, blockquote:after,
 q:before, q:after {content: '';content: none;}
 table {border-collapse: collapse;border-spacing: 0;}
+button {border:none}
 body {color:#fff;background:#000}
-
+.blind {overflow:hidden;clip:rect(1px,1px,1px,1px);position:absolute !important;width:1px;height:1px}
 .container {padding-top:69px}
 .container .item_container {position:relative;padding:3.125vw 0 0 3.125vw}
 .container .item_container+.item_container {margin-top:30px}
