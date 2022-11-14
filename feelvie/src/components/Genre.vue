@@ -3,8 +3,8 @@
   <div class="container">
     <div class="item_container">
 
-      <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="genres">
-        <swiper-slide class="category_list" v-for="genreList in genres" :key="genreList.id" @click="goDetail(genreList.id)" >
+      <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="genreTitle">
+        <swiper-slide class="category_list" v-for="genreList in genreTitle" :key="genreList.id" @click="GenreList(genreList.id)">
           {{ genreList.name }}
         </swiper-slide>
       </swiper>
@@ -18,11 +18,7 @@
 
   </div>
 
-  <ul v-if="genreTitle" style="display:flex">
-    <li v-for="genreList in genreTitle" :key="genreList.id" @click="GenreList(genreList.id)" style="margin:0 10px">
-      {{ genreList.name }}
-    </li>
-  </ul>
+
   <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
     <li v-for="item in list" :key="item.id" @click="goDetail(item.id)">
       <img :src="image(item.poster_path)" alt="">

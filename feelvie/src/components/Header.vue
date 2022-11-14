@@ -2,9 +2,9 @@
   <header class="wrap_header">
     <div class="header_container">
       <div class="navigation">
-      <a href="" class="logo">
-        <img src="https://www.tving.com/img/tving-new-logo-pc.svg" alt="">
-      </a>
+        <router-link to="/" class="logo">
+          <img src="https://www.tving.com/img/tving-new-logo-pc.svg" alt="">
+        </router-link>
       <ul class="menu">
         <li>
           <router-link to="/genre">장르</router-link>
