@@ -9,6 +9,7 @@
         </swiper-slide>
       </swiper>
 
+
       <ul v-if="test" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
         <li v-for="item in test" :key="item.id" @click="goDetail2(item.id)">
           <img :src="image(item.poster_path)" alt="">
@@ -39,7 +40,9 @@ export default {
       list: {},
       page: 1,
       genreTitle: {},
-      genre: ''
+      genre: '',
+      newList: {},
+      trendingList: {}
     };
   },
    // Genre Title
@@ -47,9 +50,13 @@ export default {
     const { data } = await movieApi.genre();
     this.genreTitle = data.genres;
     console.log(this.genreTitle);
+
+
+
   },
   
   methods: {
+
     // 데이터가 두번 도는거 난중에 해결
     // Ganre List - Click
     async GenreList(value) {

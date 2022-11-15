@@ -105,6 +105,9 @@ export default {
     const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
     console.log(mediaImages)
 
+    const trendingList = await movieApi.trending();
+    console.log(trendingList)
+
   },
   components: {
     Header,
