@@ -46,4 +46,6 @@ body {color:#fff;background:#000}
 .container {padding-top:69px}
 .container .item_container {position:relative;padding:3.125vw 0 0 3.125vw}
 .container .item_container+.item_container {margin-top:30px}
+.title {display:flex;align-items:center;margin-bottom:30px}
+.title h2 {color:#fff;font-size:26px;font-weight:bold}
 </style>

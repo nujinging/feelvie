@@ -8,23 +8,39 @@
           {{ genreList.name }}
         </swiper-slide>
       </swiper>
-
-
-      <ul v-if="test" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
-        <li v-for="item in test" :key="item.id" @click="goDetail2(item.id)">
+      
+      <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
+        <li v-for="item in list" :key="item.id" @click="goDetail(item.id)">
           <img :src="image(item.poster_path)" alt="">
         </li>
       </ul>
     </div>
 
+
+    <div class="item_container">
+      <div class="title">
+        <h2>오늘 하루 가장 인기있는 컨텐츠</h2>
+      </div>
+        <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="dayList">
+        <swiper-slide class="item_card" v-for="day in dayList" :key="day.id">
+          <img :src="image(day.poster_path)" alt="">
+        </swiper-slide>
+        </swiper>
+      </div>
+      <div class="item_container">
+      <div class="title">
+        <h2>이번주 가장 인기있는 컨텐츠</h2>
+      </div>
+        <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="weekList">
+        <swiper-slide class="item_card" v-for="week in weekList" :key="week.id">
+          <img :src="image(week.poster_path)" alt="">
+        </swiper-slide>
+        </swiper>
+      </div>
   </div>
 
 
-  <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
-    <li v-for="item in list" :key="item.id" @click="goDetail(item.id)">
-      <img :src="image(item.poster_path)" alt="">
-    </li>
-  </ul>
+  
 </template>
 
 <script>
@@ -42,7 +58,8 @@ export default {
       genreTitle: {},
       genre: '',
       newList: {},
-      trendingList: {}
+      dayList: {},
+      weekList: {}
     };
   },
    // Genre Title
@@ -51,12 +68,16 @@ export default {
     this.genreTitle = data.genres;
     console.log(this.genreTitle);
 
-
-
+    const trendingDay = await movieApi.trending('movie','day');
+    const trendingWeek = await movieApi.trending('movie','week');
+    this.dayList = trendingDay.data.results
+    this.weekList = trendingWeek.data.results
+    console.log(this.trendingDay)
   },
-  
-  methods: {
 
+  methods: {
+    
+    
     // 데이터가 두번 도는거 난중에 해결
     // Ganre List - Click
     async GenreList(value) {
@@ -94,7 +115,7 @@ export default {
   components: {
     Header,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   }
 }
 </script>
