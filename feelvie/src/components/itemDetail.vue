@@ -21,14 +21,15 @@
       <div class="detail_poster">
         <ul class="social_links">
           <li>
+            
             <a href="" class="facebook">
               <span class="blind">페이스북</span>
             </a>
           </li>
           <li>
-            <a href="" class="tritter">
-              <span class="blind">트위터</span>
-            </a>
+            <router-link to="https://twitter.com/{{ socialLink.twitter_id }}" class="tritter" target="_blank">
+              <span class="blind">검색</span>
+            </router-link>
           </li>
           <li>
             <a href="" class="instargram">
@@ -80,6 +81,7 @@ export default {
       similarList: {},
       personList: {},
       backGround:'',
+      socialLink: {},
     };
   },
   methods: {
@@ -95,9 +97,9 @@ export default {
     const { id } = this.$route.params;
     const { data } = await movieApi.movieDetail(id);
     this.movieDetail = data;
-    console.log(this.movieDetail)
+    // console.log(this.movieDetail)
     this.backGround = this.movieDetail.backdrop_path
-    console.log(this.backGround)
+    // console.log(this.backGround)
     
     const similar = await movieApi.similar(this.movieDetail.id);
     this.similarList = similar.data.results
@@ -107,6 +109,14 @@ export default {
 
     const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
     console.log(mediaImages)
+
+
+    const social = await movieApi.social(this.movieDetail.id);
+    this.socialLink = social.data
+    console.log(this.socialLink)
+
+
+    
 
   },
   components: {

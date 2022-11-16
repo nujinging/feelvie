@@ -9,7 +9,8 @@ const routes =  [
   { path: "/", component: Main },
   { path: "/detail/:id", component: itemDetail },
   { path: "/genre", component: Genre},
-  { path: "/search", component: Search}
+  { path: "/search", component: Search},
+  { path: "/search", }
 ]
 
 const router = createRouter({
