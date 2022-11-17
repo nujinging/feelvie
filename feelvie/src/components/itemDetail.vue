@@ -20,23 +20,22 @@
       </div>
       <div class="detail_poster">
         <ul class="social_links">
-          <li>
-            
-            <a href="" class="facebook">
+          <li v-if="this.facebookLink">
+            <a :href="`https://facebook.com/${this.facebookLink}`" class="facebook" target="_blank">
               <span class="blind">페이스북</span>
             </a>
           </li>
-          <li>
-            <router-link to="https://twitter.com/{{ socialLink.twitter_id }}" class="tritter" target="_blank">
-              <span class="blind">검색</span>
-            </router-link>
+          <li v-if="this.twitterLink">
+            <a :href="`https://twitter.com/${this.twitterLink}`" class="tritter" target="_blank">
+              <span class="blind">트위터</span>
+            </a>
           </li>
-          <li>
-            <a href="" class="instargram">
+          <li v-if="this.instagramLink">
+            <a :href="`https://instargram.com/${this.instagramLink}`" class="instargram" target="_blank">
               <span class="blind">인스타그램</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="" class="just_watch">
               <span class="blind">인스타그램</span>
             </a>
@@ -45,7 +44,7 @@
             <a href="" class="link">
               <span class="blind">인스타그램</span>
             </a>
-          </li>
+          </li> -->
         </ul>
         <picture>
           <img :src="image(movieDetail.poster_path)" alt="Image 2">
@@ -82,6 +81,9 @@ export default {
       personList: {},
       backGround:'',
       socialLink: {},
+      facebookLink: '',
+      twitterLink: '',
+      instagramLink: ''
     };
   },
   methods: {
@@ -91,9 +93,9 @@ export default {
     profile(img) {
       return `https://image.tmdb.org/t/p/w138_and_h175_face/${img}`
     },
-    
   },
   async mounted() {
+
     const { id } = this.$route.params;
     const { data } = await movieApi.movieDetail(id);
     this.movieDetail = data;
@@ -112,12 +114,9 @@ export default {
 
 
     const social = await movieApi.social(this.movieDetail.id);
-    this.socialLink = social.data
-    console.log(this.socialLink)
-
-
-    
-
+    this.facebookLink = social.data.facebook_id
+    this.twitterLink = social.data.twitter_id
+    this.instagramLink = social.data.instagram_id
   },
   components: {
     Header,
