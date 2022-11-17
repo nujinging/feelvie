@@ -10,7 +10,7 @@
             {{ list.name }}
           </span>
         </div>
-        <a href="" class="trailer" v-if="movieDetail.videos?.results.length">
+        <a :href="`https://youtube.com/watch?v=${this.videoLink.results[0].key}`" class="trailer" v-if="movieDetail.videos?.results.length" target="_blank">
           트레일러 보기
         </a>
         <div class="comment">
@@ -83,7 +83,8 @@ export default {
       socialLink: {},
       facebookLink: '',
       twitterLink: '',
-      instagramLink: ''
+      instagramLink: '',
+      videoLink: {}
     };
   },
   methods: {
@@ -111,6 +112,11 @@ export default {
 
     const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
     console.log(mediaImages)
+
+
+    const video = await movieApi.video(this.movieDetail.id);
+    this.videoLink = video.data
+    console.log(this.videoLink)
 
 
     const social = await movieApi.social(this.movieDetail.id);

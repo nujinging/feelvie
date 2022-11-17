@@ -17,6 +17,7 @@ export const movieApi = {
   genreList: (value, page) =>  request.get(`discover/movie?with_genres=${value}&page=${page}`),
   similar: (value) =>  request.get(`movie/${value}/similar`),
   person : (movie_id) => request.get(`movie/${movie_id}/credits`),
+  video : (movie_id) => request.get(`movie/${movie_id}/videos`),
   social: (movie_id) => request.get(`movie/${movie_id}/external_ids`),
   // 언어 바꾸기
   mediaImages : (movie_id) => request.get(`movie/${movie_id}/images?&language=en-US`),
