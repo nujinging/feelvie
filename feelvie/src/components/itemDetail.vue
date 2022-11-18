@@ -147,9 +147,9 @@ export default {
 .detail_container .detail_poster .social_links li {display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:#fff}
 .detail_container .detail_poster .social_links li+li {margin-top:15px}
 .detail_container .detail_poster .social_links li a {width:50px;height:50px;background:#000}
-.detail_container .detail_poster .social_links li a.facebook {}
-.detail_container .detail_poster .social_links li a.tritter {}
-.detail_container .detail_poster .social_links li a.instargram {}
+.detail_container .detail_poster .social_links li a.facebook {background:url(./../assets/icon_facebook.png) center no-repeat}
+.detail_container .detail_poster .social_links li a.tritter {background:url(./../assets/icon_twitter.png) center no-repeat}
+.detail_container .detail_poster .social_links li a.instargram {background:url(./../assets/icon_instagram.png) center no-repeat}
 .detail_container .detail_poster .social_links li a.link {}
 
 /* .detail_container:before {position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(180deg, rgb(0 0 0 / 54%) 142px, rgb(0 0 0) 100%);content:''}
