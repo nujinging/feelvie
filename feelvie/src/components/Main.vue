@@ -25,7 +25,7 @@ export default {
     ItemList,
   },
   async mounted() {
-    const { data } = await movieApi.nowPlaying();
+      const { data } = await movieApi.nowPlaying();
       this.movieList = data.results;
       const { nowPlaying, popular, TopRated } = movieApi;
       const requestArr = [nowPlaying, popular ,TopRated ];

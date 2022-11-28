@@ -38,9 +38,6 @@
         </swiper>
       </div>
   </div>
-
-
-  
 </template>
 
 <script>
