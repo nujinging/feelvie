@@ -20,6 +20,7 @@ export const movieApi = {
   person : (movie_id) => request.get(`movie/${movie_id}/credits`),
   video : (movie_id) => request.get(`movie/${movie_id}/videos`),
   social: (movie_id) => request.get(`movie/${movie_id}/external_ids`),
+  image: (movie_id) => request.get(`movie/${movie_id}/images?&language=fr&include_image_language=fr,null,en`),
   // 언어 바꾸기
   mediaImages : (movie_id) => request.get(`movie/${movie_id}/images?&language=en-US`),
   search: (keyword) =>

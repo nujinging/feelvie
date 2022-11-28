@@ -11,10 +11,10 @@
             {{ list.name }}
           </span>
         </div>
-        <a :href="`https://youtube.com/watch?v=${this.videoLink.results[0].key}`" class="trailer"
+        <!-- <a :href="`https://youtube.com/watch?v=${this.videoLink.results[0].key}`" class="trailer"
           v-if="movieDetail.videos?.results.length" target="_blank">
           트레일러 보기
-        </a>
+        </a> -->
         <div class="comment">
           <p class="quotes">{{ movieDetail.tagline }}</p>
           <p class="intro">{{ movieDetail.overview }}</p>
@@ -54,7 +54,48 @@
       </div>
     </section>
   </div>
+
+
+
   <div class="container">
+    <div class="tab_box">
+      <h3>미디어</h3>
+      <ul class="tab-btn-list">
+        <li v-for="(tab, index) in tabList" :key="index" :class="{active:currentTab === index}">
+            <a href="#" @click.prevent="currentTab = index">{{ tab }} </a>
+        </li>
+      </ul>
+  </div>
+
+  <div v-show="currentTab == 0" class="tab-cont">
+  
+    
+  </div>
+  <div v-show="currentTab == 1" class="tab-cont">
+    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="videoLink">
+      <swiper-slide class="person_card" v-for="video in videoLink" :key="video.id">
+
+        <iframe width="560" height="315" :src="`https://youtube.com/embed/${video.key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <a :href="`https://youtube.com/embed/${video.key}`" style="color:#fff"> 
+            {{ video.name }} </a>
+      </swiper-slide>
+    </swiper>
+  </div>
+  <div v-show="currentTab == 2" class="tab-cont">
+    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
+      <swiper-slide class="person_card" v-for="backdrops in imageList.backdrops" :key="backdrops.id">
+        <img :src="profile(backdrops.file_path)" alt="Image 2">
+      </swiper-slide>
+    </swiper>
+  </div>
+  <div v-show="currentTab == 3" class="tab-cont">
+    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.posters">
+      <swiper-slide class="person_card" v-for="backdrops in imageList.posters" :key="backdrops.id">
+        <img :src="profile(backdrops.file_path)" alt="Image 2">
+      </swiper-slide>
+    </swiper>
+  </div>
+
     <div class="item_container">
     <div class="title">
       <h2>등장인물</h2>
@@ -115,7 +156,10 @@ export default {
       twitterLink: '',
       instagramLink: '',
       videoLink: {},
-      recommendList: {}
+      recommendList: {},
+      imageList: [],
+      currentTab : 0,
+      tabList: ['인기','동영상', '배경','포스터']
     };
   },
   methods: {
@@ -137,21 +181,22 @@ export default {
 
     const similar = await movieApi.similar(this.movieDetail.id);
     this.similarList = similar.data.results
-    console.log(similar)
+    // console.log(similar)
 
     const person = await movieApi.person(this.movieDetail.id);
     this.personList = person.data.cast;
 
     const recommend = await movieApi.recommend(this.movieDetail.id);
     this.recommendList = recommend.data.results;
-    console.log(this.recommendList)
+    // console.log(this.recommendList)
 
-    // const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
-    // console.log(mediaImages)
-
+    const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
+    console.log(mediaImages)
+    const image = await movieApi.image(this.movieDetail.id);
+    this.imageList = image.data
 
     const video = await movieApi.video(this.movieDetail.id);
-    this.videoLink = video.data
+    this.videoLink = video.data.results
     console.log(this.videoLink)
 
 
@@ -168,6 +213,10 @@ export default {
 }
 </script>
 <style>
+
+.tab_box {display:flex;color:#fff}
+.tab-btn-list {display:flex}
+.tab-btn-list a {color:#fff}
 
 .person_card {width:138px}
   .person_card img {display:block;width:100%;height:175px;}
