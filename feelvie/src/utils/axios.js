@@ -12,9 +12,12 @@ export const movieApi = {
   nowPlaying: () => request.get("movie/now_playing"),
   popular: () => request.get("movie/popular"),
   TopRated: () => request.get("movie/top_rated"),
-  genre: () =>  request.get(`genre/movie/list`),
-  trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
+  genre: (value) =>  request.get(`genre/${value}/list`),
   genreList: (value, page) =>  request.get(`discover/movie?with_genres=${value}&page=${page}`),
+
+  
+  trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
+
   similar: (value) =>  request.get(`movie/${value}/similar`),
   recommend: (movie_id) =>  request.get(`movie/${movie_id}/recommendations`),
   person : (movie_id) => request.get(`movie/${movie_id}/credits`),

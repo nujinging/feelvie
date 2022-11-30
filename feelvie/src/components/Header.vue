@@ -5,29 +5,28 @@
         <router-link to="/" class="logo">
           <img src="https://www.tving.com/img/tving-new-logo-pc.svg" alt="">
         </router-link>
-      <ul class="menu">
-        <li>
-          <router-link to="/genre">장르</router-link>
-        </li>
-        <li>
-          <a href="ganre.html">TV프로그램</a>
-        </li>
-        <li>
-          <a href="ganre.html">잉</a>
-        </li>
-      </ul>
-    </div>
-    
-    <router-link to="/search" class="search">
-      <span class="blind">검색</span>
-    </router-link>
-    
+        <ul class="menu">
+          <li>
+            <router-link :to="{ name: 'link', params: { linkValue: 'movie' }}">영화</router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'link', params: { linkValue: 'tv' }}">TV 프로그램</router-link>
+          </li>
+          <li>
+            <a href="ganre.html">인물</a>
+          </li>
+        </ul>
+      </div>
+
+      <router-link to="/search" class="search">
+        <span class="blind">검색</span>
+      </router-link>
     </div>
   </header>
 </template>
 <script>
 export default {
-  name : 'Header_',
+  name: 'Header_',
 }
 </script>
 

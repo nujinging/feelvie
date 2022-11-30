@@ -48,6 +48,12 @@ import { movieApi } from '../utils/axios';
 
 export default {
   name: 'Ganre_',
+  props: {
+    linkValue: {
+                type: String,
+                default : ''
+            },
+        },
   data() {
     return {
       list: {},
@@ -56,20 +62,21 @@ export default {
       genre: '',
       newList: {},
       dayList: {},
-      weekList: {}
+      weekList: {},
     };
   },
    // Genre Title
    async mounted() {
-    const { data } = await movieApi.genre();
+    const { data } = await movieApi.genre(this.linkValue);
     this.genreTitle = data.genres;
-    console.log(this.genreTitle);
+
+    console.log(this.linkValue)
 
     const trendingDay = await movieApi.trending('movie','day');
     const trendingWeek = await movieApi.trending('movie','week');
     this.dayList = trendingDay.data.results
     this.weekList = trendingWeek.data.results
-    console.log(this.trendingDay)
+   
   },
 
   methods: {
