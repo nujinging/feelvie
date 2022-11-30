@@ -101,7 +101,7 @@
       <h2>등장인물</h2>
     </div>
     <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="personList">
-      <swiper-slide class="person_card" v-for="person in personList" :key="person.id">
+      <swiper-slide class="person_card" v-for="person in personList" :key="person.id" @click="goDetail(person.id)">
         <img :src="profile(person.profile_path)" alt="Image 2">
         {{ person.original_name }}
       </swiper-slide>
@@ -169,6 +169,9 @@ export default {
     profile(img) {
       return `https://image.tmdb.org/t/p/w138_and_h175_face/${img}`
     },
+    goDetail(id){
+      this.$router.push(`/person/${id}`);
+    }
   },
   async mounted() {
 
@@ -185,6 +188,7 @@ export default {
 
     const person = await movieApi.person(this.movieDetail.id);
     this.personList = person.data.cast;
+    console.log(person)
 
     const recommend = await movieApi.recommend(this.movieDetail.id);
     this.recommendList = recommend.data.results;

@@ -33,4 +33,8 @@ export const movieApi = {
     request.get(`movie/${id}`, {
       params: { append_to_response: "videos" },
     }),
+    personDetail: (id) =>
+    request.get(`person/${id}`, {
+      params: { append_to_response: "videos" },
+    }),
 };
