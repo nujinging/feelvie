@@ -1,19 +1,5 @@
 <template>
   <Header></Header>
-<<<<<<< HEAD
-  <div class="container">
-    <div class="person_container">
-      <div class="profile">
-        <img :src="image(personDetail.profile_path)" alt="Image 2">
-      </div>
-      <div class="info">
-        <h3 class="name">
-          {{ personDetail.name }}
-        </h3>
-      </div>
-    </div>
-  </div>
-=======
   <div class="container"
     :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
     <section class="detail_container">
@@ -147,21 +133,11 @@
   </div>
  
 
->>>>>>> ece67881560d587d3db2ab46837f59b5743e095e
   
 </template>
 
 <script>
 import Header from './Header.vue'
-<<<<<<< HEAD
-import { movieApi } from '../utils/axios';
-
-export default {
-  name: 'personDetail_',
-  data() {
-    return {
-      personDetail: {},
-=======
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '../utils/axios';
@@ -184,7 +160,6 @@ export default {
       imageList: [],
       currentTab : 0,
       tabList: ['인기','동영상', '배경','포스터']
->>>>>>> ece67881560d587d3db2ab46837f59b5743e095e
     };
   },
   methods: {
@@ -196,15 +171,6 @@ export default {
     },
   },
   async mounted() {
-<<<<<<< HEAD
-    const { id } = this.$route.params;
-    const { data } = await movieApi.personDetail(id);
-    this.personDetail = data;
-    console.log(this.personDetail)
-  },
-  components: {
-    Header
-=======
 
     const { id } = this.$route.params;
     const { data } = await movieApi.movieDetail(id);
@@ -244,17 +210,10 @@ export default {
     Header,
     Swiper,
     SwiperSlide,
->>>>>>> ece67881560d587d3db2ab46837f59b5743e095e
   }
 }
 </script>
 <style>
-<<<<<<< HEAD
-.person_container {position:relative;display:flex;margin-bottom:110px;padding:3.125vw 3.125vw 10.125vw;color:#fff}
-.person_container .profile {}
-.person_container .profile {} 
-.person_container .info {}
-=======
 
 .tab_box {display:flex;color:#fff}
 .tab-btn-list {display:flex}
@@ -558,6 +517,5 @@ export default {
   }
 
 }
->>>>>>> ece67881560d587d3db2ab46837f59b5743e095e
 </style>
 
