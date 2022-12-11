@@ -5,25 +5,6 @@
         <router-link to="/" class="logo">
           <img src="https://www.tving.com/img/tving-new-logo-pc.svg" alt="">
         </router-link>
-<<<<<<< HEAD
-      <ul class="menu">
-        <li>
-          <router-link :to="{ name: 'genre', query: { name: 'Query 선언적 방식', age: 1 } }">영화</router-link>
-        </li>
-        <li>
-          <router-link to="/genre">TV프로그램</router-link>
-        </li>
-        <li>
-          <a href="ganre.html">잉</a>
-        </li>
-      </ul>
-    </div>
-    
-    <router-link to="/search" class="search">
-      <span class="blind">검색</span>
-    </router-link>
-    
-=======
         <ul class="menu">
           <li>
             <router-link :to="{ name: 'link', params: { linkValue: 'movie' }}">영화</router-link>
@@ -40,7 +21,6 @@
       <router-link to="/search" class="search">
         <span class="blind">검색</span>
       </router-link>
->>>>>>> 85f1c6050812ddb5f8b6cdba27e8e7ead1a10770
     </div>
   </header>
 </template>
