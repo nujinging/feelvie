@@ -56,12 +56,13 @@ export default {
       genre: '',
       newList: {},
       dayList: {},
-      weekList: {}
+      weekList: {},
+      test: 'movie'
     };
   },
    // Genre Title
    async mounted() {
-    const { data } = await movieApi.genre();
+    const { data } = await movieApi.genre(this.test);
     this.genreTitle = data.genres;
     console.log(this.genreTitle);
 

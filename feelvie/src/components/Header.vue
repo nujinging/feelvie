@@ -7,10 +7,10 @@
         </router-link>
       <ul class="menu">
         <li>
-          <router-link to="/genre">장르</router-link>
+          <router-link :to="{ name: 'genre', query: { name: 'Query 선언적 방식', age: 1 } }">영화</router-link>
         </li>
         <li>
-          <a href="ganre.html">TV프로그램</a>
+          <router-link to="/genre">TV프로그램</router-link>
         </li>
         <li>
           <a href="ganre.html">잉</a>

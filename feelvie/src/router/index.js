@@ -8,7 +8,7 @@ import Genre from "../components/Genre.vue";
 const routes =  [
   { path: "/", component: Main },
   { path: "/detail/:id", component: itemDetail },
-  { path: "/genre", component: Genre},
+  { path: "/genre", name: 'genre', component: Genre},
   { path: "/search", component: Search},
   { path: "/search", }
 ]
