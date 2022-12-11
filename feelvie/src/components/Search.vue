@@ -4,7 +4,7 @@
     <section class="search_container">
       <form>
         <label class="search_input" for="search_input">
-          <input id="search_input" type="text" @keyup="autoSearch($event)" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt">
+          <input id="search_input" type="text" @keyup="autoSearch($event)" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt" @keyup.enter="autoSearch($event)">
           <button type="button" class="icon_search">
             <span class="blind">검색</span>
           </button>
@@ -12,7 +12,7 @@
       </form>
     </section>
   </main>
-  <ItemList :movieList="movieList"></ItemList>
+  <ItemList :movieList="movieList" :key2="key2"></ItemList>
 </template>
 
 <script>
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       movieList: '',
+      key2: 'li.profile_path'
     };
   },
   components: {

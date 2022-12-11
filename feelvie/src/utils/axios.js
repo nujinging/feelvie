@@ -14,8 +14,6 @@ export const movieApi = {
   TopRated: () => request.get("movie/top_rated"),
   genre: (value) =>  request.get(`genre/${value}/list`),
   genreList: (value, page) =>  request.get(`discover/movie?with_genres=${value}&page=${page}`),
-
-  
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
   similar: (value) =>  request.get(`movie/${value}/similar`),

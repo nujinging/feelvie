@@ -1,8 +1,15 @@
 <template>
   <div class="item_container">
+    
+    <div class="title">
+      <h2>{{ }}</h2>
+    </div>
     <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper" v-if="movieList">
       <swiper-slide class="item_card" v-for="li in movieList" :key="li.id" @click="goDetail(li.id)">
         <img :src="image(li.poster_path)" alt="Poster">
+        <img :src="image()" alt="Poster">
+        <p> {{key2}}</p>
+        <p>{{li.poster_path}}</p>
         <h3> {{ li.title }}</h3>
       </swiper-slide>
     </swiper>
@@ -19,14 +26,15 @@ export default {
     Swiper,
     SwiperSlide
   },
-  props: ['movieList'],
+  props:['movieList', 'key2'],
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-    goDetail(id){
+    goDetail(id) {
       this.$router.push(`/detail/${id}`);
-    }
+    },
+    
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -44,11 +52,30 @@ export default {
 </script>
 
 <style>
-  .item_card {width:220px}
-  .item_card img {display:block;width:100%;height:330px;}
-  .item_card h3 {margin-top:10px;color:#fff;font-size:16px}
-  @media (max-width: 767px) {
-    .swiper-slide {width:120px}
-    .item_card img {width:120px;height:180px}
+.item_card {
+  width: 220px
+}
+
+.item_card img {
+  display: block;
+  width: 100%;
+  height: 330px;
+}
+
+.item_card h3 {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 16px
+}
+
+@media (max-width: 767px) {
+  .swiper-slide {
+    width: 120px
   }
+
+  .item_card img {
+    width: 120px;
+    height: 180px
+  }
+}
 </style>

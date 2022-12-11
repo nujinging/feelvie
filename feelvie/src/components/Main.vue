@@ -35,6 +35,8 @@ export default {
       this.nowPlaying = now;
       this.popular = pop;
       this.TopRated = top;
+
+      console.log(this.nowPlaying)
   },
 }
 </script>

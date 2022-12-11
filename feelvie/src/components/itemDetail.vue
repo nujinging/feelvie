@@ -37,16 +37,6 @@
               <span class="blind">인스타그램</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="" class="just_watch">
-              <span class="blind">인스타그램</span>
-            </a>
-          </li>
-          <li>
-            <a href="" class="link">
-              <span class="blind">인스타그램</span>
-            </a>
-          </li> -->
         </ul>
         <picture>
           <img :src="image(movieDetail.poster_path)" alt="Image 2">
@@ -105,6 +95,8 @@
         <img :src="profile(person.profile_path)" alt="Image 2">
         {{ person.original_name }}
       </swiper-slide>
+
+      <ItemList :movieList="personList"></ItemList>
     </swiper>
   </div>
   <div class="item_container">
@@ -138,6 +130,8 @@
 
 <script>
 import Header from './Header.vue'
+import ItemList from './ItemList.vue'
+
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '../utils/axios';
@@ -213,6 +207,7 @@ export default {
     Header,
     Swiper,
     SwiperSlide,
+    ItemList
   }
 }
 </script>
