@@ -90,42 +90,28 @@
     <div class="title">
       <h2>등장인물</h2>
     </div>
+    
     <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="personList">
       <swiper-slide class="person_card" v-for="person in personList" :key="person.id" @click="goDetail(person.id)">
         <img :src="profile(person.profile_path)" alt="Image 2">
         {{ person.original_name }}
       </swiper-slide>
 
-      <ItemList :movieList="personList"></ItemList>
+      <ItemList :movieList="personList" :key="key"></ItemList>
     </swiper>
   </div>
-  <div class="item_container">
-    <div class="title">
-      <h2>추천 작품들</h2>
-    </div>
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="recommendList">
-      <swiper-slide class="item_card" v-for="recommend in recommendList" :key="recommend.id">
-        <img :src="image(recommend.poster_path)" alt="">
-        {{ recommend.title }}
-      </swiper-slide>
-    </swiper>
-  </div>
-  <div class="item_container">
-    <div class="title">
-      <h2>이 영화와 비슷한 작품들</h2>
-    </div>
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="similarList">
-      <swiper-slide class="item_card" v-for="similar in similarList" :key="similar.id">
-        <img :src="image(similar.poster_path)" alt="">
-        {{ similar.title }}
-      </swiper-slide>
-    </swiper>
-  </div>
-  
-  </div>
- 
 
+  <!-- 추천 작품들 -->
+  <div class="item_container">
+    <ItemList :movieList="recommendList" :title="title[0]"></ItemList>
+  </div>
+
+  <!-- 비슷한 작품 -->
+  <div class="item_container">
+    <ItemList :movieList="similarList" :title="title[1]"></ItemList>
+  </div>
   
+  </div>
 </template>
 
 <script>
@@ -153,7 +139,9 @@ export default {
       recommendList: {},
       imageList: [],
       currentTab : 0,
-      tabList: ['인기','동영상', '배경','포스터']
+      tabList: ['인기','동영상', '배경','포스터'],
+      title: ['추천 작품들', '이 영화와 비슷한 작품들'],
+      key3 : 'li.profile_path',
     };
   },
   methods: {

@@ -1,8 +1,7 @@
 <template>
   <div class="item_container">
-    
     <div class="title">
-      <h2>{{ }}</h2>
+      <h2>{{ title }}</h2>
     </div>
     <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper" v-if="movieList">
       <swiper-slide class="item_card" v-for="li in movieList" :key="li.id" @click="goDetail(li.id)">
@@ -11,6 +10,7 @@
         <p> {{key2}}</p>
         <p>{{li.poster_path}}</p>
         <h3> {{ li.title }}</h3>
+        <p>{{key3}}</p>
       </swiper-slide>
     </swiper>
   </div>
@@ -26,7 +26,7 @@ export default {
     Swiper,
     SwiperSlide
   },
-  props:['movieList', 'key2'],
+  props:['movieList', 'key2', 'title', 'key3'],
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`

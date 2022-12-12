@@ -1,9 +1,9 @@
 <template>
   <Header></Header>
   <div class="container">
-      <ItemList :movieList="nowPlaying"></ItemList>
-      <ItemList :movieList="popular"></ItemList>
-      <ItemList :movieList="TopRated"></ItemList>
+      <ItemList :movieList="nowPlaying" :title="nowTitle"></ItemList>
+      <ItemList :movieList="popular" :title="popTitle"></ItemList>
+      <ItemList :movieList="TopRated" :title="topTitle"></ItemList>
   </div>
 </template>
 <script>
@@ -18,6 +18,9 @@ export default {
       nowPlaying: {},
       popular : {},
       TopRated: {},
+      nowTitle : '지금 상영중인 영화',
+      popTitle : '인기있는 영화',
+      topTitle : '최고의 등급'
     }
   },
   components: {

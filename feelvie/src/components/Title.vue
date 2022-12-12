@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <h2>인기있는 콘텐츠</h2>
+    <h2>{{ title }}</h2>
     <select name="" id="" class="type_select">
       <option value="">스트리밍</option>
       <option value="">TV</option>
@@ -27,6 +27,7 @@
 <script>
 export default {
   name: 'Title_',
+  props:['title']
 }
 </script>
 

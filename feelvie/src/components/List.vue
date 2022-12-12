@@ -16,15 +16,14 @@
             </ul>
         </div>
 
-
-        <div class="item_container">r
-            <ItemList :movieList="dayList"></ItemList>
-        </div>
+        <!-- 오늘 -->
         <div class="item_container">
-            <div class="title">
-                <h2>이번주 가장 인기있는 컨텐츠</h2>
-            </div>
-            <ItemList :movieList="weekList"></ItemList>
+            <ItemList :movieList="dayList" :title="day"></ItemList>
+        </div>
+
+        <!-- 이번주 -->
+        <div class="item_container">
+            <ItemList :movieList="weekList" :title="week"></ItemList>
         </div>
     </div>
 </template>
@@ -48,7 +47,9 @@ export default {
             newList: {},
             dayList: {},
             weekList: {},
-            test: 'movie'
+            test: 'movie',
+            day: '오늘 ! 가장 있기있는 컨텐츠',
+            week: '이번주 가장 있기있는 컨텐츠',
         };
     },
     // Genre Title
