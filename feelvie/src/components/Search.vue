@@ -12,7 +12,7 @@
       </form>
     </section>
   </main>
-  <ItemList :movieList="movieList" :key2="key2"></ItemList>
+  <ItemList :movieList="movieList"></ItemList>
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       movieList: '',
-      key2: 'li.profile_path'
+      
     };
   },
   components: {

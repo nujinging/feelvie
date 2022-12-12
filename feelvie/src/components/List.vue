@@ -18,7 +18,7 @@
 
         <!-- 오늘 -->
         <div class="item_container">
-            <ItemList :movieList="dayList" :title="day"></ItemList>
+            <ItemList :movieList="dayList" :title="day" :key3="key3"></ItemList>
         </div>
 
         <!-- 이번주 -->
@@ -50,14 +50,17 @@ export default {
             test: 'movie',
             day: '오늘 ! 가장 있기있는 컨텐츠',
             week: '이번주 가장 있기있는 컨텐츠',
+            key3 : 'li.profile_path',
         };
     },
+    
     // Genre Title
     async mounted() {
         const { data } = await movieApi.genre(this.test);
         this.genreTitle = data.genres;
 
         console.log(this.genreTitle)
+        
 
         const trendingDay = await movieApi.trending('movie', 'day');
         const trendingWeek = await movieApi.trending('movie', 'week');

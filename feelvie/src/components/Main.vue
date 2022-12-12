@@ -1,7 +1,7 @@
 <template>
   <Header></Header>
   <div class="container">
-      <ItemList :movieList="nowPlaying" :title="nowTitle"></ItemList>
+      <ItemList :movieList="nowPlaying" :title="nowTitle" :key2="key2"></ItemList>
       <ItemList :movieList="popular" :title="popTitle"></ItemList>
       <ItemList :movieList="TopRated" :title="topTitle"></ItemList>
   </div>
@@ -20,7 +20,8 @@ export default {
       TopRated: {},
       nowTitle : '지금 상영중인 영화',
       popTitle : '인기있는 영화',
-      topTitle : '최고의 등급'
+      topTitle : '최고의 등급',
+      key2: 'li.profile_path'
     }
   },
   components: {

@@ -6,11 +6,10 @@
     <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper" v-if="movieList">
       <swiper-slide class="item_card" v-for="li in movieList" :key="li.id" @click="goDetail(li.id)">
         <img :src="image(li.poster_path)" alt="Poster">
-        <img :src="image()" alt="Poster">
-        <p> {{key2}}</p>
+        <img :src="image2(data2)" alt="Poster">
         <p>{{li.poster_path}}</p>
         <h3> {{ li.title }}</h3>
-        <p>{{key3}}</p>
+        <p>{{data2}}</p>
       </swiper-slide>
     </swiper>
   </div>
@@ -26,10 +25,19 @@ export default {
     Swiper,
     SwiperSlide
   },
-  props:['movieList', 'key2', 'title', 'key3'],
+  data() {
+      return {
+        data2 : this.key3
+      }
+  },
+  props: ['movieList', 'Title', 'key3'],
+
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
+    },
+    image2(key3) {
+      return `https://image.tmdb.org/t/p/w300/${key3}`
     },
     goDetail(id) {
       this.$router.push(`/detail/${id}`);
