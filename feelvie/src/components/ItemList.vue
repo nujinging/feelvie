@@ -27,17 +27,16 @@ export default {
   },
   data() {
       return {
-        data2 : this.key3
       }
   },
-  props: ['movieList', 'Title', 'key3'],
+  props: ['movieList', 'Title', 'data2'],
 
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-    image2(key3) {
-      return `https://image.tmdb.org/t/p/w300/${key3}`
+    image2(data2) {
+      return `https://image.tmdb.org/t/p/w300/${data2}`
     },
     goDetail(id) {
       this.$router.push(`/detail/${id}`);

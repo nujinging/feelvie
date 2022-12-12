@@ -18,7 +18,7 @@
 
         <!-- 오늘 -->
         <div class="item_container">
-            <ItemList :movieList="dayList" :title="day" :key3="key3"></ItemList>
+            <ItemList :movieList="dayList" :title="day" :data2="data2"></ItemList>
         </div>
 
         <!-- 이번주 -->
@@ -50,7 +50,7 @@ export default {
             test: 'movie',
             day: '오늘 ! 가장 있기있는 컨텐츠',
             week: '이번주 가장 있기있는 컨텐츠',
-            key3 : 'li.profile_path',
+            data2 : 'li.profile_path',
         };
     },
     
