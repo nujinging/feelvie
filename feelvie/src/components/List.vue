@@ -17,14 +17,14 @@
         </div>
 
         <!-- 오늘 -->
-        <div class="item_container">
-            <ItemList :movieList="dayList" :title="day" :data2="data2"></ItemList>
+        <div class="item_container" v-if="dayList.legnth !==0">
+            <ItemList :movieList="dayList" :title="title[0]"></ItemList>
         </div>
 
         <!-- 이번주 -->
-        <div class="item_container">
-            <ItemList :movieList="weekList" :title="week"></ItemList>
-        </div>
+        <!-- <div class="item_container">
+            <ItemList :movieList="weekList" :title="title[1]"></ItemList>
+        </div> -->
     </div>
 </template>
 
@@ -45,28 +45,22 @@ export default {
             genreTitle: {},
             genre: '',
             newList: {},
-            dayList: {},
+            dayList: [],
             weekList: {},
             test: 'movie',
-            day: '오늘 ! 가장 있기있는 컨텐츠',
-            week: '이번주 가장 있기있는 컨텐츠',
-            data2 : 'li.profile_path',
+            title: ['오늘 ! 가장 있기있는 컨텐츠', '이번주 가장 있기있는 컨텐츠']
         };
     },
     
     // Genre Title
-    async mounted() {
+    async created() {
         const { data } = await movieApi.genre(this.test);
         this.genreTitle = data.genres;
-
-        console.log(this.genreTitle)
-        
-
         const trendingDay = await movieApi.trending('movie', 'day');
         const trendingWeek = await movieApi.trending('movie', 'week');
         this.dayList = trendingDay.data.results
         this.weekList = trendingWeek.data.results
-
+        // console.log(this.dayList)
     },
 
     methods: {

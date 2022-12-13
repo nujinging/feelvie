@@ -1,9 +1,9 @@
 <template>
   <Header></Header>
   <div class="container">
-      <ItemList :movieList="nowPlaying" :title="nowTitle" :key2="key2"></ItemList>
-      <ItemList :movieList="popular" :title="popTitle"></ItemList>
-      <ItemList :movieList="TopRated" :title="topTitle"></ItemList>
+      <ItemList :movieList="nowPlaying" :title="title[0]"></ItemList>
+      <ItemList :movieList="popular" :title="title[1]"></ItemList>
+      <ItemList :movieList="TopRated" :title="title[2]"></ItemList>
   </div>
 </template>
 <script>
@@ -18,10 +18,7 @@ export default {
       nowPlaying: {},
       popular : {},
       TopRated: {},
-      nowTitle : '지금 상영중인 영화',
-      popTitle : '인기있는 영화',
-      topTitle : '최고의 등급',
-      key2: 'li.profile_path'
+      title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
     }
   },
   components: {
@@ -39,8 +36,6 @@ export default {
       this.nowPlaying = now;
       this.popular = pop;
       this.TopRated = top;
-
-      console.log(this.nowPlaying)
   },
 }
 </script>

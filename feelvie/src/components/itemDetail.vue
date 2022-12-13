@@ -141,7 +141,6 @@ export default {
       currentTab : 0,
       tabList: ['인기','동영상', '배경','포스터'],
       title: ['추천 작품들', '이 영화와 비슷한 작품들'],
-      
     };
   },
   methods: {
