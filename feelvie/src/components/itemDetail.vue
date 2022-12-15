@@ -45,72 +45,70 @@
     </section>
   </div>
 
+  <!-- 등장인물 -->
+  <div class="item_container">
+    <div class="title">
+      <h2>등장인물</h2>
+    </div>
+    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="personList">
+      <swiper-slide class="person_card" v-for="person in personList" :key="person.id" @click="goPeronDetail(person.id)">
+        <img :src="profile(person.profile_path)" alt="Image 2">
+        {{ person.original_name }}
+      </swiper-slide>
+    </swiper>
+  </div>
 
-
+  <!-- 미디어 -->
   <div class="container">
     <div class="tab_box">
       <h3>미디어</h3>
       <ul class="tab-btn-list">
-        <li v-for="(tab, index) in tabList" :key="index" :class="{active:currentTab === index}">
-            <a href="#" @click.prevent="currentTab = index">{{ tab }} </a>
+        <li v-for="(tab, index) in tabList" :key="index" :class="{ active: currentTab === index }">
+          <a href="#" @click.prevent="currentTab = index">{{ tab }} </a>
         </li>
       </ul>
-  </div>
-
-  <div v-show="currentTab == 0" class="tab-cont">
-  
-    
-  </div>
-  <div v-show="currentTab == 1" class="tab-cont">
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="videoLink">
-      <swiper-slide class="person_card" v-for="video in videoLink" :key="video.id">
-
-        <iframe width="560" height="315" :src="`https://youtube.com/embed/${video.key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <a :href="`https://youtube.com/embed/${video.key}`" style="color:#fff"> 
-            {{ video.name }} </a>
-      </swiper-slide>
-    </swiper>
-  </div>
-  <div v-show="currentTab == 2" class="tab-cont">
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
-      <swiper-slide class="person_card" v-for="backdrops in imageList.backdrops" :key="backdrops.id">
-        <img :src="profile(backdrops.file_path)" alt="Image 2">
-      </swiper-slide>
-    </swiper>
-  </div>
-  <div v-show="currentTab == 3" class="tab-cont">
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.posters">
-      <swiper-slide class="person_card" v-for="backdrops in imageList.posters" :key="backdrops.id">
-        <img :src="profile(backdrops.file_path)" alt="Image 2">
-      </swiper-slide>
-    </swiper>
-  </div>
-
-    <div class="item_container">
-    <div class="title">
-      <h2>등장인물</h2>
     </div>
-    
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="personList">
-      <swiper-slide class="person_card" v-for="person in personList" :key="person.id" @click="goDetail(person.id)">
-        <img :src="profile(person.profile_path)" alt="Image 2">
-        {{ person.original_name }}
-      </swiper-slide>
+    <!-- 미디어 1 -->
+    <div v-show="currentTab == 0" class="tab-cont">
+      <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.posters">
+        <swiper-slide class="person_card" v-for="backdrops in imageList.posters" :key="backdrops.id">
+          <img :src="profile(backdrops.file_path)" alt="Image 2">
+        </swiper-slide>
+      </swiper>
+    </div>
+    <!-- 미디어 2 -->
+    <div v-show="currentTab == 1" class="tab-cont">
+      <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
+        <swiper-slide class="person_card" v-for="backdrops in imageList.backdrops" :key="backdrops.id">
+          <img :src="profile(backdrops.file_path)" alt="Image 2">
+        </swiper-slide>
+      </swiper>
+    </div>
+    <!-- 미디어 3 -->
+    <div v-show="currentTab == 2" class="tab-cont">
+      <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="videoLink">
+        <swiper-slide class="person_card" v-for="video in videoLink" :key="video.id">
 
-      <ItemList :movieList="personList" :key="key"></ItemList>
-    </swiper>
-  </div>
+          <iframe width="560" height="315" :src="`https://youtube.com/embed/${video.key}`" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+          <a :href="`https://youtube.com/embed/${video.key}`" style="color:#fff">
+            {{ video.name }} </a>
+        </swiper-slide>
+      </swiper>
+    </div>
 
-  <!-- 추천 작품들 -->
-  <div class="item_container">
-    <ItemList :movieList="recommendList" :title="title[0]"></ItemList>
-  </div>
 
-  <!-- 비슷한 작품 -->
-  <div class="item_container">
-    <ItemList :movieList="similarList" :title="title[1]"></ItemList>
-  </div>
-  
+    <!-- 추천 작품들 -->
+    <div class="item_container">
+      <ItemList :movieList="recommendList" :title="title[0]" :photo="recommend_photo"></ItemList>
+    </div>
+
+    <!-- 비슷한 작품 -->
+    <div class="item_container">
+      <ItemList :movieList="similarList" :title="title[1]" :photo="similar_photo"></ItemList>
+    </div>
   </div>
 </template>
 
@@ -127,7 +125,6 @@ export default {
   data() {
     return {
       movieDetail: {},
-      Bg: 'red',
       similarList: {},
       personList: {},
       backGround: '',
@@ -138,8 +135,8 @@ export default {
       videoLink: {},
       recommendList: {},
       imageList: [],
-      currentTab : 0,
-      tabList: ['인기','동영상', '배경','포스터'],
+      currentTab: 0,
+      tabList: ['포스터', '배경', '동영상'],
       title: ['추천 작품들', '이 영화와 비슷한 작품들'],
     };
   },
@@ -150,30 +147,32 @@ export default {
     profile(img) {
       return `https://image.tmdb.org/t/p/w138_and_h175_face/${img}`
     },
-    goDetail(id){
+    goPeronDetail(id) {
       this.$router.push(`/person/${id}`);
     }
   },
   async mounted() {
-
     const { id } = this.$route.params;
     const { data } = await movieApi.movieDetail(id);
     this.movieDetail = data;
-    // console.log(this.movieDetail)
-    this.backGround = this.movieDetail.backdrop_path
-    // console.log(this.backGround)
 
-    const similar = await movieApi.similar(this.movieDetail.id);
-    this.similarList = similar.data.results
-    // console.log(similar)
+
+    this.backGround = this.movieDetail.backdrop_path
+
 
     const person = await movieApi.person(this.movieDetail.id);
     this.personList = person.data.cast;
     console.log(person)
 
+    /* 추천 작품 */
     const recommend = await movieApi.recommend(this.movieDetail.id);
     this.recommendList = recommend.data.results;
-    // console.log(this.recommendList)
+    this.recommend_photo = this.recommendList.map(key => key.poster_path)
+
+    /* 비슷한 작품 */
+    const similar = await movieApi.similar(this.movieDetail.id);
+    this.similarList = similar.data.results
+    this.similar_photo = this.similarList.map(key => key.poster_path)
 
     const mediaImages = await movieApi.mediaImages(this.movieDetail.id);
     console.log(mediaImages)
@@ -199,18 +198,45 @@ export default {
 }
 </script>
 <style>
+.tab_box {
+  display: flex;
+  color: #fff
+}
 
-.tab_box {display:flex;color:#fff}
-.tab-btn-list {display:flex}
-.tab-btn-list a {color:#fff}
+.tab-btn-list {
+  display: flex
+}
 
-.person_card {width:138px}
-  .person_card img {display:block;width:100%;height:175px;}
-  .person_card h3 {margin-top:10px;color:#fff;font-size:16px}
-  @media (max-width: 767px) {
-    .swiper-slide {width:120px}
-    .person_card img {width:120px;height:180px}
+.tab-btn-list a {
+  color: #fff
+}
+
+.person_card {
+  width: 138px
+}
+
+.person_card img {
+  display: block;
+  width: 100%;
+  height: 175px;
+}
+
+.person_card h3 {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 16px
+}
+
+@media (max-width: 767px) {
+  .swiper-slide {
+    width: 120px
   }
+
+  .person_card img {
+    width: 120px;
+    height: 180px
+  }
+}
 
 .detail_container {
   position: relative;
