@@ -2,14 +2,11 @@
   <div class="item_container">
     <div class="title">
       <h2>{{ title }}</h2>
-      <p>{{movieList[0]}}</p>
     </div>
     <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper" v-if="movieList">
-      
-      <swiper-slide class="item_card" v-for="(li) in movieList" :key="li.id" @click="goDetail(li.id)">
-        <img :src="image(li.poster_path)" alt="Poster">
+      <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(li.id)">
+        <img :src="image(photo[idx])" alt="Poster" v-if="photo">
         <h3> {{ li.title }}</h3>
-
       </swiper-slide>
     </swiper>
   </div>
@@ -25,16 +22,7 @@ export default {
     Swiper,
     SwiperSlide
   },
-  data() {
-    return {
-    }
-  },
-  props: ['movieList', 'title'],
-  mounted() {
-    this.$nextTick(function() {
-      console.log(this.movieList)
-    })
-  },
+  props: ['movieList', 'title', 'photo'],
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`

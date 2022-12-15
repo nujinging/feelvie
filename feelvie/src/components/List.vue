@@ -18,13 +18,13 @@
 
         <!-- 오늘 -->
         <div class="item_container" v-if="dayList.legnth !==0">
-            <ItemList :movieList="dayList" :title="title[0]"></ItemList>
+            <ItemList :movieList="dayList" :title="title[0]" :photo="day_photo"></ItemList>
         </div>
 
         <!-- 이번주 -->
-        <!-- <div class="item_container">
-            <ItemList :movieList="weekList" :title="title[1]"></ItemList>
-        </div> -->
+        <div class="item_container">
+            <ItemList :movieList="weekList" :title="title[1]" :photo="week_photo"></ItemList>
+        </div>
     </div>
 </template>
 
@@ -60,7 +60,9 @@ export default {
         const trendingWeek = await movieApi.trending('movie', 'week');
         this.dayList = trendingDay.data.results
         this.weekList = trendingWeek.data.results
-        // console.log(this.dayList)
+
+        this.day_photo = this.dayList.map(key => key.poster_path)
+        this.week_photo = this.weekList.map(key => key.poster_path)
     },
 
     methods: {

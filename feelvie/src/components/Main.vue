@@ -1,9 +1,9 @@
 <template>
   <Header></Header>
   <div class="container">
-      <ItemList :movieList="nowPlaying" :title="title[0]"></ItemList>
-      <ItemList :movieList="popular" :title="title[1]"></ItemList>
-      <ItemList :movieList="TopRated" :title="title[2]"></ItemList>
+      <ItemList :movieList="nowPlaying" :title="title[0]" :photo="now_photo"></ItemList>
+      <ItemList :movieList="popular" :title="title[1]" :photo="pop_photo"></ItemList>
+      <ItemList :movieList="TopRated" :title="title[2]" :photo="top_photo"></ItemList>
   </div>
 </template>
 <script>
@@ -36,6 +36,10 @@ export default {
       this.nowPlaying = now;
       this.popular = pop;
       this.TopRated = top;
+
+      this.now_photo = this.nowPlaying.map(key => key.poster_path)
+      this.pop_photo = this.popular.map(key => key.poster_path)
+      this.top_photo = this.TopRated.map(key => key.poster_path)
   },
 }
 </script>
