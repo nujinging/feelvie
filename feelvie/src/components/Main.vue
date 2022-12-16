@@ -19,6 +19,21 @@ export default {
       popular : {},
       TopRated: {},
       title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
+      // listInfo:
+      //   [
+      //     {
+      //       title: '지금 상영중인 영화',
+      //       photo: this.now_photo
+      //     },    
+      //     {
+      //       title: '인기있는 영화',
+      //       photo: this.pop_photo
+      //     },  
+      //     {
+      //       title: '최고의 등급',
+      //       photo: this.pop_photo
+      //     },    
+      //   ],
     }
   },
   components: {
