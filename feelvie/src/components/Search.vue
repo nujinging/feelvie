@@ -1,5 +1,4 @@
 <template>
-  <Header></Header>
   <main class="container">
     <section class="search_container">
       <form>
@@ -16,7 +15,6 @@
 </template>
 
 <script>
-import Header from './Header.vue'
 import ItemList from './ItemList.vue'
 import { movieApi } from '../utils/axios';
 import { debounce } from 'lodash'
@@ -29,10 +27,10 @@ export default {
     };
   },
   components: {
-    Header,
     ItemList
   },
   methods: {
+    // 값을 입력하고 0.5초 뒤 api 호출
     autoSearch: debounce(async function (e) {
       const { data } = await movieApi.search(e.target.value);
       this.movieList = data.results;

@@ -4,12 +4,12 @@ import Main from "../components/Main.vue";
 import itemDetail from "../components/itemDetail.vue";
 import personDetail from "../components/personDetail.vue";
 import Search from "../components/Search.vue";
-import List from "../components/List.vue";
+import Ganre from "../components/Ganre.vue";
 
 const routes =  [
   { path: "/", component: Main },
   { path: "/detail/:id", component: itemDetail },
-  { path: "/List/:linkValue", name: 'link', component: List},
+  { path: "/Ganre/:linkValue", name: 'link', component: Ganre},
   { path: "/search", component: Search},
   { path: "/person/:id", component: personDetail}
 ]

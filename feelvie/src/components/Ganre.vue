@@ -1,5 +1,4 @@
 <template>
-    <Header></Header>
     <div class="container">
         <div class="item_container">
             <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="genreTitle">
@@ -15,12 +14,10 @@
                 </li>
             </ul>
         </div>
-
         <!-- 오늘 -->
-        <div class="item_container" v-if="dayList.legnth !==0">
+        <div class="item_container">
             <ItemList :movieList="dayList" :title="title[0]" :photo="day_photo"></ItemList>
         </div>
-
         <!-- 이번주 -->
         <div class="item_container">
             <ItemList :movieList="weekList" :title="title[1]" :photo="week_photo"></ItemList>
@@ -29,7 +26,6 @@
 </template>
 
 <script>
-import Header from './Header.vue'
 import ItemList from './ItemList.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -103,7 +99,6 @@ export default {
         },
     },
     components: {
-        Header,
         Swiper,
         SwiperSlide,
         ItemList,
@@ -112,18 +107,6 @@ export default {
 </script>
 
 <style>
-.category_list {
-    width: auto;
-    padding: 10px 20px;
-    color: #fff;
-    font-size: 20px;
-    border-radius: 32px;
-    cursor: pointer;
-    background: #0372D2
-}
-
-.category_list:hover {
-    color: #0372D2;
-    background: #fff
-}
+.category_list {width: auto;padding: 10px 20px;color: #fff;font-size: 20px;border-radius: 32px;cursor: pointer;background: #0372D2}
+.category_list:hover {color: #0372D2;background: #fff}
 </style>

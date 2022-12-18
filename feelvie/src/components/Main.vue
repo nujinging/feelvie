@@ -1,13 +1,14 @@
 <template>
-  <Header></Header>
   <div class="container">
-      <ItemList :movieList="nowPlaying" :title="title[0]" :photo="now_photo"></ItemList>
+      <!-- 지금 상영중인 영화 -->
+      <ItemList :movieList="nowPlaying" :title="title[0]" :photo="now_photo" :listInfo="listInfo[0]"></ItemList>
+      <!-- 인기있는 영화 -->
       <ItemList :movieList="popular" :title="title[1]" :photo="pop_photo"></ItemList>
+      <!-- 최고의 등급 -->
       <ItemList :movieList="TopRated" :title="title[2]" :photo="top_photo"></ItemList>
   </div>
 </template>
 <script>
-import Header from './Header.vue'
 import ItemList from './ItemList.vue'
 import { movieApi } from '../utils/axios';
 
@@ -19,25 +20,15 @@ export default {
       popular : {},
       TopRated: {},
       title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
-      // listInfo:
-      //   [
-      //     {
-      //       title: '지금 상영중인 영화',
-      //       photo: this.now_photo
-      //     },    
-      //     {
-      //       title: '인기있는 영화',
-      //       photo: this.pop_photo
-      //     },  
-      //     {
-      //       title: '최고의 등급',
-      //       photo: this.pop_photo
-      //     },    
-      //   ],
+      listInfo:
+        [
+          {title: '지금 상영중인 영화', photo: this.now_photo},    
+          {title: '인기있는 영화', photo: this.pop_photo },  
+          {title: '최고의 등급',photo: this.pop_photo},    
+        ],
     }
   },
   components: {
-    Header,
     ItemList,
   },
   async mounted() {

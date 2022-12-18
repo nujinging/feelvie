@@ -1,11 +1,16 @@
 <template>
+  <Header></Header>
   <!-- 페이지 내부에서 params의 값만 바뀌더라도 해당 페이지가 재렌더링 될 수 있게끔 한다-->
   <router-view :key="$route.fullPath"/>
 </template>
 
 <script>
+import Header from './components/Header.vue'
 export default {
   name: 'App',
+  components: {
+    Header
+  },
   data() {
     return {
     }
