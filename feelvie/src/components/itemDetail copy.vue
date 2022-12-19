@@ -4,9 +4,7 @@
     :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
     <section class="detail_container">
       <div class="detail_info">
-        <h1>
-          {{ this.type ==  "movie" ? movieDetail.title : movieDetail.name }}
-        </h1>
+        <h1>{{ movieDetail.title }}</h1>
         <div class="meta">
           <span class="badge">15</span>
           <span class="txt" v-for="list in movieDetail.genres" :key="list.id">
@@ -138,12 +136,12 @@ export default {
       this.$router.push(`/person/${id}`);
     }
   },
+  props: ['linkValue'],
   async mounted() {
     // 영화 ID값에 따른 정보
     const { type, id } = this.$route.params;
     const { data } = await movieApi.movieDetail(type, id);
     this.movieDetail = data;
-    this.type = type
     console.log(this.movieDetail)
 
 

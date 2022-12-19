@@ -16,7 +16,6 @@ export const movieApi = {
 
   // 장르 키워드
   genre: (value) =>  request.get(`genre/${value}/list`),
-
   // 장르 아이템 리스트
   genreList: (type, value, page) =>  request.get(`discover/${type}?with_genres=${value}&page=${page}`),
 
@@ -39,6 +38,8 @@ export const movieApi = {
   personTv: (person_id) => request.get(`person/${person_id}/tv_credits`),
   personSocial: (person_id) => request.get(`person/${person_id}/external_ids`),
 
+  movieDetail: (type, id) => request.get(`${type}/${id}`),
+
   // 가장 인기있는 
   popularTv: () => request.get(`/tv/popular`),
 
@@ -48,10 +49,7 @@ export const movieApi = {
         query: keyword,
       },
     }),
-    movieDetail: (id) =>
-    request.get(`movie/${id}`, {
-      params: { append_to_response: "videos" },
-    }),
+   
     personDetail: (id) =>
     request.get(`person/${id}`, {
       params: { append_to_response: "videos" },

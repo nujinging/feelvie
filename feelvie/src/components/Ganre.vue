@@ -9,7 +9,7 @@
             </swiper>
 
             <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
-                <li v-for="item in list" :key="item.id" @click="goDetail(item.id)">
+                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)" :type="this.linkValue">
                     <img :src="image(item.poster_path)" alt="">
                 </li>
             </ul>
@@ -74,7 +74,6 @@ export default {
             this.genre = value;
             const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
             this.list = data.results;
-            console.log(this.page)
         },
 
         // Scroll
@@ -87,7 +86,6 @@ export default {
             this.page++
             const { data } = await movieApi.genreList(this.genre, this.page)
             this.list = [...this.list, ...data.results]
-            console.log(this.page)
         },
 
         // List Image
@@ -96,8 +94,8 @@ export default {
         },
 
         // Detail Page
-        goDetail(id) {
-            this.$router.push(`/detail/${id}`);
+        goDetail(type, id) {
+            this.$router.push(`/${type}/${id}`);
         },
     },
     components: {
