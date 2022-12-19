@@ -11,7 +11,7 @@
       <swiper-slide v-for="list in popularTv" :key='list.id'
       :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + list.backdrop_path + ')' }" @click="goDetail(list.id)">
       <div class="banner_txt">
-        <h2 class="tit"> {{ list.name }}</h2>
+        <h2 class="tit" v-if="list.name"> {{ list.name }}</h2>
         <p> {{ list.overview }}</p>
       </div>
       </swiper-slide>
@@ -63,6 +63,9 @@ export default {
     ItemList
   },
   async mounted() {
+
+      const regex = /^[ㄱ-ㅎ|가-힣]+$/;
+
       const { data } = await movieApi.nowPlaying();
       this.movieList = data.results;
       const { nowPlaying, popular, TopRated } = movieApi;
