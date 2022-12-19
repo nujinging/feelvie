@@ -25,12 +25,16 @@ export const movieApi = {
   // 언어 바꾸기
   mediaImages : (movie_id) => request.get(`movie/${movie_id}/images?&language=en-US`),
 
+  // 인물
+  personWork: (person_id) => request.get(`person/${person_id}/combined_credits`),
+  personTv: (person_id) => request.get(`person/${person_id}/tv_credits`),
+  personSocial: (person_id) => request.get(`person/${person_id}/external_ids`),
 
-  personWork: (person_id) => request.get(`person/${person_id}/movie_credits`),
-
+  // 가장 인기있는 
+  popularTv: () => request.get(`/tv/popular`),
 
   search: (keyword) =>
-    request.get("search/movie", {
+    request.get("search/multi", {
       params: {
         query: keyword,
       },
