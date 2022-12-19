@@ -12,7 +12,13 @@ export const movieApi = {
   nowPlaying: () => request.get("movie/now_playing"),
   popular: () => request.get("movie/popular"),
   TopRated: () => request.get("movie/top_rated"),
+
+
+
   genre: (value) =>  request.get(`genre/${value}/list`),
+
+
+  
   genreList: (value, page) =>  request.get(`discover/movie?with_genres=${value}&page=${page}`),
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
@@ -22,6 +28,8 @@ export const movieApi = {
   video : (movie_id) => request.get(`movie/${movie_id}/videos`),
   social: (movie_id) => request.get(`movie/${movie_id}/external_ids`),
   image: (movie_id) => request.get(`movie/${movie_id}/images?&language=fr&include_image_language=fr,null,en`),
+
+
   // 언어 바꾸기
   mediaImages : (movie_id) => request.get(`movie/${movie_id}/images?&language=en-US`),
 

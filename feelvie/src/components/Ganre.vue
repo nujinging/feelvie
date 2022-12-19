@@ -5,6 +5,7 @@
                 <swiper-slide class="category_list" v-for="genreList in genreTitle" :key="genreList.id"
                     @click="GenreList(genreList.id)">
                     {{ genreList.name }}
+                    {{  }}
                 </swiper-slide>
             </swiper>
 
@@ -33,7 +34,7 @@ import { movieApi } from '../utils/axios';
 
 export default {
     name: 'Ganre_',
-    props: ['ganreList'],
+    props: ['ganreList', 'linkValue'],
     data() {
         return {
             list: {},
@@ -43,15 +44,19 @@ export default {
             newList: {},
             dayList: [],
             weekList: {},
-            test: 'movie',
             title: ['오늘 ! 가장 있기있는 컨텐츠', '이번주 가장 있기있는 컨텐츠']
         };
     },
     
     // Genre Title
     async created() {
-        const { data } = await movieApi.genre(this.test);
+        const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
+        
+
+
+
+
         const trendingDay = await movieApi.trending('movie', 'day');
         const trendingWeek = await movieApi.trending('movie', 'week');
         this.dayList = trendingDay.data.results

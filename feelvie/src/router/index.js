@@ -9,7 +9,7 @@ import Ganre from "../components/Ganre.vue";
 const routes =  [
   { path: "/", component: Main },
   { path: "/detail/:id", name:'work', component: itemDetail },
-  { path: "/Ganre/:linkValue", name: 'link', component: Ganre},
+  { path: "/Ganre/:linkValue", name: 'link', component: Ganre, props: true},
   { path: "/search", component: Search},
   { path: "/person/:id", component: personDetail}
 ]
