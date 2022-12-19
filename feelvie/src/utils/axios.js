@@ -24,6 +24,11 @@ export const movieApi = {
   image: (movie_id) => request.get(`movie/${movie_id}/images?&language=fr&include_image_language=fr,null,en`),
   // 언어 바꾸기
   mediaImages : (movie_id) => request.get(`movie/${movie_id}/images?&language=en-US`),
+
+
+  personWork: (person_id) => request.get(`person/${person_id}/movie_credits`),
+
+
   search: (keyword) =>
     request.get("search/movie", {
       params: {
