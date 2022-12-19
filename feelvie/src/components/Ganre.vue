@@ -9,14 +9,14 @@
             </swiper>
 
             <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
-                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)" :type="this.linkValue">
+                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)">
                     <img :src="image(item.poster_path)" alt="">
                 </li>
             </ul>
         </div>
         <!-- 오늘 -->
         <div class="item_container">
-            <ItemList :movieList="dayList" :title="title[0]" :photo="day_photo"></ItemList>
+            <ItemList :movieList="dayList" :type2="movie" :title="title[0]" :photo="day_photo"></ItemList>
         </div>
         <!-- 이번주 -->
         <div class="item_container">
@@ -52,10 +52,9 @@ export default {
         const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
 
-
-
         const trendingDay = await movieApi.trending('movie', 'day');
         const trendingWeek = await movieApi.trending('movie', 'week');
+
         this.dayList = trendingDay.data.results
         this.weekList = trendingWeek.data.results
 
