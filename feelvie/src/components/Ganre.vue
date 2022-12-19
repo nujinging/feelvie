@@ -5,7 +5,6 @@
                 <swiper-slide class="category_list" v-for="genreList in genreTitle" :key="genreList.id"
                     @click="GenreList(genreList.id)">
                     {{ genreList.name }}
-                    {{  }}
                 </swiper-slide>
             </swiper>
 
@@ -52,8 +51,6 @@ export default {
     async created() {
         const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
-        
-
 
 
 
@@ -75,7 +72,7 @@ export default {
             this.page = 1;
             this.list = [];
             this.genre = value;
-            const { data } = await movieApi.genreList(this.genre, this.page);
+            const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
             this.list = data.results;
             console.log(this.page)
         },

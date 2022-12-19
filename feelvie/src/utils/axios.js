@@ -14,12 +14,13 @@ export const movieApi = {
   TopRated: () => request.get("movie/top_rated"),
 
 
-
+  // 장르 키워드
   genre: (value) =>  request.get(`genre/${value}/list`),
 
+  // 장르 아이템 리스트
+  genreList: (type, value, page) =>  request.get(`discover/${type}?with_genres=${value}&page=${page}`),
 
-  
-  genreList: (value, page) =>  request.get(`discover/movie?with_genres=${value}&page=${page}`),
+
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
   similar: (value) =>  request.get(`movie/${value}/similar`),
