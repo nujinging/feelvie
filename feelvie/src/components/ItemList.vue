@@ -4,6 +4,7 @@
       <h2>{{ title }}</h2>
     </div>
     <!-- 리스트 -->
+
     <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper">
       <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
         <img :src="image(photo[idx])" alt="Poster" v-if="photo">

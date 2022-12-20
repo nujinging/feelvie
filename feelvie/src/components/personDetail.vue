@@ -97,6 +97,7 @@ export default {
             personTv: [],
             gender: '남자',
             test: [],
+            list_type: '',
             knownWork_photo:'',
             title: '가장 평점이 높은 작품'
         };
@@ -109,13 +110,15 @@ export default {
         goDetail(id) {
             this.$router.push(`/detail/${id}`);
         },
-        ganreTab(id) {
-            this.movieList = id
+    
+        async ganreTab(id) {
+            this.list_type = id;
         }
     },
     async mounted() {
         // 인물 ID값에 따른 정보
         const { id } = this.$route.params;
+        
 
         // 인물 정보
         const personDetail = await movieApi.personDetail(id);

@@ -9,9 +9,9 @@ const request = axios.create({
 
 });
 export const movieApi = {
-  nowPlaying: () => request.get("movie/now_playing"),
-  popular: () => request.get("movie/popular"),
-  TopRated: () => request.get("movie/top_rated"),
+  nowPlaying: (type, now) => request.get(`${type}/${now}`),
+  popular: (type) => request.get(`${type}/popular`),
+  TopRated: (type) =>  request.get(`${type}/top_rated`),
 
 
   // 장르 키워드
