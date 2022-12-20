@@ -79,6 +79,8 @@ export default {
             console.log(this.list_type)
 
           
+        this.now_photo = this.nowPlaying.map(key => key.poster_path)
+        this.top_photo = this.TopRatedList.map(key => key.poster_path)
 
       
         }
@@ -92,16 +94,11 @@ export default {
         const now = await movieApi.nowPlaying(this.list_type, 'now_playing');
         this.nowPlaying = now.data.results;
 
-        const popular = await movieApi.popular(this.list_type);
-        this.popularList = popular.data.results;
-
-
         const TopRated = await movieApi.TopRated(this.list_type);
         this.TopRatedList = TopRated.data.results;
 
 
         this.now_photo = this.nowPlaying.map(key => key.poster_path)
-        this.pop_photo = this.popularList.map(key => key.poster_path)
         this.top_photo = this.TopRatedList.map(key => key.poster_path)
 
 
