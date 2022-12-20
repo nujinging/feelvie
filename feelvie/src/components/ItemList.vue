@@ -5,7 +5,7 @@
     </div>
     <!-- 리스트 -->
     <swiper :slidesPerView="'auto'" :spaceBetween="30" class="mySwiper">
-      <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(li.id)">
+      <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
         <img :src="image(photo[idx])" alt="Poster" v-if="photo">
         <h3> {{ li.title }}</h3>
         <h3> {{ li.name }}</h3>
@@ -24,14 +24,14 @@ export default {
     Swiper,
     SwiperSlide
   },
-  props: ['movieList', 'title', 'photo', 'listInfo'],
+  props: ['movieList', 'title', 'photo', 'type', 'listInfo'],
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`
     },
-    goDetail(id) {
-      this.$router.push(`/detail/${id}`);
-    },
+    goDetail(type, id) {
+            this.$router.push(`/${type}/${id}`);
+        },
   },
   setup() {
     const onSwiper = (swiper) => {

@@ -19,11 +19,11 @@
     </div>
     <div class="item_container list">
         <!-- 지금 상영중인 영화 -->
-        <ItemList :movieList="nowPlaying" :type="movie " :title="title[0]" :photo="now_photo" :listInfo="listInfo[0]"></ItemList>
+        <ItemList :movieList="nowPlaying" :type="list_type" :title="title[0]" :photo="now_photo" :listInfo="listInfo[0]"></ItemList>
         <!-- 인기있는 영화 -->
-        <ItemList :movieList="popular" :type="movie" :title="title[1]" :photo="pop_photo"></ItemList>
+        <ItemList :movieList="popular" :type="list_type" :title="title[1]" :photo="pop_photo"></ItemList>
         <!-- 최고의 등급 -->
-        <ItemList :movieList="TopRated" :list_type="list_type" :title="title[2]" :photo="top_photo"></ItemList>
+        <ItemList :movieList="TopRated" :type="list_type" :title="title[2]" :photo="top_photo"></ItemList>
     </div>
      
   </div>
@@ -44,7 +44,7 @@ export default {
       TopRated: {},
       title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
       popularTv:[],
-      list_type: 'movie',
+      list_type:'movie',
       listInfo:
         [
           {title: '지금 상영중인 영화', photo: this.now_photo},    
@@ -64,9 +64,6 @@ export default {
     ItemList
   },
   async mounted() {
-
-      const regex = /^[ㄱ-ㅎ|가-힣]+$/;
-
       const { data } = await movieApi.nowPlaying();
       this.movieList = data.results;
       const { nowPlaying, popular, TopRated } = movieApi;
