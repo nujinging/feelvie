@@ -98,13 +98,13 @@
       </swiper>
     </div>
 
-
+  </div>
+  
     <!-- 추천 작품 -->
     <ItemList :movieList="recommendList" :title="title[0]" :photo="recommend_photo"></ItemList>
 
     <!-- 비슷한 작품 -->
     <ItemList :movieList="similarList" :title="title[1]" :photo="similar_photo"></ItemList>
-  </div>
 </template>
 
 <script>
@@ -150,6 +150,7 @@ export default {
     // 배경
     this.backGround = this.movieDetail.backdrop_path
 
+    // 등장인물
     const person = await movieApi.person(this.type, this.movieDetail.id);
     this.personList = person.data.cast;
       
@@ -162,12 +163,12 @@ export default {
     this.videoLink = video.data.results
 
     // 추천 작품
-    const recommend = await movieApi.recommend(this.movieDetail.id);
+    const recommend = await movieApi.recommend(this.type, this.movieDetail.id);
     this.recommendList = recommend.data.results;
     this.recommend_photo = this.recommendList.map(key => key.poster_path)
 
     // 비슷한 작품
-    const similar = await movieApi.similar(this.movieDetail.id);
+    const similar = await movieApi.similar(this.type, this.movieDetail.id);
     this.similarList = similar.data.results
     this.similar_photo = this.similarList.map(key => key.poster_path)
 

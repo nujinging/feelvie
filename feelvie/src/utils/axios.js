@@ -23,11 +23,11 @@ export const movieApi = {
   
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
-  similar: (value) =>  request.get(`movie/${value}/similar`),
-  recommend: (movie_id) =>  request.get(`movie/${movie_id}/recommendations`),
+  similar: (type, value) =>  request.get(`${type}/${value}/similar`),
+  recommend: (type, value) =>  request.get(`${type}/${value}/recommendations`),
 
   // 등장인물
-  person : (type, movie_id) => request.get(`${type}/${movie_id}/credits`),
+  person : (type, value) => request.get(`${type}/${value}/credits`),
 
   video : (movie_id) => request.get(`movie/${movie_id}/videos`),
   social: (movie_id) => request.get(`movie/${movie_id}/external_ids`),
