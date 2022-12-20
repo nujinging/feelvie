@@ -101,10 +101,10 @@
   </div>
   
     <!-- 추천 작품 -->
-    <ItemList :movieList="recommendList" :title="title[0]" :photo="recommend_photo"></ItemList>
+    <ItemList :movieList="recommendList" :type="this.type" :title="title[0]" :photo="recommend_photo"></ItemList>
 
     <!-- 비슷한 작품 -->
-    <ItemList :movieList="similarList" :title="title[1]" :photo="similar_photo"></ItemList>
+    <ItemList :movieList="similarList" :type="this.type"  :title="title[1]" :photo="similar_photo"></ItemList>
 </template>
 
 <script>
@@ -155,11 +155,11 @@ export default {
     this.personList = person.data.cast;
       
     // 관련 이미지
-    const image = await movieApi.image(this.movieDetail.id);
+    const image = await movieApi.image(this.type, this.movieDetail.id);
     this.imageList = image.data
 
     // 관련 동영상
-    const video = await movieApi.video(this.movieDetail.id);
+    const video = await movieApi.video(this.type, this.movieDetail.id);
     this.videoLink = video.data.results
 
     // 추천 작품
@@ -173,7 +173,7 @@ export default {
     this.similar_photo = this.similarList.map(key => key.poster_path)
 
     // 소셜
-    const social = await movieApi.social(this.movieDetail.id);
+    const social = await movieApi.social(this.type, this.movieDetail.id);
     this.facebookLink = social.data.facebook_id
     this.twitterLink = social.data.twitter_id
     this.instagramLink = social.data.instagram_id

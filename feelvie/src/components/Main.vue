@@ -26,10 +26,13 @@
             <!-- 지금 상영중인 영화 -->
             <ItemList :movieList="nowPlaying" :type="list_type" :title="title[0]" :photo="now_photo"
                 :listInfo="listInfo[0]"></ItemList>
-            <!-- 인기있는 영화 -->
-            <ItemList :movieList="popularList" :type="list_type" :title="title[1]" :photo="pop_photo"></ItemList>
+   
             <!-- 최고의 등급 -->
             <ItemList :movieList="TopRatedList" :type="list_type" :title="title[2]" :photo="top_photo"></ItemList>
+
+            <ItemList v-if="dayList" :movieList="dayList" :type="list_type" :title="title[0]" :photo="day_photo"></ItemList>
+
+            <ItemList :movieList="weekList" :title="title[1]" :photo="week_photo"></ItemList>
         </div>
 
     </div>
@@ -48,10 +51,12 @@ export default {
             nowPlaying: {},
             popular: {},
             TopRatedList: {},
-            popularList: {},
+            
             title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
             popularTv: [],
+            dayList: [],
             list_type: 'movie',
+            weekList:[],
             nowType:'',
             listInfo:
                 [
@@ -73,17 +78,9 @@ export default {
 
             console.log(this.list_type)
 
-            const popular = await movieApi.popular(this.list_type);
-            this.popularList = popular.data.results;
+          
 
-
-            const TopRated = await movieApi.TopRated(this.list_type);
-            this.TopRatedList = TopRated.data.results;
-
-
-            this.now_photo = this.nowPlaying.map(key => key.poster_path)
-            this.pop_photo = this.popularList.map(key => key.poster_path)
-            this.top_photo = this.TopRatedList.map(key => key.poster_path)
+      
         }
     },
     components: {
@@ -107,6 +104,17 @@ export default {
         this.pop_photo = this.popularList.map(key => key.poster_path)
         this.top_photo = this.TopRatedList.map(key => key.poster_path)
 
+
+
+          // 기존에 뿌려주고 클릭 시 재랜더링...!?!!!
+          const trendingDay = await movieApi.trending(this.list_type, 'day');
+        const trendingWeek = await movieApi.trending(this.list_type, 'week');
+
+        this.dayList = trendingDay.data.results
+        this.weekList = trendingWeek.data.results
+
+        this.day_photo = this.dayList.map(key => key.poster_path)
+        this.week_photo = this.weekList.map(key => key.poster_path)
 
         const popularTv = await movieApi.popularTv();
         this.popularTv = popularTv.data.results;

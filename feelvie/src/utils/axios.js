@@ -23,15 +23,23 @@ export const movieApi = {
   
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
-  similar: (type, value) =>  request.get(`${type}/${value}/similar`),
-  recommend: (type, value) =>  request.get(`${type}/${value}/recommendations`),
+  // 리스트
+  itemList : (type, value) => request.get(`${type}/${value}/lists`),
 
   // 등장인물
   person : (type, value) => request.get(`${type}/${value}/credits`),
 
-  video : (movie_id) => request.get(`movie/${movie_id}/videos`),
-  social: (movie_id) => request.get(`movie/${movie_id}/external_ids`),
-  image: (movie_id) => request.get(`movie/${movie_id}/images?&language=fr&include_image_language=fr,null,en`),
+  // 비슷한
+  similar: (type, value) =>  request.get(`${type}/${value}/similar`),
+  
+  // 추천
+  recommend: (type, value) =>  request.get(`${type}/${value}/recommendations`),
+
+  video : (type, value) => request.get(`${type}/${value}/videos`),
+  social: (type, value) => request.get(`${type}/${value}/external_ids`),
+  image: (type, value) => request.get(`${type}/${value}/images?&language=fr&include_image_language=fr,null,en`),
+
+
 
 
   // 언어 바꾸기

@@ -13,23 +13,8 @@
                     <img :src="image(item.poster_path)" alt="">
                 </li>
             </ul>
-        </div>
-        <!-- 오늘 -->
-        <div class="item_container">
-            <ul class="type_list">
-                <li>
-                    <button type="button" :class="{active : selected === 'A'}" v-on:click="select('A')" @click="ganreTab($event ,'movie')">영화</button>
-                </li>
-                <li>
-                    <button type="button" :class="{active : selected === 'B'}" v-on:click="select('B')" @click="ganreTab($event ,'tv')">TV</button>
-                </li>
-            </ul>
-            <ItemList v-if="dayList" :movieList="dayList" :type="list_type" :title="title[0]" :photo="day_photo">
-            </ItemList>
-        </div>
-        <!-- 이번주 -->
-        <div class="item_container">
-            <ItemList :movieList="weekList" :title="title[1]" :photo="week_photo"></ItemList>
+                     <!-- 인기있는 영화 -->
+                     <ItemList :movieList="popularList" :type="list_type" :title="title[1]" :photo="pop_photo"></ItemList>
         </div>
     </div>
 </template>
@@ -52,11 +37,13 @@ export default {
             newList: {},
             dayList: [],
             weekList: {},
+            popularList: {},
             list_type: 'movie',
             isActive:false,
             selected:'',
             typeList:['영화','TV'],
-            title: ['오늘 ! 가장 있기있는 컨텐츠', '이번주 가장 있기있는 컨텐츠']
+            title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
+   
         };
     },
 
@@ -64,39 +51,16 @@ export default {
     async mounted() {
         const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
-        // 기존에 뿌려주고 클릭 시 재랜더링...!?!!!
-        const trendingDay = await movieApi.trending(this.list_type, 'day');
-        const trendingWeek = await movieApi.trending(this.list_type, 'week');
 
-        this.dayList = trendingDay.data.results
-        this.weekList = trendingWeek.data.results
-
-        this.day_photo = this.dayList.map(key => key.poster_path)
-        this.week_photo = this.weekList.map(key => key.poster_path)
+        const popular = await movieApi.popular(this.linkValue);
+            this.popularList = popular.data.results;
+            this.pop_photo = this.popularList.map(key => key.poster_path)
     },
 
     methods: {
         select(e){
       this.selected = e
       },
-        async ganreTab(event, id) {
-            this.list_type = id;
-
-            if(event.target.classList.contains('active')){
-                event.target.classList.remove('active')
-            }else{
-                event.target.classList.add('active')
-            }
-
-            const trendingDay = await movieApi.trending(this.list_type, 'day');
-            const trendingWeek = await movieApi.trending(this.list_type, 'week');
-
-            this.dayList = trendingDay.data.results
-            this.weekList = trendingWeek.data.results
-
-            this.day_photo = this.dayList.map(key => key.poster_path)
-            this.week_photo = this.weekList.map(key => key.poster_path)
-        },
 
         // 데이터가 두번 도는거 난중에 해결
         // Ganre List - Click

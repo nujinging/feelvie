@@ -35,6 +35,7 @@ export default {
       const { data } = await movieApi.search(e.target.value);
       this.movieList = data.results;
       this.search_photo = this.movieList.map(key => key.poster_path)
+      console.log(this.movieList)
     },500),
   }
 }
