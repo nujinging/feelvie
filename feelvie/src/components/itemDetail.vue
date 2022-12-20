@@ -119,6 +119,7 @@ export default {
     return {
       movieDetail: {},
       imageList: [],
+      creditsList:[],
       currentTab: 0,
       facebookLink: '',
       twitterLink: '',
@@ -144,15 +145,19 @@ export default {
     const { data } = await movieApi.movieDetail(type, id);
     this.movieDetail = data;
     this.type = type
-    console.log(this.movieDetail)
 
 
     // 배경
     this.backGround = this.movieDetail.backdrop_path
 
     // 등장인물
-    const person = await movieApi.person(this.movieDetail.id);
-    this.personList = person.data.cast;
+    if (this.type == 'movie') {
+      const person = await movieApi.person(this.movieDetail.id);
+      this.personList = person.data.cast;
+    } else if (this.type == 'tv') {
+      const credits = await movieApi.tvCredits(this.movieDetail.id);
+      this.personList = credits.data.cast
+    }
 
     // 관련 이미지
     const image = await movieApi.image(this.movieDetail.id);

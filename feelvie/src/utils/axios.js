@@ -20,6 +20,9 @@ export const movieApi = {
   genreList: (type, value, page) =>  request.get(`discover/${type}?with_genres=${value}&page=${page}`),
 
 
+  tvCredits: (tv_id) => request.get(`tv/${tv_id}/credits`),
+
+
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
   similar: (value) =>  request.get(`movie/${value}/similar`),
