@@ -150,15 +150,9 @@ export default {
     // 배경
     this.backGround = this.movieDetail.backdrop_path
 
-    // 등장인물
-    if (this.type == 'movie') {
-      const person = await movieApi.person(this.movieDetail.id);
-      this.personList = person.data.cast;
-    } else if (this.type == 'tv') {
-      const credits = await movieApi.tvCredits(this.movieDetail.id);
-      this.personList = credits.data.cast
-    }
-
+    const person = await movieApi.person(this.type, this.movieDetail.id);
+    this.personList = person.data.cast;
+      
     // 관련 이미지
     const image = await movieApi.image(this.movieDetail.id);
     this.imageList = image.data
