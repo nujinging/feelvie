@@ -17,10 +17,10 @@
         <div class="item_container list">
             <ul class="type_list">
                 <li>
-                    <button type="button" @click="ganreTab('movie')">영화</button>
+                    <button type="button" @click="ganreTab('movie' ,'now_playing')">영화</button>
                 </li>
                 <li>
-                    <button type="button" @click="ganreTab('tv')">TV</button>
+                    <button type="button" @click="ganreTab('tv', 'on_the_air')">TV</button>
                 </li>
             </ul>
             <!-- 지금 상영중인 영화 -->
@@ -52,6 +52,7 @@ export default {
             title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
             popularTv: [],
             list_type: 'movie',
+            nowType:'',
             listInfo:
                 [
                     { title: '지금 상영중인 영화', photo: this.now_photo },
@@ -65,8 +66,24 @@ export default {
             this.$router.push(`/detail/${id}`);
         },
 
-        async ganreTab(id) {
+        async ganreTab(id, nowType) {
             this.list_type = id;
+            const now = await movieApi.nowPlaying(this.list_type, nowType);
+            this.nowPlaying = now.data.results;
+
+            console.log(this.list_type)
+
+            const popular = await movieApi.popular(this.list_type);
+            this.popularList = popular.data.results;
+
+
+            const TopRated = await movieApi.TopRated(this.list_type);
+            this.TopRatedList = TopRated.data.results;
+
+
+            this.now_photo = this.nowPlaying.map(key => key.poster_path)
+            this.pop_photo = this.popularList.map(key => key.poster_path)
+            this.top_photo = this.TopRatedList.map(key => key.poster_path)
         }
     },
     components: {
@@ -95,8 +112,6 @@ export default {
         this.popularTv = popularTv.data.results;
 
         this.backGround = this.popularTv.backdrop_path
-        console.log(this.popularTv)
-        console.log(this.backGround)
     },
     setup() {
         return {
