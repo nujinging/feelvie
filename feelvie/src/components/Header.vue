@@ -13,7 +13,7 @@
             <router-link :to="{ name: 'link', params: { linkValue: 'tv' }}">TV 프로그램</router-link>
           </li>
           <li>
-            <a href="ganre.html">인물</a>
+            <router-link to="/person/">인물</router-link>
           </li>
         </ul>
       </div>
