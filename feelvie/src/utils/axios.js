@@ -12,8 +12,14 @@ export const movieApi = {
   nowPlaying: () => request.get("movie/now_playing"),
   popular: () => request.get("movie/popular"),
   TopRated: () => request.get("movie/top_rated"),
+
+
+  // 장르 키워드
   genre: (value) =>  request.get(`genre/${value}/list`),
-  genreList: (value, page) =>  request.get(`discover/movie?with_genres=${value}&page=${page}`),
+  // 장르 아이템 리스트
+  genreList: (type, value, page) =>  request.get(`discover/${type}?with_genres=${value}&page=${page}`),
+
+
   trending: (media_type, time_window) =>  request.get(`trending/${media_type}/${time_window}`),
 
   similar: (value) =>  request.get(`movie/${value}/similar`),
@@ -22,6 +28,8 @@ export const movieApi = {
   video : (movie_id) => request.get(`movie/${movie_id}/videos`),
   social: (movie_id) => request.get(`movie/${movie_id}/external_ids`),
   image: (movie_id) => request.get(`movie/${movie_id}/images?&language=fr&include_image_language=fr,null,en`),
+
+
   // 언어 바꾸기
   mediaImages : (movie_id) => request.get(`movie/${movie_id}/images?&language=en-US`),
 
@@ -29,6 +37,8 @@ export const movieApi = {
   personWork: (person_id) => request.get(`person/${person_id}/combined_credits`),
   personTv: (person_id) => request.get(`person/${person_id}/tv_credits`),
   personSocial: (person_id) => request.get(`person/${person_id}/external_ids`),
+
+  movieDetail: (type, id) => request.get(`${type}/${id}`),
 
   // 가장 인기있는 
   popularTv: () => request.get(`/tv/popular`),
@@ -39,10 +49,7 @@ export const movieApi = {
         query: keyword,
       },
     }),
-    movieDetail: (id) =>
-    request.get(`movie/${id}`, {
-      params: { append_to_response: "videos" },
-    }),
+   
     personDetail: (id) =>
     request.get(`person/${id}`, {
       params: { append_to_response: "videos" },

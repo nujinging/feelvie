@@ -9,14 +9,14 @@
             </swiper>
 
             <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
-                <li v-for="item in list" :key="item.id" @click="goDetail(item.id)">
+                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)">
                     <img :src="image(item.poster_path)" alt="">
                 </li>
             </ul>
         </div>
         <!-- 오늘 -->
         <div class="item_container">
-            <ItemList :movieList="dayList" :title="title[0]" :photo="day_photo"></ItemList>
+            <ItemList :movieList="dayList" :type2="movie" :title="title[0]" :photo="day_photo"></ItemList>
         </div>
         <!-- 이번주 -->
         <div class="item_container">
@@ -33,7 +33,7 @@ import { movieApi } from '../utils/axios';
 
 export default {
     name: 'Ganre_',
-    props: ['ganreList'],
+    props: ['ganreList', 'linkValue'],
     data() {
         return {
             list: {},
@@ -43,17 +43,18 @@ export default {
             newList: {},
             dayList: [],
             weekList: {},
-            test: 'movie',
             title: ['오늘 ! 가장 있기있는 컨텐츠', '이번주 가장 있기있는 컨텐츠']
         };
     },
     
     // Genre Title
     async created() {
-        const { data } = await movieApi.genre(this.test);
+        const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
+
         const trendingDay = await movieApi.trending('movie', 'day');
         const trendingWeek = await movieApi.trending('movie', 'week');
+
         this.dayList = trendingDay.data.results
         this.weekList = trendingWeek.data.results
 
@@ -70,9 +71,8 @@ export default {
             this.page = 1;
             this.list = [];
             this.genre = value;
-            const { data } = await movieApi.genreList(this.genre, this.page);
+            const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
             this.list = data.results;
-            console.log(this.page)
         },
 
         // Scroll
@@ -85,7 +85,6 @@ export default {
             this.page++
             const { data } = await movieApi.genreList(this.genre, this.page)
             this.list = [...this.list, ...data.results]
-            console.log(this.page)
         },
 
         // List Image
@@ -94,8 +93,8 @@ export default {
         },
 
         // Detail Page
-        goDetail(id) {
-            this.$router.push(`/detail/${id}`);
+        goDetail(type, id) {
+            this.$router.push(`/${type}/${id}`);
         },
     },
     components: {

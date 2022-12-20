@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style>
-.wrap_header {position:fixed;top:0;width:100%;z-index:9999}
+.wrap_header {position:sticky;top:0;width:100%;background:#000;z-index:9999}
 .wrap_header .header_container {padding:20px 32px;display:flex;align-items:center;justify-content:space-between;}
 .wrap_header .navigation {display:flex;align-items:center;margin-left:35px}
 .wrap_header .menu {display:flex;align-items:center;margin-left:35px}
