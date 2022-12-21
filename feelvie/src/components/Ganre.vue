@@ -1,26 +1,23 @@
 <template>
     <div class="container">
         <div class="item_container">
-            <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="genreTitle">
+            <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper ganre_title" v-if="genreTitle">
                 <swiper-slide class="category_list" v-for="genreList in genreTitle" :key="genreList.id"
                     @click="GenreList(genreList.id)">
                     {{ genreList.name }}
                 </swiper-slide>
             </swiper>
 
-            <ul v-if="list" @scroll="handleNotificationListScroll" style="height: 500px;overflow: auto;">
+            <ul class="ganre_list" v-if="list" @scroll="handleNotificationListScroll" >
                 <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)">
                     <img :src="image(item.poster_path)" alt="">
                 </li>
             </ul>
-                     <!-- 인기있는 영화 -->
-                     <ItemList :movieList="popularList" :type="list_type" :title="title[1]" :photo="pop_photo"></ItemList>
         </div>
     </div>
 </template>
 
 <script>
-import ItemList from './ItemList.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '../utils/axios';
@@ -53,8 +50,9 @@ export default {
         this.genreTitle = data.genres;
 
         const popular = await movieApi.popular(this.linkValue);
-            this.popularList = popular.data.results;
+            this.list = popular.data.results;
             this.pop_photo = this.popularList.map(key => key.poster_path)
+            
     },
 
     methods: {
@@ -69,6 +67,7 @@ export default {
             this.list = [];
             this.genre = value;
             const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
+            
             this.list = data.results;
         },
 
@@ -96,13 +95,14 @@ export default {
     },
     components: {
         Swiper,
-        SwiperSlide,
-        ItemList,
+        SwiperSlide
     }
 }
 </script>
 
 <style>
+.ganre_title {position:sticky;top:80px;background:#000}
 .category_list {width: auto;padding: 10px 20px;color: #fff;font-size: 20px;border-radius: 32px;cursor: pointer;background: #0372D2}
 .category_list:hover {color: #0372D2;background: #fff}
+.ganre_list {display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:60px}
 </style>
