@@ -1,6 +1,6 @@
 <template>
   <!-- 상단 -->
-  <div class="container"
+  <div class="container detail"
     :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
     <section class="detail_container">
       <div class="detail_info">
@@ -8,7 +8,6 @@
           {{ this.type ==  "movie" ? movieDetail.title : movieDetail.name }}
         </h1>
         <div class="meta">
-          <span class="badge">15</span>
           <span class="txt" v-for="list in movieDetail.genres" :key="list.id">
             {{ list.name }}
           </span>
@@ -54,39 +53,37 @@
         {{ person.original_name }}
       </swiper-slide>
     </swiper>
-  </div>
 
-  <!-- 미디어 -->
-  <div class="container">
-    <div class="tab_box">
-      <h3>미디어</h3>
+    <div class="media_container">
+      <div class="media_top">
+      <h3 class="tit">미디어</h3>
       <!-- 탭 영역 -->
-      <ul class="tab-btn-list">
+      <ul class="media_tab">
         <li v-for="(tab, index) in tabList" :key="index" :class="{ active: currentTab === index }">
-          <a href="#" @click.prevent="currentTab = index">{{ tab }} </a>
+          <button @click.prevent="currentTab = index">{{ tab }} </button>
         </li>
       </ul>
     </div>
     <!-- 미디어 1 -->
-    <div v-show="currentTab == 0" class="tab-cont">
+    <div v-show="currentTab == 0" class="media_list">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.posters">
-        <swiper-slide class="person_card" v-for="backdrops in imageList.posters" :key="backdrops.id">
+        <swiper-slide v-for="backdrops in imageList.posters" :key="backdrops.id">
           <img :src="profile(backdrops.file_path)" alt="Image 2">
         </swiper-slide>
       </swiper>
     </div>
     <!-- 미디어 2 -->
-    <div v-show="currentTab == 1" class="tab-cont">
+    <div v-show="currentTab == 1" class="media_list">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
-        <swiper-slide class="person_card" v-for="backdrops in imageList.backdrops" :key="backdrops.id">
+        <swiper-slide v-for="backdrops in imageList.backdrops" :key="backdrops.id">
           <img :src="profile(backdrops.file_path)" alt="Image 2">
         </swiper-slide>
       </swiper>
     </div>
     <!-- 미디어 3 -->
-    <div v-show="currentTab == 2" class="tab-cont">
+    <div v-show="currentTab == 2" class="media_list">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="videoLink">
-        <swiper-slide class="person_card" v-for="video in videoLink" :key="video.id">
+        <swiper-slide v-for="video in videoLink" :key="video.id">
 
           <iframe width="560" height="315" :src="`https://youtube.com/embed/${video.key}`" title="YouTube video player"
             frameborder="0"
@@ -97,14 +94,21 @@
         </swiper-slide>
       </swiper>
     </div>
+    </div>
+    
 
-  </div>
-  
-    <!-- 추천 작품 -->
+    <div class="title">
+      <h2>추천 작품</h2>
+    </div>
     <ItemList :movieList="recommendList" :type="this.type" :title="title[0]" :photo="recommend_photo"></ItemList>
+<!-- 
+    <div class="title">
+      <h2>비슷한 작품</h2>
+    </div>
+    <ItemList :movieList="similarList" :type="this.type"  :title="title[1]" :photo="similar_photo"></ItemList> -->
+  </div>
 
-    <!-- 비슷한 작품 -->
-    <ItemList :movieList="similarList" :type="this.type"  :title="title[1]" :photo="similar_photo"></ItemList>
+  
 </template>
 
 <script>
@@ -130,10 +134,10 @@ export default {
   },
   methods: {
     image(img) {
-      return `https://image.tmdb.org/t/p/w300/${img}`
+      return `https://image.tmdb.org/t/p/w400/${img}`
     },
     profile(img) {
-      return `https://image.tmdb.org/t/p/w138_and_h175_face/${img}`
+      return `https://image.tmdb.org/t/p/w185/${img}`
     },
     goPeronDetail(id) {
       this.$router.push(`/person/${id}`);
@@ -144,6 +148,8 @@ export default {
     const { type, id } = this.$route.params;
     const { data } = await movieApi.movieDetail(type, id);
     this.movieDetail = data;
+    console.log(this.movieDetail)
+
     this.type = type
 
 
@@ -186,22 +192,35 @@ export default {
 }
 </script>
 <style>
-.tab_box {display: flex;color: #fff}
+.media_container {margin:5rem 0}
+.media_container .media_top {display: flex;color: #fff;margin-bottom:2rem}
+.media_container .media_top .tit {font-size:32px}
+.media_tab {display:flex;align-items:center;margin-left:1.042vw}
+.media_tab li+li {margin-left:10px} 
+.media_tab li button {padding:6px 15px;color:#fff;font-size:16px;line-height:20px;border:1px solid #fff;border-radius:50px;background:#000}
+.media_tab li button.active {color:#000;border-color:#000;background:#fff}
+.media_list .swiper-slide {width:auto}
 .tab-btn-list {display: flex}
 .tab-btn-list a {color: #fff}
 .person_card {width: 138px}
-.person_card img {display: block;width: 100%;height: 175px;}
+.person_card img {display: block;width:100%;height: 175px;margin-bottom:15px;font-size:22px}
 .person_card h3 {margin-top: 10px;color: #fff;font-size: 16px}
 @media (max-width: 767px) {.swiper-slide {width: 120px}.person_card img {width: 120px;height: 180px}}
-.detail_container {position: relative;display: flex;margin-bottom: 110px;padding: 3.125vw 3.125vw 10.125vw;color: #fff}
+
+
+.container.detail {background-size:100%}
+.detail_container {position: relative;display: flex;padding: 3.125vw 3.125vw 10.125vw;color: #fff}
 .detail_container .detail_info {position: relative;flex: 2;margin-right: 50px;width: 100%;z-index: 1}
-.detail_container .detail_info h1 {margin-top: 50px;font-size: 40px}
-.detail_container .detail_info .meta {margin-top: 15px}
+.detail_container .detail_info h1 {margin-top:50px;font-size:52px}
+.detail_container .detail_info .meta {display:flex;align-items:center;margin-top:32px}
+.detail_container .detail_info .meta:before {display:block;margin-right:20px;width:30px;height:23px;background:url("data:image/svg+xml,%3Csvg width='30' height='23' viewBox='0 0 30 23' fill='none' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cmask id='mask0_231_5' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='30' height='23'%3E%3Crect width='30' height='22.75' fill='url(%23pattern0)'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_231_5)'%3E%3Crect width='30' height='22.75' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3Cpattern id='pattern0' patternContentUnits='objectBoundingBox' width='1' height='1'%3E%3Cuse xlink:href='%23image0_231_5' transform='translate(0 -0.0151099) scale(0.00195312 0.00257555)'/%3E%3C/pattern%3E%3Cimage id='image0_231_5' width='512' height='400' xlink:href='data:image/png;base64,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'/%3E%3C/defs%3E%3C/svg%3E%0A") center no-repeat;content:''}
+.detail_container .detail_info .meta .txt {display:flex;align-items:center;font-size:22px}
+.detail_container .detail_info .meta .txt+.txt:before {display:block;margin:0 10px;width:3px;height:3px;border-radius:50%;background:#fff;content:''}
 .detail_container .detail_info .meta .badge {display: inline-block;margin-right: 8px;padding: 0 8px;color: #fff;font-size: 14px;line-height: 20px;border: 1px solid #fff;border-radius: 4px;background: #000}
 .detail_container .detail_info .trailer {margin-top: 30px;display: inline-block;padding: 20px 0;width: 315px;font-size: 24px;border-radius: 4px;text-align: center;background: #fff}
 .detail_container .detail_info .comment {position: absolute;bottom: 0}
-.detail_container .detail_info .comment .quotes {margin-bottom: 32px;color: #3A7CDF;font-size: 24px;font-style: italic;}
-.detail_container .detail_info .comment .intro {display: -webkit-box;font-size: 20px;line-height: 24px;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
+.detail_container .detail_info .comment .quotes {margin-bottom: 32px;color: #3A7CDF;font-size: 30px;font-style: italic;}
+.detail_container .detail_info .comment .intro {display: -webkit-box;font-size: 24px;line-height:34px;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
 .detail_container .detail_poster {position: relative;display: flex;justify-content: flex-end;flex: 1;width: 100%;z-index: 1}
 .detail_container .detail_poster picture {margin-left: 30px}
 .detail_container .detail_poster .social_links li {display: flex;align-items: center;justify-content: center;width: 72px;height: 72px;border-radius: 50%;background: #fff}
