@@ -8,7 +8,7 @@
                 </swiper-slide>
             </swiper>
 
-            <ul class="ganre_list" v-if="list" @scroll="handleNotificationListScroll" >
+            <ul class="ganre_list" v-if="list" @scroll="handleNotificationListScroll">
                 <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)">
                     <img :src="image(item.poster_path)" alt="">
                 </li>
@@ -36,11 +36,11 @@ export default {
             weekList: {},
             popularList: {},
             list_type: 'movie',
-            isActive:false,
-            selected:'',
-            typeList:['영화','TV'],
+            isActive: false,
+            selected: '',
+            typeList: ['영화', 'TV'],
             title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
-   
+
         };
     },
 
@@ -50,15 +50,20 @@ export default {
         this.genreTitle = data.genres;
 
         const popular = await movieApi.popular(this.linkValue);
-            this.list = popular.data.results;
-            this.pop_photo = this.popularList.map(key => key.poster_path)
-            
+        this.list = popular.data.results;
+
+        // this.list.forEach(function(value) {
+        //         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+        //         // value.title === korean ? this.list.splice(idx,1) : '' ;
+        //         value.title === korean ? value.style.color='red' : value.style.color='blue'
+        //     });
+
     },
 
     methods: {
-        select(e){
-      this.selected = e
-      },
+        select(e) {
+            this.selected = e
+        },
 
         // 데이터가 두번 도는거 난중에 해결
         // Ganre List - Click
@@ -67,8 +72,11 @@ export default {
             this.list = [];
             this.genre = value;
             const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
-            
+
+
             this.list = data.results;
+            
+        
         },
 
         // Scroll

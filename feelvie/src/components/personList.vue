@@ -50,8 +50,4 @@ export default {
 </script>
 
 <style>
-.item_card {width: 220px}
-.item_card img {display:block;width:100%;height:330px}
-.item_card h3 {margin-top: 10px;color: #fff;font-size: 16px}
-@media (max-width: 767px) {.swiper-slide {width: 120px}.item_card img {width: 120px;height: 180px}}
 </style>
