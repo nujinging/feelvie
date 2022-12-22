@@ -16,8 +16,12 @@ const routes =  [
   { path: "/person/:id", component: personDetail}
 ]
 
+// 라우터 이동 시 스크롤 최상단
 const router = createRouter({
   history :createWebHistory(),
+  scrollBehavior(){
+    return { top: 0 }
+  },
   routes
 })
 

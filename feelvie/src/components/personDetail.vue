@@ -40,10 +40,8 @@
                 
                 <ItemList :movieList="knownWork" :title="title" :photo="knownWork_photo"></ItemList>
             </div>
-           
         </section>
 
-   
 
         <!-- 작품 리스트 -->
         <section class="work">
@@ -185,12 +183,11 @@ export default {
 .work .work_list li:hover .tit {color:#4876ef}
 .work .work_list li+li {margin-top:15px}
 .work .work_list li .char {margin-left:auto}
-
 .work_top {display:flex;align-items:center;margin-bottom:30px}
 .work_top h3 {font-size:26px;font-weight:bold}
 .type_list {display:flex;align-items:center;margin-left:1.042vw}
 .type_list li+li {margin-left:10px} 
-.type_list li button {padding:6px 15px;color:#fff;font-size:16px;line-height:20px;border:1px solid #fff;border-radius:50px;background:#000}
+.type_list li button {display:flex;align-items:center;height:40px;padding:0 15px;color:#fff;font-size:22px;border:1px solid #fff;border-radius:50px;background:#000}
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
 </style>
 
