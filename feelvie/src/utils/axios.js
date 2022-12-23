@@ -53,7 +53,7 @@ export const movieApi = {
   movieDetail: (type, id) => request.get(`${type}/${id}`),
 
   // 가장 인기있는 
-  popularTv: () => request.get(`/tv/popular`),
+  popularTv: (type) => request.get(`/${type}/popular`),
 
   search: (keyword) =>
     request.get("search/multi", {
