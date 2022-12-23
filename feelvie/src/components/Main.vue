@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <swiper :pagination="pagination" :modules="modules"  class="mySwiper home_banner">
-      <swiper-slide v-for="list in popularTv" :key='list.id'
+    <swiper :pagination="pagination" :navigation="true" :modules="modules"  class="mySwiper home_banner">
+      <swiper-slide v-for="list in list" :key='list.id'
         :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + list.backdrop_path + ')' }"
-        @click="goDetail(list.id)">
+        @click="goDetail(list_type, list.id)">
         <div class="banner_txt">
-          <h2 class="tit" v-if="list.name"> {{ list.name }}</h2>
+          <h2 class="tit"> {{ list.title }} </h2>
+          
           <p> {{ list.overview }}</p>
         </div>
       </swiper-slide>
@@ -57,7 +58,8 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import ItemList from './ItemList.vue'
-import { Pagination } from "swiper";
+import "swiper/css/navigation";
+import { Pagination, Navigation } from "swiper";
 import { movieApi } from '../utils/axios';
 
 export default {
@@ -70,8 +72,11 @@ export default {
 
       title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
       popularTv: [],
+      popularMovie: [],
       dayList: [],
       list_type: 'movie',
+      list:[],
+      list2: [],
       weekList: [],
       nowType: '',
       listInfo:
@@ -83,8 +88,8 @@ export default {
     }
   },
   methods: {
-    goDetail(id) {
-      this.$router.push(`/detail/${id}`);
+    goDetail(type, id) {
+      this.$router.push(`/${type}/${id}`);
     },
 
     async ganreTab(id, nowType) {
@@ -128,8 +133,11 @@ export default {
 
 
     // 배너
-    const popularTv = await movieApi.popularTv();
-    this.popularTv = popularTv.data.results.splice(0, 5);
+    const popularTv = await movieApi.popularTv('movie');
+    this.popularTv = popularTv.data.results;
+    const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+    this.list = this.popularTv.filter(value => korean.test(value.title) && korean.test(value.overview)).splice(0, 5);
 
     this.backGround = this.popularTv.backdrop_path
   },
@@ -141,7 +149,7 @@ export default {
           return '<span class="' + className + '">' + `<span class="blind">` + (index + 1) + `</span>` + "</span>";
         },
       },
-      modules: [Pagination],
+      modules: [Navigation, Pagination],
     };
   },
 }
@@ -151,9 +159,16 @@ export default {
 .home_banner {position:relative;height:600px;margin-bottom:100px}
 .home_banner .banner_txt {position:absolute;left:50px;bottom:50px}
 .home_banner .banner_txt .tit {font-size:40px}
-.home_banner .banner_txt p {margin-top:30px;font-size:22px}
+.home_banner .banner_txt p {margin-top:30px;font-size:24px;line-height:34px}
+
+.swiper-button-prev,
+.swiper-button-next {width:100px;height:150px;transform:translateY(-50%);z-index:10}
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {pointer-events:auto}
+
+
 .swiper-pagination {display:flex;justify-content:center;margin:15px auto 0}
 .swiper-pagination-bullet {display:block;width:16px;height:16px;border-radius:8px;background:#fff;cursor:pointer}
 .swiper-pagination-bullet+.swiper-pagination-bullet {margin-left:8px}
 .swiper-pagination-bullet.swiper-pagination-bullet-active {background:red}
+
 </style>
