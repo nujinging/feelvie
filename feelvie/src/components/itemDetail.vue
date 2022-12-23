@@ -205,7 +205,6 @@ export default {
 .person_card {width: 138px}
 .person_card img {display: block;width:100%;height: 175px;margin-bottom:15px;font-size:22px}
 .person_card h3 {margin-top: 10px;color: #fff;font-size: 16px}
-@media (max-width: 767px) {.swiper-slide {width: 120px}.person_card img {width: 120px;height: 180px}}
 
 
 .container.detail {background-size:100%}
@@ -231,7 +230,6 @@ export default {
 .detail_container .detail_poster .social_links li a.instargram {background: url(./../assets/icon_instagram.png) center no-repeat}
 .detail_container::before {content: "";position: absolute;inset: -10rem;background-color: rgba(0, 0, 0, 0.5);}
 .detail_container::after {content: "";position: absolute;bottom: -2px;left: -1rem;right: -1rem;height: 25rem;background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));}
-@media (max-width: 1024px) {.detail_container {position: relative;margin-bottom: 50px}.detail_container .detail_info {margin-right: 20px}.detail_container .detail_info h1 {margin-top: 0;font-size: 32px}.detail_container .detail_info .trailer {margin-top: 15px;padding: 15px 0;width: 150px;font-size: 16px}.detail_container .detail_info .meta+.comment {margin-top: 66px}.detail_container .detail_info .comment {position: relative;margin-top: 15px}.detail_container .detail_info .comment .quotes {margin-bottom: 15px;font-size: 16px}.detail_container .detail_info .comment .intro {font-size: 16px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;}.detail_container .detail_poster picture {margin-left: 15px}.detail_container .detail_poster picture img {width: 200px}.detail_container .detail_poster .social_links li+li {margin-top: 10px}.detail_container .detail_poster .social_links li {width: 32px;height: 32px}.detail_container .detail_poster .social_links li a {width: 24px;height: 24px;}}
-@media (max-width: 767px) {.detail_container {position: relative;margin-bottom: 50px;display: block}.detail_container .detail_info {margin-right: 20px}.detail_container .detail_info h1 {margin-top: 0;font-size: 28px}.detail_container .detail_info .trailer {margin-top: 15px;padding: 10px 0;width: 150px;font-size: 16px}.detail_container .detail_info .meta+.comment {margin-top: 66px}.detail_container .detail_info .comment {position: relative;margin-top: 15px}.detail_container .detail_info .comment .quotes {margin-bottom: 15px;font-size: 16px}.detail_container .detail_info .comment .intro {font-size: 16px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;}.detail_container .detail_poster {display: block}.detail_container .detail_poster picture {position: absolute;top: 0;right: 20px;margin-left: 10px}.detail_container .detail_poster picture img {width: 100px}.detail_container .detail_poster .social_links {margin-top: 20px;display: flex}.detail_container .detail_poster .social_links li+li {margin-top: 0;margin-left: 10px}.detail_container .detail_poster .social_links li {width: 32px;height: 32px}.detail_container .detail_poster .social_links li a {width: 24px;height: 24px;}}
+
 </style>
 
