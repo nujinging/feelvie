@@ -9,8 +9,9 @@
             </swiper>
 
             <ul class="ganre_list" v-if="list" @scroll="handleNotificationListScroll">
-                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)">
+                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)" class="list_card">
                     <img :src="image(item.poster_path)" alt="">
+                    <p class="tit"> {{ this.linkValue ==  "movie" ? item.title : item.name }} </p>
                 </li>
             </ul>
         </div>
@@ -113,4 +114,7 @@ export default {
 .category_list {width: auto;padding: 10px 20px;color: #fff;font-size: 20px;border-radius: 32px;cursor: pointer;background: #0372D2}
 .category_list:hover {color: #0372D2;background: #fff}
 .ganre_list {display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:60px}
+.ganre_list .tit {margin-top:15px;color: #d5d5d5;font-size:22px;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list_card img {border-radius:8px}
+.list_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
 </style>
