@@ -50,7 +50,7 @@ export default {
 .item_container {padding:3.888rem}
 .item_card {width:18.75rem}
 .swiper {overflow:visible}
-.swiper+.title {margin-top:5rem}
+.swiper+.title {margin-top:3.125rem}
 .swiper-wrapper {transform: translateZ(0)}
 .item_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
 .item_card img {display:block;width:100%;height:28.125rem;border-radius:0.5rem}

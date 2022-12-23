@@ -3,7 +3,7 @@
     <swiper :pagination="pagination" :navigation="true" :modules="modules"  class="mySwiper home_banner">
       <swiper-slide v-for="list in list" :key='list.id'
         :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + list.backdrop_path + ')' }"
-        @click="goDetail(list_type, list.id)">
+        @click="goDetail(list_type, list.id)" class="banner">
         <div class="banner_txt">
           <h2 class="tit"> {{ list.title }} </h2>
           
@@ -159,12 +159,13 @@ export default {
 .home_banner {position:relative;height:37.5rem;margin-bottom:6.25rem}
 .home_banner .banner_txt {position:absolute;left:3.125rem;bottom:3.125rem}
 .home_banner .banner_txt .tit {font-size:2.5rem}
-.home_banner .banner_txt p {margin-top:1.875rem;width:calc(100% - 3.125rem);font-size:1.5rem;line-height:2.125rem}
+.home_banner .banner_txt p {margin-top:1.875rem;width:calc(100% - 3.125rem);font-size:1.5rem;line-height:2.125rem;display:-webkit-box;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
+
+.banner {background-size:cover;background-position:center}
 
 .swiper-button-prev,
 .swiper-button-next {width:6.25rem;height:9.375rem;transform:translateY(-50%);z-index:10}
 .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {pointer-events:auto}
-
 
 .swiper-pagination {display:flex;justify-content:center;margin:15px auto 0}
 .swiper-pagination-bullet {display:block;width:1rem;height:1rem;border-radius:0.5rem;background:#fff;cursor:pointer}
