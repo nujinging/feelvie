@@ -54,7 +54,6 @@ export default {
             } else {
               return `https://image.tmdb.org/t/p/w300/${img}`
             }
-            
         },
 
         // Detail Page

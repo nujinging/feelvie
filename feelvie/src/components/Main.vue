@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <swiper :pagination="{
-      dynamicBullets: true,
-    }" :modules="modules" class="mySwiper home_banner">
+    <swiper :pagination="pagination" :modules="modules"  class="mySwiper home_banner">
       <swiper-slide v-for="list in popularTv" :key='list.id'
         :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + list.backdrop_path + ')' }"
         @click="goDetail(list.id)">
@@ -99,7 +97,6 @@ export default {
 
       this.now_photo = this.nowPlaying.map(key => key.poster_path)
       this.top_photo = this.TopRatedList.map(key => key.poster_path)
-
       
     }
   },
@@ -115,10 +112,8 @@ export default {
     const TopRated = await movieApi.TopRated(this.list_type);
     this.TopRatedList = TopRated.data.results;
 
-
     this.now_photo = this.nowPlaying.map(key => key.poster_path)
     this.top_photo = this.TopRatedList.map(key => key.poster_path)
-
 
 
     // 기존에 뿌려주고 클릭 시 재랜더링...!?!!!
@@ -131,13 +126,21 @@ export default {
     this.day_photo = this.dayList.map(key => key.poster_path)
     this.week_photo = this.weekList.map(key => key.poster_path)
 
+
+    // 배너
     const popularTv = await movieApi.popularTv();
-    this.popularTv = popularTv.data.results;
+    this.popularTv = popularTv.data.results.splice(0, 5);
 
     this.backGround = this.popularTv.backdrop_path
   },
   setup() {
     return {
+      pagination: {
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + `<span class="blind">` + (index + 1) + `</span>` + "</span>";
+        },
+      },
       modules: [Pagination],
     };
   },
@@ -149,4 +152,8 @@ export default {
 .home_banner .banner_txt {position:absolute;left:50px;bottom:50px}
 .home_banner .banner_txt .tit {font-size:40px}
 .home_banner .banner_txt p {margin-top:30px;font-size:22px}
+.swiper-pagination {display:flex;justify-content:center;margin:15px auto 0}
+.swiper-pagination-bullet {display:block;width:16px;height:16px;border-radius:8px;background:#fff;cursor:pointer}
+.swiper-pagination-bullet+.swiper-pagination-bullet {margin-left:8px}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {background:red}
 </style>
