@@ -54,4 +54,8 @@ body {color:#fff;background:#000}
 .container .item_container+.item_container {margin-top:30px} */
 .title {display:flex;align-items:center;margin-bottom:30px}
 .title h2 {color:#fff;font-size:32px;line-height:40px;font-weight:bold}
+@media (max-width: 767px) {
+  .title h2 {font-size:20px}
+  
+}
 </style>

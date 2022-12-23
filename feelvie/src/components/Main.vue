@@ -171,4 +171,16 @@ export default {
 .swiper-pagination-bullet+.swiper-pagination-bullet {margin-left:8px}
 .swiper-pagination-bullet.swiper-pagination-bullet-active {background:red}
 
+
+@media (max-width: 767px) {
+
+  .home_banner {height:300px;margin-bottom:50px}
+  .swiper-slide {background-size:cover;background-position:center}
+  .home_banner .banner_txt {left:25px;bottom:25px;width:calc(100vw - 75px)}
+  .home_banner .banner_txt .tit {font-size:20px}
+  .home_banner .banner_txt p {margin-top:15px;font-size:16px;line-height:24px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box; -webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+
+
+  .swiper-pagination-bullet {width:12px;height:12px}
+}
 </style>

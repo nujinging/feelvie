@@ -189,5 +189,12 @@ export default {
 .type_list li+li {margin-left:10px} 
 .type_list li button {display:flex;align-items:center;height:40px;padding:0 15px;color:#fff;font-size:22px;border:1px solid #fff;border-radius:50px;background:#000}
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
+
+
+@media (max-width: 767px) {
+    .type_list {margin-left:1rem}
+    .type_list li button {height:30px;padding:0px 8px;font-size:16px}
+}
+
 </style>
 
