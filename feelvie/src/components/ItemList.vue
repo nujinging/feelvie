@@ -48,12 +48,12 @@ export default {
 
 <style>
 .item_container {padding:3.888rem}
-.item_card {width:300px}
+.item_card {width:18.75rem}
 .swiper {overflow:visible}
 .swiper+.title {margin-top:5rem}
 .swiper-wrapper {transform: translateZ(0)}
 .item_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
-.item_card img {display:block;width:100%;height:450px;border-radius:8px}
-.item_card h3 {margin-top:15px;color: #d5d5d5;font-size:22px;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item_card img {display:block;width:100%;height:28.125rem;border-radius:0.5rem}
+.item_card h3 {margin-top:0.938rem;color: #d5d5d5;font-size:1.375rem;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 </style>

@@ -185,9 +185,9 @@ export default {
 .work .work_list li .char {margin-left:auto}
 .work_top {display:flex;align-items:center;margin-bottom:30px}
 .work_top h3 {font-size:26px;font-weight:bold}
-.type_list {display:flex;align-items:center;margin-left:1.042vw}
-.type_list li+li {margin-left:10px} 
-.type_list li button {display:flex;align-items:center;height:40px;padding:0 15px;color:#fff;font-size:22px;border:1px solid #fff;border-radius:50px;background:#000}
+.type_list {display:flex;align-items:center;margin-left:0.938rem}
+.type_list li+li {margin-left:0.625rem} 
+.type_list li button {display:flex;align-items:center;height:2.5rem;padding:0 0.938rem;color:#fff;font-size:1.375rem;border:1px solid #fff;border-radius:3.125rem;background:#000}
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
 
 
