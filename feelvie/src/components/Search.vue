@@ -74,11 +74,4 @@ export default {
 .search_list {display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:60px}
 .search_list li {display:inline-block}
 .search_list .tit {margin-top:15px;color: #d5d5d5;font-size:22px;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media (max-width: 1024px) {
-  
-}
-@media (max-width: 767px) {
-  .search_container .search_input .search_txt {font-size:18px}
-  .search_container .search_input .icon_search {bottom:12px;width:25px;height:25px;background-size:20px}
-}
 </style>

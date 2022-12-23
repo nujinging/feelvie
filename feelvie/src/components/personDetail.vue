@@ -191,10 +191,6 @@ export default {
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
 
 
-@media (max-width: 767px) {
-    .type_list {margin-left:1rem}
-    .type_list li button {height:30px;padding:0px 8px;font-size:16px}
-}
 
 </style>
 

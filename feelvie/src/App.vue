@@ -19,8 +19,9 @@ export default {
 </script>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-html { font-family: 'Noto Sans KR', sans-serif;}
+html { font-family: 'Noto Sans KR', sans-serif;font-size:12px}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -54,8 +55,5 @@ body {color:#fff;background:#000}
 .container .item_container+.item_container {margin-top:30px} */
 .title {display:flex;align-items:center;margin-bottom:30px}
 .title h2 {color:#fff;font-size:32px;line-height:40px;font-weight:bold}
-@media (max-width: 767px) {
-  .title h2 {font-size:20px}
-  
-}
+
 </style>
