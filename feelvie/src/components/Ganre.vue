@@ -8,10 +8,10 @@
                 </swiper-slide>
             </swiper>
 
-            <ul class="ganre_list" v-if="list" @scroll="handleNotificationListScroll">
-                <li v-for="item in list" :key="item.id" @click="goDetail(this.linkValue, item.id)" class="list_card">
+            <ul class="ganre_list" v-if="list2" @scroll="handleNotificationListScroll">
+                <li v-for="item in list2" :key="item.id" @click="goDetail(this.linkValue, item.id)" class="list_card">
                     <img :src="image(item.poster_path)" alt="">
-                    <p class="tit"> {{ this.linkValue ==  "movie" ? item.title : item.name }} </p>
+                    <p class="tit"> {{ this.linkValue == "movie" ? item.title : item.name }} </p>
                 </li>
             </ul>
         </div>
@@ -29,6 +29,7 @@ export default {
     data() {
         return {
             list: {},
+            list2: {},
             page: 1,
             genreTitle: {},
             genre: '',
@@ -39,6 +40,7 @@ export default {
             list_type: 'movie',
             isActive: false,
             selected: '',
+            result:'',
             typeList: ['영화', 'TV'],
             title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
 
@@ -53,12 +55,9 @@ export default {
         const popular = await movieApi.popular(this.linkValue);
         this.list = popular.data.results;
 
-        // this.list.forEach(function(value) {
-        //         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-        //         // value.title === korean ? this.list.splice(idx,1) : '' ;
-        //         value.title === korean ? value.style.color='red' : value.style.color='blue'
-        //     });
-
+        const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+        this.list2 = this.list.filter(value => korean.test(value.name));
+        console.log(this.list2)
     },
 
     methods: {
@@ -73,11 +72,10 @@ export default {
             this.list = [];
             this.genre = value;
             const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
-
-
             this.list = data.results;
-            
-        
+            const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+            this.list2 = this.list.filter(value => korean.test(value.name));
+            console.log(this.list2)
         },
 
         // Scroll
