@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       movieList: '',
+      images: ['image_none.png']
     };
   },
   methods: {
@@ -45,11 +46,15 @@ export default {
       const { data } = await movieApi.search(e.target.value);
       this.movieList = data.results;
       this.search_photo = this.movieList.map(key => key.poster_path)
-      console.log(this.movieList)
     },100),
          // List Image
          image(img) {
-            return `https://image.tmdb.org/t/p/w300/${img}`
+            if (img == undefined) {
+              return require(`@/assets/${this.images}`)
+            } else {
+              return `https://image.tmdb.org/t/p/w300/${img}`
+            }
+            
         },
 
         // Detail Page
