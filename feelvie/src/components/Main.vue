@@ -156,19 +156,19 @@ export default {
 </script>
 
 <style>
-.home_banner {position:relative;height:600px;margin-bottom:100px}
-.home_banner .banner_txt {position:absolute;left:50px;bottom:50px}
-.home_banner .banner_txt .tit {font-size:40px}
-.home_banner .banner_txt p {margin-top:30px;font-size:24px;line-height:34px}
+.home_banner {position:relative;height:37.5rem;margin-bottom:6.25rem}
+.home_banner .banner_txt {position:absolute;left:3.125rem;bottom:3.125rem}
+.home_banner .banner_txt .tit {font-size:2.5rem}
+.home_banner .banner_txt p {margin-top:1.875rem;width:calc(100% - 3.125rem);font-size:1.5rem;line-height:2.125rem}
 
 .swiper-button-prev,
-.swiper-button-next {width:100px;height:150px;transform:translateY(-50%);z-index:10}
+.swiper-button-next {width:6.25rem;height:9.375rem;transform:translateY(-50%);z-index:10}
 .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {pointer-events:auto}
 
 
 .swiper-pagination {display:flex;justify-content:center;margin:15px auto 0}
-.swiper-pagination-bullet {display:block;width:16px;height:16px;border-radius:8px;background:#fff;cursor:pointer}
-.swiper-pagination-bullet+.swiper-pagination-bullet {margin-left:8px}
+.swiper-pagination-bullet {display:block;width:1rem;height:1rem;border-radius:0.5rem;background:#fff;cursor:pointer}
+.swiper-pagination-bullet+.swiper-pagination-bullet {margin-left:0.5rem}
 .swiper-pagination-bullet.swiper-pagination-bullet-active {background:red}
 
 </style>

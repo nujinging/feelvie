@@ -21,7 +21,8 @@ export default {
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-html { font-family: 'Noto Sans KR', sans-serif;font-size:12px}
+* {box-sizing:border-box}
+html { font-family: 'Noto Sans KR', sans-serif;font-size:16px}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -48,12 +49,34 @@ table {border-collapse: collapse;border-spacing: 0;}
 button {border:none}
 body {color:#fff;background:#000}
 .blind {overflow:hidden;clip:rect(1px,1px,1px,1px);position:absolute !important;width:1px;height:1px}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: calc(6px + .5vw);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: calc(6px + .5vw);
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: calc(6px + .5vw);
+  }
+}
 .container {overflow:hidden}
+
+
+
 /* 
 .container {padding-top:69px}
 .container .item_container {position:relative;padding:3.125vw 0 0 3.125vw}
 .container .item_container+.item_container {margin-top:30px} */
-.title {display:flex;align-items:center;margin-bottom:30px}
-.title h2 {color:#fff;font-size:32px;line-height:40px;font-weight:bold}
+.title {display:flex;align-items:center;margin-bottom:1.875rem}
+.title h2 {color:#fff;font-size:1.438rem;line-height:2.5rem;font-weight:bold}
 
 </style>
