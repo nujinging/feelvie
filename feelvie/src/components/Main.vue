@@ -22,10 +22,17 @@
                 <h2>지금 상영중이에요!</h2>
                 <ul class="type_list">
                     <li>
-                        <button type="button" @click="ganreTab('movie', 'now_playing')">영화</button>
+                        <button type="button" class="active"
+                            @click="ganreTab('movie', 'now_playing', $event)">영화</button>
                     </li>
                     <li>
-                        <button type="button" @click="ganreTab('tv', 'on_the_air')">TV</button>
+                        <button type="button" class="" @click="ganreTab('tv', 'on_the_air', $event)">TV</button>
+                    </li>
+                </ul>
+                <ul class="type_list">
+                    <li v-for="btnList in btnList" :key="btnList.id">
+                        <button type="button" @click="ganreTab(btnList.type, btnList.test, $event)"> {{ btnList.title
+                        }}</button>
                     </li>
                 </ul>
             </div>
@@ -87,8 +94,13 @@ export default {
                     { title: '인기있는 영화', photo: this.pop_photo },
                     { title: '최고의 등급', photo: this.pop_photo },
                 ],
-                modal : false,
-                genreTitle: ''
+            modal: false,
+            genreTitle: '',
+            selected: '',
+            btnList: [
+                { title: '영화', type: 'movie', test: 'now_playing' },
+                { title: 'TV프로그램', type: 'tv', test: 'on_the_air' }
+            ],
         }
     },
     methods: {
@@ -96,18 +108,21 @@ export default {
             this.$router.push(`/${type}/${id}`);
         },
 
-        async ganreTab(id, nowType) {
+        async ganreTab(id, nowType, e) {
             this.list_type = id;
             const now = await movieApi.nowPlaying(this.list_type, nowType);
             this.nowPlaying = now.data.results;
 
-            console.log(this.list_type)
-
-
             this.now_photo = this.nowPlaying.map(key => key.poster_path)
             this.top_photo = this.TopRatedList.map(key => key.poster_path)
 
-        }
+
+            this.btnList.forEach(item => { 
+                item.classList.contains('active') ? console.log('1') : console.log('2')
+            })
+
+            e.target.classList.contains('active') ? e.target.classList.remove('active') : e.target.classList.add('active')
+        },
     },
     components: {
         Swiper,
@@ -116,9 +131,9 @@ export default {
         Modal
     },
     async mounted() {
+
         const now = await movieApi.nowPlaying(this.list_type, 'now_playing');
         this.nowPlaying = now.data.results;
-        console.log(this.nowPlaying)
         const TopRated = await movieApi.TopRated(this.list_type);
         this.TopRatedList = TopRated.data.results;
 
@@ -146,17 +161,15 @@ export default {
 
         const genre = await movieApi.genre('movie');
         this.genreTitle = genre.data.genres;
-        console.log(this.genreTitle)
+        // // 장르
+        // const bannerGenre = this.list.forEach(item => {
+        //     this.genreTitle.forEach(genre => {
+        //         console.log(item.genre_ids)
+        //         console.log(genre)
+        //     })
+        // })
 
-        // 장르
-        const bannerGenre = this.list.forEach(item => {
-            this.genreTitle.forEach(genre => {
-                console.log(item.genre_ids)
-                console.log(genre)
-            })
-        })
-
-        console.log(bannerGenre)
+        // console.log(bannerGenre)
 
         this.backGround = this.popularTv.backdrop_path
     },
@@ -198,6 +211,7 @@ background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));}
 .swiper-pagination-bullet {display:block;width:1rem;height:1rem;border-radius:0.5rem;background:#fff;cursor:pointer}
 .swiper-pagination-bullet+.swiper-pagination-bullet {margin-left:0.5rem}
 .swiper-pagination-bullet.swiper-pagination-bullet-active {background:red}
+
 
 
 

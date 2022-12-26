@@ -22,6 +22,7 @@
         <li v-for="item in movieList" :key="item.id" @click="goDetail(item.media_type, item.id)" class="list_card">
           <img :src="image(item.poster_path)" alt="">
           <p class="tit"> {{ item.title }}</p>
+          <p class="tit" v-if="this.movieListName == searchResult">{{ searchResult  }}</p>
         </li>
       </ul>
     </div>
@@ -41,7 +42,8 @@ export default {
       movieList: '',
       images: ['image_none.png'],
       searchResult: '',
-      searchNone: false
+      searchNone: false,
+      test: ''
     };
   },
   methods: {
@@ -56,8 +58,10 @@ export default {
       this.search_photo = this.movieList.map(key => key.poster_path);
       // 검색결과가 없을 때
       this.searchNone = this.movieList.length === 0 ? true : false;
+
+      this.movieListName = this.movieList.map(key => key.title)
     }, 100),
-    
+
     image(img) {
       if (img == undefined) {
         // 이미지 없을 때
