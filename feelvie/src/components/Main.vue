@@ -87,7 +87,8 @@ export default {
                     { title: '인기있는 영화', photo: this.pop_photo },
                     { title: '최고의 등급', photo: this.pop_photo },
                 ],
-                modal : true
+                modal : false,
+                genreTitle: ''
         }
     },
     methods: {
@@ -140,8 +141,22 @@ export default {
         const popularTv = await movieApi.popularTv('movie');
         this.popularTv = popularTv.data.results;
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-
         this.list = this.popularTv.filter(value => korean.test(value.title) && korean.test(value.overview)).splice(0, 5);
+
+
+        const genre = await movieApi.genre('movie');
+        this.genreTitle = genre.data.genres;
+        console.log(this.genreTitle)
+
+        // 장르
+        const bannerGenre = this.list.forEach(item => {
+            this.genreTitle.forEach(genre => {
+                console.log(item.genre_ids)
+                console.log(genre)
+            })
+        })
+
+        console.log(bannerGenre)
 
         this.backGround = this.popularTv.backdrop_path
     },
@@ -162,13 +177,19 @@ export default {
 </script>
 
 <style>
-.home_banner {position:relative;height:37.5rem;margin-bottom:6.25rem}
-.home_banner .banner_txt {position:absolute;left:3.125rem;bottom:3.125rem}
+.home_banner {position:relative;height:43.75rem;margin-bottom:6.25rem}
+.home_banner .banner_txt {position:absolute;left:3.125rem;bottom:3.125rem;z-index:10}
 .home_banner .banner_txt .tit {font-size:2.5rem}
 .home_banner .banner_txt p {margin-top:1.875rem;width:calc(100% - 3.125rem);font-size:1.5rem;line-height:2.125rem;display:-webkit-box;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
 
 .banner {background-size:cover;background-position:center}
-
+.banner:after{content: "";
+display: block;
+position: absolute;
+bottom: 0px;
+width: 100%;
+padding-bottom: 15.833rem;
+background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));}
 .swiper-button-prev,
 .swiper-button-next {width:6.25rem;height:9.375rem;transform:translateY(-50%);z-index:10}
 .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {pointer-events:auto}
