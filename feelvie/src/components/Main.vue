@@ -190,7 +190,7 @@ export default {
 </script>
 
 <style>
-.home_banner {position:relative;height:43.75rem;margin-bottom:6.25rem}
+.home_banner {position:relative;height:48.75rem;margin-bottom:2.25rem}
 .home_banner .banner_txt {position:absolute;left:3.125rem;bottom:3.125rem;z-index:10}
 .home_banner .banner_txt .tit {font-size:2.5rem}
 .home_banner .banner_txt p {margin-top:1.875rem;width:calc(100% - 3.125rem);font-size:1.5rem;line-height:2.125rem;display:-webkit-box;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}

@@ -203,7 +203,7 @@ export default {
 .tab-btn-list {display: flex}
 .tab-btn-list a {color: #fff}
 .person_card {width: 138px}
-.person_card img {display: block;width:100%;height: 175px;margin-bottom:15px;font-size:22px}
+.person_card img {display: block;width:100%;margin-bottom:15px;font-size:22px}
 .person_card h3 {margin-top: 10px;color: #fff;font-size: 16px}
 
 
@@ -234,16 +234,20 @@ export default {
 
 
 @media screen and (max-width: 768px) {
-  .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse}
+  .container.detail {background-size:cover;background-position:center}
+  .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;padding-bottom:0}
   .detail_container .detail_info {margin:0;text-align:center}
   .detail_container .detail_info h1 {margin-top:0}
   .detail_container .detail_info .meta {justify-content:center}
   .detail_container .detail_info .comment .quotes {margin-top:2rem}
-  .detail_container .detail_poster {justify-content:center;margin-bottom:3rem;padding:7rem 0}
-  .detail_container .detail_poster .social_links {position:absolute;bottom:0;display:flex}
+  .detail_container .detail_info .comment .intro {margin:0 2rem}
+  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:1.5rem;padding:6rem 0 1rem}
+  .detail_container .detail_poster .social_links {display:flex;justify-content:center;margin-top:2rem}
   .detail_container .detail_poster .social_links li+li {margin-top:0;margin-left:0.938rem}
-  .detail_container .detail_poster picture {margin:0;width:15rem}
+  .detail_container .detail_poster picture {margin:0 auto;width:15rem}
   .detail_container .detail_info .comment {position:relative}
+
+  .person_card  {width:75px}
 }
 </style>
 
