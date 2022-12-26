@@ -145,6 +145,8 @@ export default {
 
         this.backGround = this.popularTv.backdrop_path
     },
+
+    // 페이지네이션
     setup() {
         return {
             pagination: {
