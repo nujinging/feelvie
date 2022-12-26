@@ -9,8 +9,8 @@
           </button>
         </label>
       </form>
-
-      <div class="search_none" v-if="this.movieList.length === 0">
+      
+      <div class="search_none" v-if="searchNone">
         검색결과가 없습니다.
       </div>
     </section>
@@ -38,19 +38,23 @@ export default {
     return {
       movieList: '',
       images: ['image_none.png'],
-      searchResult: ''
+      searchResult: '',
+      searchNone : false
     };
   },
   methods: {
-    // 값을 입력하고 0.5초 뒤 api 호출
-
-    
+    // 값을 입력하고 0.1초 뒤 api 호출
     autoSearch: debounce(async function (e) {
       const searchText = e.target.value;
-      // 공백제거해서 공백이 없거나 달라도 검색되게
+      // 공백이 없거나 달라도 검색되게 공백제거
       const searchResult = searchText.replace(/(\s*)/g, "");
       const { data } = await movieApi.search(searchResult);
+    
       this.movieList = data.results;
+
+
+      this.searchNone = this.movieList.length === 0 ? true : false;
+      
       this.search_photo = this.movieList.map(key => key.poster_path)
     },100),
          // List Image
