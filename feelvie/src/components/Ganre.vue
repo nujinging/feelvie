@@ -3,7 +3,7 @@
         <div class="item_container">
             <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper ganre_title" v-if="genreTitle">
                 <swiper-slide class="category_list" v-for="genreList in genreTitle" :key="genreList.id"
-                    @click="GenreList(genreList.id)">
+                    @click="GenreList(genreList.id)"  :class="{ active: isActive }">
                     {{ genreList.name }}
                 </swiper-slide>
             </swiper>
@@ -43,7 +43,6 @@ export default {
             result:'',
             typeList: ['영화', 'TV'],
             title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
-
         };
     },
 
@@ -61,10 +60,6 @@ export default {
     },
 
     methods: {
-        select(e) {
-            this.selected = e
-        },
-
         // 데이터가 두번 도는거 난중에 해결
         // Ganre List - Click
         async GenreList(value) {
@@ -75,9 +70,8 @@ export default {
             this.list = data.results;
             const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
             this.list2 = this.list.filter(value => korean.test(value.name) || korean.test(value.title));
-            console.log(this.list2)
+            this.isActive = true
         },
-
         // Scroll
         handleNotificationListScroll(e) {
             const { scrollHeight, scrollTop, clientHeight } = e.target;
@@ -123,5 +117,5 @@ export default {
     @media screen and (max-width: 768px) {
         .list_card {width:16.4rem}
         .ganre_list {padding:0}
-      }
+    }
 </style>
