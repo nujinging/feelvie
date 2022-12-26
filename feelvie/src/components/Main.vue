@@ -41,6 +41,15 @@
             <!-- 가장 인기있는 컨텐츠 -->
             <div class="title">
                 <h2>가장 인기있는 컨텐츠</h2>
+                <!-- <ul class="type_list">
+                    <li>
+                        <button type="button" class="" :class="{active : activatedTarget=='a'}"
+                            @click="ganreTab('movie', 'now_playing', 'a')">영화</button>
+                    </li>
+                    <li>
+                        <button type="button" :class="{active : activatedTarget=='b'}" @click="ganreTab('tv', 'on_the_air', 'b')">TV</button>
+                    </li>
+                </ul> -->
             </div>
             <ItemList :movieList="TopRatedList" :type="list_type" :title="title[2]" :photo="top_photo"></ItemList>
 
