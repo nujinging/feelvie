@@ -56,7 +56,7 @@ export default {
         this.list = popular.data.results;
 
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-        this.list2 = this.list.filter(value => korean.test(value.name));
+        this.list2 = this.list.filter(value => korean.test(value.name) || korean.test(value.title));
         console.log(this.list2)
     },
 
@@ -74,7 +74,7 @@ export default {
             const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
             this.list = data.results;
             const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-            this.list2 = this.list.filter(value => korean.test(value.name));
+            this.list2 = this.list.filter(value => korean.test(value.name) || korean.test(value.title));
             console.log(this.list2)
         },
 
@@ -108,11 +108,20 @@ export default {
 </script>
 
 <style>
-.ganre_title {position:sticky;top:80px;background:#000}
-.category_list {width: auto;padding: 10px 20px;color: #fff;font-size: 20px;border-radius: 32px;cursor: pointer;background: #0372D2}
+.ganre_title {position:sticky;top:5rem;background:#000}
+.category_list {width: auto;padding: 0.625rem 1.25rem;color: #fff;font-size: 1.25rem;border-radius: 2rem;cursor: pointer;background: #0372D2}
 .category_list:hover {color: #0372D2;background: #fff}
-.ganre_list {display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:60px}
-.ganre_list .tit {margin-top:15px;color: #d5d5d5;font-size:22px;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.list_card img {border-radius:8px}
-.list_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
+.ganre_list {display:flex;flex-wrap:wrap;gap:2.25rem;margin-top:3.75rem;padding:4.7rem}
+.ganre_list .tit {margin-top:0.938rem;color: #d5d5d5;font-size:1.375rem;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.item_container {margin:0 auto}
+.list_card {width:18.75rem}
+.list_card img {border-radius:0.5rem;width:100%}
+    .list_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
+
+
+    @media screen and (max-width: 768px) {
+        .list_card {width:16.4rem}
+        .ganre_list {padding:0}
+      }
 </style>
