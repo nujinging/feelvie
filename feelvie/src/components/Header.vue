@@ -46,18 +46,20 @@ export default {
 
 <style>
 .wrap_header {position:fixed;top:0;width:100%;z-index:500;backdrop-filter: blur(0px);
-background-image: linear-gradient(to bottom,rgba(0,0,0,0.0),rgba(0,0,0,0));
+background-image: linear-gradient(to bottom,rgba(0,0,0,0.7),rgba(0,0,0,0));
   color: rgba(255,255,255,1);
   -webkit-transition: backdrop-filter 0.3s linear,background-color 0.3s linear;
   transition: backdrop-filter 0.3s linear,background-color 0.3s linear;
   background-color: rgba(0,0,0,0);}
+
+
   .wrap_header.fixed {transform: translate3d(0px, 0px, 0px);
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
     color: rgb(255, 255, 255);
     transition: backdrop-filter 0.3s linear 0s, background-color 0.3s linear 0s;
     backdrop-filter: blur(30px);
     background-color: rgba(0, 0, 0, 0.7);}
-.wrap_header .header_container {padding:0.625rem 3.888rem;display:flex;align-items:center;justify-content:space-between;}
+.wrap_header .header_container {padding:1.25rem 3.888rem;display:flex;align-items:center;justify-content:space-between;}
 .wrap_header .navigation {display:flex;align-items:center}
 .wrap_header .navigation img {width:6rem}
 .wrap_header .menu {display:flex;align-items:center;margin-left:2.188rem}
