@@ -3,13 +3,15 @@
     <section class="search_container">
       <form>
         <label class="search_input" for="search_input">
-          <input id="search_input" type="text" @keyup="autoSearch($event)" onkeypress="if(event.keyCode=='13'){event.preventDefault()}" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt">
+          <input id="search_input" type="text" @keyup="autoSearch($event)"
+            onkeypress="if(event.keyCode=='13'){event.preventDefault()}" placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요"
+            class="search_txt">
           <button type="button" class="icon_search">
             <span class="blind">검색</span>
           </button>
         </label>
       </form>
-      
+
       <div class="search_none" v-if="searchNone">
         검색결과가 없습니다.
       </div>
@@ -18,14 +20,14 @@
     <div class="item_container">
       <ul class="search_list" v-if="movieList">
         <li v-for="item in movieList" :key="item.id" @click="goDetail(item.media_type, item.id)" class="list_card">
-            <img :src="image(item.poster_path)" alt="">
-            <p class="tit"> {{ item.title }}</p>
+          <img :src="image(item.poster_path)" alt="">
+          <p class="tit"> {{ item.title }}</p>
         </li>
-    </ul>
+      </ul>
     </div>
-  
+
   </div>
-  
+
 </template>
 
 <script>
@@ -39,7 +41,7 @@ export default {
       movieList: '',
       images: ['image_none.png'],
       searchResult: '',
-      searchNone : false
+      searchNone: false
     };
   },
   methods: {
@@ -48,28 +50,27 @@ export default {
       const searchText = e.target.value;
       // 공백이 없거나 달라도 검색되게 공백제거
       const searchResult = searchText.replace(/(\s*)/g, "");
+      // 검색결과
       const { data } = await movieApi.search(searchResult);
-    
       this.movieList = data.results;
-
-
+      this.search_photo = this.movieList.map(key => key.poster_path);
+      // 검색결과가 없을 때
       this.searchNone = this.movieList.length === 0 ? true : false;
-      
-      this.search_photo = this.movieList.map(key => key.poster_path)
-    },100),
-         // List Image
-         image(img) {
-            if (img == undefined) {
-              return require(`@/assets/${this.images}`)
-            } else {
-              return `https://image.tmdb.org/t/p/w300/${img}`
-            }
-        },
+    }, 100),
+    
+    image(img) {
+      if (img == undefined) {
+        // 이미지 없을 때
+        return require(`@/assets/${this.images}`)
+      } else {
+        return `https://image.tmdb.org/t/p/w300/${img}`
+      }
+    },
 
-        // Detail Page
-        goDetail(type, id) {
-            this.$router.push(`/${type}/${id}`);
-        },
+    // Detail Page
+    goDetail(type, id) {
+      this.$router.push(`/${type}/${id}`);
+    },
   }
 }
 </script>
