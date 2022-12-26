@@ -67,11 +67,12 @@
     <!-- 미디어 1 -->
     <div v-show="currentTab == 0" class="media_list">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.posters">
-        <swiper-slide v-for="backdrops in imageList.posters" :key="backdrops.id">
+        <swiper-slide v-for="backdrops in imageList.posters" :key="backdrops.id" @click="modal = true, img = backdrops.file_path, width= backdrops.width, height=backdrops.height">
           <img :src="profile(backdrops.file_path)" alt="Image 2">
         </swiper-slide>
       </swiper>
     </div>
+
     <!-- 미디어 2 -->
     <div v-show="currentTab == 1" class="media_list">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
@@ -108,11 +109,14 @@
     <ItemList :movieList="similarList" :type="this.type"  :title="title[1]" :photo="similar_photo"></ItemList> -->
   </div>
 
+
+  <bgModal v-if="modal" @close="modal = false" :img="img" :width="width" :height="height"></bgModal>
   
 </template>
 
 <script>
 import ItemList from './ItemList.vue'
+import bgModal from './bgModal.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '../utils/axios';
@@ -130,6 +134,10 @@ export default {
       instagramLink: '',
       tabList: ['포스터', '배경', '동영상'],
       title: ['추천 작품들', '이 영화와 비슷한 작품들'],
+      modal: false,
+      img : '',
+      width:'',
+      height:''
     };
   },
   methods: {
@@ -163,6 +171,7 @@ export default {
     // 관련 이미지
     const image = await movieApi.image(this.type, this.movieDetail.id);
     this.imageList = image.data
+    console.log(this.imageList)
 
     // 관련 동영상
     const video = await movieApi.video(this.type, this.movieDetail.id);
@@ -187,7 +196,8 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    ItemList
+    ItemList,
+    bgModal
   }
 }
 </script>
