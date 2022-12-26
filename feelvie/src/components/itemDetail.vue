@@ -43,7 +43,7 @@
   </div>
 
   <!-- 등장인물 -->
-  <div class="item_container">
+  <div class="item_container movie">
     <div class="title">
       <h2>등장인물</h2>
     </div>
@@ -51,6 +51,10 @@
       <swiper-slide class="person_card" v-for="person in personList" :key="person.id" @click="goPeronDetail(person.id)">
         <img :src="profile(person.profile_path)" alt="Image 2">
         {{ person.original_name }}
+      </swiper-slide>
+      <swiper-slide v-if="this.personList.length >= 10">
+
+        <router-view>더보기</router-view>
       </swiper-slide>
     </swiper>
 
@@ -76,7 +80,7 @@
     <!-- 미디어 2 -->
     <div v-show="currentTab == 1" class="media_list">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
-        <swiper-slide v-for="backdrops in imageList.backdrops" :key="backdrops.id">
+        <swiper-slide v-for="backdrops in imageList.backdrops" :key="backdrops.id"  @click="modal = true, img = backdrops.file_path, width= backdrops.width, height=backdrops.height">
           <img :src="profile(backdrops.file_path)" alt="Image 2">
         </swiper-slide>
       </swiper>
@@ -166,7 +170,7 @@ export default {
 
     // 등장인물
     const person = await movieApi.person(this.type, this.movieDetail.id);
-    this.personList = person.data.cast;
+    this.personList = person.data.cast.splice(0, 10);
       
     // 관련 이미지
     const image = await movieApi.image(this.type, this.movieDetail.id);
@@ -216,6 +220,7 @@ export default {
 .person_card img {display: block;width:100%;margin-bottom:15px;font-size:22px}
 .person_card h3 {margin-top: 10px;color: #fff;font-size: 16px}
 
+.item_container {overflow-x:hidden}
 
 .container.detail {background-size:100%}
 .detail_container {position: relative;display: flex;padding: 3.125vw 3.125vw 10.125vw;color: #fff}
