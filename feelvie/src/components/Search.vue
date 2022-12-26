@@ -37,13 +37,19 @@ export default {
   data() {
     return {
       movieList: '',
-      images: ['image_none.png']
+      images: ['image_none.png'],
+      searchResult: ''
     };
   },
   methods: {
     // 값을 입력하고 0.5초 뒤 api 호출
+
+    
     autoSearch: debounce(async function (e) {
-      const { data } = await movieApi.search(e.target.value);
+      const searchText = e.target.value;
+      // 공백제거해서 공백이 없거나 달라도 검색되게
+      const searchResult = searchText.replace(/(\s*)/g, "");
+      const { data } = await movieApi.search(searchResult);
       this.movieList = data.results;
       this.search_photo = this.movieList.map(key => key.poster_path)
     },100),
