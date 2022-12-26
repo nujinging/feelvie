@@ -77,6 +77,8 @@ body {color:#fff;background:#000}
 .container .item_container {position:relative;padding:3.125vw 0 0 3.125vw}
 .container .item_container+.item_container {margin-top:30px} */
 .title {display:flex;align-items:center;margin-bottom:1.875rem}
-.title h2 {color:#fff;font-size:1.875rem;line-height:2.5rem;font-weight:bold}
-
+.title h2 {color:#fff;font-size:1.875rem;font-weight:bold;line-height:2.5rem}
+@media screen and (max-width: 768px) {
+  .title h2 {font-size:2.125rem}
+}
 </style>

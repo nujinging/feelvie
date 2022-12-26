@@ -78,7 +78,7 @@
     </div>
 
     <!-- 미디어 2 -->
-    <div v-show="currentTab == 1" class="media_list">
+    <div v-show="currentTab == 1" class="media_list bg">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="imageList.backdrops">
         <swiper-slide v-for="backdrops in imageList.backdrops" :key="backdrops.id"  @click="modal = true, img = backdrops.file_path, width= backdrops.width, height=backdrops.height">
           <img :src="profile(backdrops.file_path)" alt="Image 2">
@@ -86,11 +86,11 @@
       </swiper>
     </div>
     <!-- 미디어 3 -->
-    <div v-show="currentTab == 2" class="media_list">
+    <div v-show="currentTab == 2" class="media_list video">
       <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper" v-if="videoLink">
         <swiper-slide v-for="video in videoLink" :key="video.id">
 
-          <iframe width="560" height="315" :src="`https://youtube.com/embed/${video.key}`" title="YouTube video player"
+          <iframe :src="`https://youtube.com/embed/${video.key}`" title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
@@ -208,17 +208,23 @@ export default {
 <style>
 .media_container {margin:5rem 0}
 .media_container .media_top {display: flex;color: #fff;margin-bottom:2rem}
-.media_container .media_top .tit {font-size:32px}
+.media_container .media_top .tit {font-size:2rem}
+
+
 .media_tab {display:flex;align-items:center;margin-left:1.042vw}
-.media_tab li+li {margin-left:10px} 
-.media_tab li button {padding:6px 15px;color:#fff;font-size:16px;line-height:20px;border:1px solid #fff;border-radius:50px;background:#000}
+.media_tab li+li {margin-left:0.625rem} 
+.media_tab li button {padding:0.375rem 0.938rem;color:#fff;font-size:1rem;line-height:1.25rem;border:1px solid #fff;border-radius:3.125rem;background:#000}
 .media_tab li button.active {color:#000;border-color:#000;background:#fff}
-.media_list .swiper-slide {width:auto}
+.media_list .swiper-slide {width:18.75rem}
+
+
+
+.media_list.video .swiper-slide a {display:block;margin-top:0.938rem;font-size:1.125rem} 
 .tab-btn-list {display: flex}
 .tab-btn-list a {color: #fff}
 .person_card {width: 138px}
-.person_card img {display: block;width:100%;margin-bottom:15px;font-size:22px}
-.person_card h3 {margin-top: 10px;color: #fff;font-size: 16px}
+.person_card img {display: block;width:100%;margin-bottom:0.938rem;font-size:1.375rem}
+.person_card h3 {margin-top: 10px;color: #fff;font-size:1rem}
 
 .item_container {overflow-x:hidden}
 
@@ -250,6 +256,10 @@ export default {
 
 @media screen and (max-width: 768px) {
   .container.detail {background-size:cover;background-position:center}
+
+
+  .container.detail+.item_container {padding-bottom:10rem}
+
   .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;padding-bottom:0}
   .detail_container .detail_info {margin:0;text-align:center}
   .detail_container .detail_info h1 {margin-top:0}
@@ -263,6 +273,18 @@ export default {
   .detail_container .detail_info .comment {position:relative}
 
   .person_card  {width:75px}
+
+
+  .media_list .swiper-slide {width:12.25rem}
+  .media_list .swiper-slide img {width:100%}
+
+  .media_list.bg .swiper-slide {width:18.75rem}
+
+  .media_list.video .swiper-slide {width:35rem}
+  .media_list.video .swiper-slide iframe {width:100%}
+  .media_list.video .swiper-slide img {width:100%}
+  .media_list.video .swiper-slide a {font-size:0.875rem}
 }
 </style>
+
 
