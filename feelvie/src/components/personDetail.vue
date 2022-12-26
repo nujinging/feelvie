@@ -191,6 +191,5 @@ export default {
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
 
 
-
 </style>
 
