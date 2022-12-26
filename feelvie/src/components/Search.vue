@@ -1,30 +1,29 @@
 <template>
     <section class="search_container">
-            <form>
-                <label class="search_input" for="search_input">
-                    <input id="search_input" type="text" @keyup="autoSearch($event)"
-                        onkeypress="if(event.keyCode=='13'){event.preventDefault()}"
-                        placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt">
-                    <button type="button" class="icon_search">
-                        <span class="blind">검색</span>
-                    </button>
-                </label>
-            </form>
+        <form>
+            <label class="search_input" for="search_input">
+                <input id="search_input" type="text" @keyup="autoSearch($event)"
+                    onkeypress="if(event.keyCode=='13'){event.preventDefault()}"
+                    placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" class="search_txt">
+                <button type="button" class="icon_search">
+                    <span class="blind">검색</span>
+                </button>
+            </label>
+        </form>
 
-            <div class="search_none" v-if="searchNone">
-                검색결과가 없습니다.
-            </div>
+        <div class="search_none" v-if="searchNone">
+            검색결과가 없습니다.
+        </div>
 
 
-            <ul class="search_list" v-if="movieList">
-                <li v-for="item in movieList" :key="item.id" @click="goDetail(item.media_type, item.id)"
-                    class="list_card">
-                    <img :src="image(item.poster_path)" alt="">
-                    <p class="tit"> {{ item.title }}</p>
-                    <p class="tit" v-if="this.movieListName == searchResult">{{ searchResult }}</p>
-                </li>
-            </ul>
-        </section>
+        <ul class="search_list" v-if="movieList">
+            <li v-for="item in movieList" :key="item.id" @click="goDetail(item.media_type, item.id)" class="list_card">
+                <img :src="image(item.poster_path)" alt="">
+                <p class="tit"> {{ item.title }}</p>
+                <p class="tit" v-if="this.movieListName == searchResult">{{ searchResult }}</p>
+            </li>
+        </ul>
+    </section>
 </template>
 
 <script>
@@ -67,6 +66,14 @@ export default {
             }
         },
 
+
+        // isnull(data) {
+        //     if (data != '' || data != null || data != undifined) {
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // },
         // Detail Page
         goDetail(type, id) {
             this.$router.push(`/${type}/${id}`);

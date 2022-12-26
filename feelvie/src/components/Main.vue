@@ -22,19 +22,19 @@
                 <h2>지금 상영중이에요!</h2>
                 <ul class="type_list">
                     <li>
-                        <button type="button" class="active"
-                            @click="ganreTab('movie', 'now_playing', $event)">영화</button>
+                        <button type="button" class="" :class="{active : activatedTarget=='a'}"
+                            @click="ganreTab('movie', 'now_playing', 'a')">영화</button>
                     </li>
                     <li>
-                        <button type="button" class="" @click="ganreTab('tv', 'on_the_air', $event)">TV</button>
+                        <button type="button" :class="{active : activatedTarget=='b'}" @click="ganreTab('tv', 'on_the_air', 'b')">TV</button>
                     </li>
                 </ul>
-                <ul class="type_list">
+                <!-- <ul class="type_list">
                     <li v-for="btnList in btnList" :key="btnList.id">
-                        <button type="button" @click="ganreTab(btnList.type, btnList.test, $event)"> {{ btnList.title
+                        <button type="button" @click="ganreTab(btnList.type, btnList.test)"> {{ btnList.title
                         }}</button>
                     </li>
-                </ul>
+                </ul> -->
             </div>
             <ItemList :movieList="nowPlaying" :type="list_type" :title="title[0]" :photo="now_photo"></ItemList>
 
@@ -101,6 +101,7 @@ export default {
                 { title: '영화', type: 'movie', test: 'now_playing' },
                 { title: 'TV프로그램', type: 'tv', test: 'on_the_air' }
             ],
+            activatedTarget: 'a'
         }
     },
     methods: {
@@ -108,20 +109,13 @@ export default {
             this.$router.push(`/${type}/${id}`);
         },
 
-        async ganreTab(id, nowType, e) {
+        async ganreTab(id, nowType, tag) {
             this.list_type = id;
             const now = await movieApi.nowPlaying(this.list_type, nowType);
             this.nowPlaying = now.data.results;
-
             this.now_photo = this.nowPlaying.map(key => key.poster_path)
             this.top_photo = this.TopRatedList.map(key => key.poster_path)
-
-
-            this.btnList.forEach(item => { 
-                item.classList.contains('active') ? console.log('1') : console.log('2')
-            })
-
-            e.target.classList.contains('active') ? e.target.classList.remove('active') : e.target.classList.add('active')
+            this.activatedTarget = tag;
         },
     },
     components: {
