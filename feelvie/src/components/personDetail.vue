@@ -102,7 +102,12 @@ export default {
     },
     methods: {
         image(img) {
-            return `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${img}`
+            if (img == undefined) {
+                // 이미지 없을 때
+                return require(`@/assets/${this.images}`)
+            } else {
+                return `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${img}`
+            }
         },
         // Detail Page
         goDetail(id) {

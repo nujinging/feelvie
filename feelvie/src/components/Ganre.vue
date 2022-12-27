@@ -1,27 +1,25 @@
 <template>
-    <div class="container">
-        <div class="item_container">
-            <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle">
-                <swiper-slide class="genre_item" @click="GenreListAll()"
-                    :class="{ active: genreAllActive }">
-                    All
-                </swiper-slide>
-                <swiper-slide class="genre_item" v-for="(genreList, i ) in genreTitle" :key="genreList.id"
-                    @click="GenreList(genreList.id, i)" :class="{ active: i === genreTitleActive }">
-                    {{ genreList.name }}
-                </swiper-slide>
-            </swiper>
+    <div class="item_container">
+        <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle">
+            <swiper-slide class="genre_item" @click="GenreListAll()"
+                :class="{ active: genreAllActive }">
+                All
+            </swiper-slide>
+            <swiper-slide class="genre_item" v-for="(genreList, i ) in genreTitle" :key="genreList.id"
+                @click="GenreList(genreList.id, i)" :class="{ active: i === genreTitleActive }">
+                {{ genreList.name }}
+            </swiper-slide>
+        </swiper>
 
-            <ul class="ganre_list" v-if="genreList" @scroll="handleNotificationListScroll">
-                <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)"
-                    class="list_card">
-                    <picture>
-                        <img :src="image(item.poster_path)" alt="">
-                    </picture>
-                    <p class="tit"> {{ this.linkValue == "movie" ? item.title : item.name }} </p>
-                </li>
-            </ul>
-        </div>
+        <ul class="ganre_list" v-if="genreList" @scroll="handleNotificationListScroll">
+            <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)"
+                class="list_card">
+                <picture>
+                    <img :src="image(item.poster_path)" alt="">
+                </picture>
+                <p class="tit"> {{ this.linkValue == "movie" ? item.title : item.name }} </p>
+            </li>
+        </ul>
     </div>
 </template>
 
