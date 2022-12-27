@@ -195,7 +195,7 @@ export default {
 }
 </script>
 <style>
-.detail_container {position: relative;display: flex;padding:9.375rem 3.125vw 4.375rem;color: #fff;overflow:hidden;background-size:cover;background-position:center}
+.detail_container {position: relative;display: flex;padding:9.375rem 4.375rem 4.375rem;color: #fff;overflow:hidden;background-size:cover;background-position:center}
 .detail_container .detail_info {position: relative;margin:3.125rem 3.125rem 0 0;width:100%;z-index:1}
 .detail_container .detail_info h1 {font-size:3.25rem}
 .detail_container .detail_info .meta {display:flex;align-items:center;margin-top:2rem}

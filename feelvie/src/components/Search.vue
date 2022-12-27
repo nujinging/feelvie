@@ -93,7 +93,6 @@ export default {
 .search_container .search_none {padding-top:20rem;display:flex;align-items:center;justify-content:center;color:#757575;font-size:1.75rem;font-weight:bold}
 
 @media screen and (max-width: 768px) {
-    .search_container {}
     .search_container .search_input {margin:5rem;padding:1rem 0}
     .search_container .search_input .search_txt {font-size:1rem}
 
