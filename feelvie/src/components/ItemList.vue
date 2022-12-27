@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style>
-.item_container {padding:3.888rem}
+.item_container {padding:3.888rem;overflow:hidden}
 .item_card {width:18.75rem}
 .item_card+.item_card {margin-left:30px}
 .swiper {overflow:visible}
