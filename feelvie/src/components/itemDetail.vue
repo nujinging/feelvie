@@ -46,7 +46,10 @@
     </div>
     <swiper :slidesPerView="'auto'" class="mySwiper person_list" v-if="personList">
       <swiper-slide class="person_card" v-for="person in personList" :key="person.id" @click="goPeronDetail(person.id)">
-        <img :src="profile(person.profile_path)" alt="Image 2">
+        <picture>
+          <img :src="profile(person.profile_path)" alt="Image 2">
+
+        </picture>
         {{ person.original_name }}
       </swiper-slide>
       <swiper-slide v-if="this.personList.length >= 10">
@@ -216,9 +219,11 @@ export default {
 .detail_container::before {content: "";position: absolute;inset:-10rem;background-color: rgba(0, 0, 0, 0.5);}
 .detail_container::after {content: "";position: absolute;bottom:-2px;left:-1rem;right:-1rem;height:25rem;background-image:linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));}
 
-.person_list .person_card {width:8.75rem;cursor:pointer}
+.person_list .person_card {width:auto;cursor:pointer}
 .person_list .person_card+.person_card {margin-left:1.25rem}
-.person_list .person_card img {display: block;width:100%;margin-bottom:0.938rem;font-size:1.375rem}
+.person_list .person_card picture {display: block;width:8.313rem;margin-bottom:0.938rem;font-size:1.375rem;border-radius:0.5rem;overflow:hidden}
+.person_list .person_card picture img {width:100%}
+.person_list .person_card:hover picture img {transform:scale(1.1);transition: transform .3s ease-in-out}
 .person_list .person_card h3 {margin-top:0.625rem;color: #fff;font-size:1rem}
 
 .media_container {margin:5rem 0}

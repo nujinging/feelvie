@@ -1,7 +1,7 @@
 <template>
   <swiper :slidesPerView="'auto'"  class="mySwiper">
     <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
-      <!-- <img :src="image(photo[idx])" alt="Poster" v-if="photo" @error="replaceByDefault"> -->
+
       <img :src="image(photo[idx])" alt="Poster" v-if="photo">
       <h3> {{ li.title }}</h3>
       <h3> {{ li.name }}</h3>
