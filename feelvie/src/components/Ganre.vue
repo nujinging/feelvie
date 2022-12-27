@@ -115,7 +115,7 @@ export default {
 .ganre_list .list_card:nth-child(5n) {margin-right:0}
 @media screen and (max-width: 768px) {
     .ganre_list .list_card {width:calc(100% - 68% - 0.25rem)}
+    .ganre_list .list_card:nth-child(5n) {margin-right:1.25rem}
     .ganre_list .list_card:nth-child(3n) {margin-right:0}
-    .ganre_list .list_card:nth-child(5n) {margin-right:0.625rem}
 }
 </style>

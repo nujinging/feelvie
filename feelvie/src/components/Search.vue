@@ -18,8 +18,10 @@
 
         <ul class="search_list" v-if="movieList">
             <li v-for="item in movieList" :key="item.id" @click="goDetail(item.media_type, item.id)" class="list_card">
-                <img :src="image(item.poster_path)" alt="">
-                <p class="tit"> {{ item.title }}</p>
+                <picture>
+                    <img :src="image(item.poster_path)" alt="">
+                </picture>
+                <p class="tit">심 {{ this.media_type == "movie" ? item.title : item.name }}</p>
                 <p class="tit" v-if="this.movieListName == searchResult">{{ searchResult }}</p>
             </li>
         </ul>
@@ -65,16 +67,7 @@ export default {
                 return `https://image.tmdb.org/t/p/w300/${img}`
             }
         },
-
-
-        // isnull(data) {
-        //     if (data != '' || data != null || data != undifined) {
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // },
-        // Detail Page
+        
         goDetail(type, id) {
             this.$router.push(`/${type}/${id}`);
         },
@@ -86,19 +79,24 @@ export default {
 .search_container {margin:12.5rem 2.5rem 0}
 .search_container .search_input {position:relative;display:block;border-bottom:2px solid #fff}
 .search_container .search_input .search_txt {width:calc(100% - 3.75rem);color:#eee;font-size:1.75rem;font-weight:bold;border:none;background:none;font-family:'Noto Sans KR', sans-serif}
-.search_container .search_input .icon_search {position:absolute;right:0;bottom:0;width:3.125rem;height:3.125rem;background:url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Crect width='32' height='32' fill='url(%23pattern0)'/%3E%3Cdefs%3E%3Cpattern id='pattern0' patternContentUnits='objectBoundingBox' width='1' height='1'%3E%3Cuse xlink:href='%23image0_12_305' transform='scale(0.03125)'/%3E%3C/pattern%3E%3Cimage id='image0_12_305' width='32' height='32' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB2klEQVRYhe2WO0vEQBSF7wRLSwmyyGItVmJtoY1YiMgW1oIoYiEisv9EtrCwsLMVK3+F4GIhYieoWIjI4uOzmBHD3Ukyk6zaeCHFTvac881kXkYKCkhFpCUicyIyISKpe3UvIhciciYix8aY2yKf6AJSoAP0KK8ecAA0BhW+ANwFBOt6BJbqhq8C7xXCv+od2KjTc1/4FbAHTAMj7pkCdoHLHIjl2PCU/mF/BdrAUIFuCNihf648EjMnsBNOhy9G6Oc9EIeh4tQjbgfTf/tsezoxFiLcVMKromEv8EmArvLaKdMlYjeZbHWMMW+xAMaYDxHZV83au7881NOx4RmvSeV1HSJ6UKKRGgDDyuu5TJNUDcupj1hBIvZgyVazBsC4+q29vQAXqm22BoDWam8vwJlqW6u6DEVkXTVrb69w1LMRla5fj4/eT16BsM+JPc+z1QPmI8JngRflcRRD38AeIBpi2w1tni5xPdfhT8G9z5gt4T+Ouw5kErvOh4EJYAs49/z/a/hXogAcxEYORJWqDLFM/+cIqScXOhCIBnDoMczr6RHQBFYGBuFAxrA3nhPgGnh2zw1wir2WNZVmsBAVwf8h/iFCIVp/DVF+ZfthiO6vAjiIFnZP6QIzn9TA/Qx6PEfbAAAAAElFTkSuQmCC'/%3E%3C/defs%3E%3C/svg%3E%0A") center no-repeat}
+.search_container .search_input .icon_search {position:absolute;right:0;bottom:0;width:3.125rem;height:3.125rem;background:none}
+.search_container .search_input .icon_search:before {display:inline-block;width:1.875rem;height:1.875rem;;background:url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Crect width='32' height='32' fill='url(%23pattern0)'/%3E%3Cdefs%3E%3Cpattern id='pattern0' patternContentUnits='objectBoundingBox' width='1' height='1'%3E%3Cuse xlink:href='%23image0_12_305' transform='scale(0.03125)'/%3E%3C/pattern%3E%3Cimage id='image0_12_305' width='32' height='32' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB2klEQVRYhe2WO0vEQBSF7wRLSwmyyGItVmJtoY1YiMgW1oIoYiEisv9EtrCwsLMVK3+F4GIhYieoWIjI4uOzmBHD3Ukyk6zaeCHFTvac881kXkYKCkhFpCUicyIyISKpe3UvIhciciYix8aY2yKf6AJSoAP0KK8ecAA0BhW+ANwFBOt6BJbqhq8C7xXCv+od2KjTc1/4FbAHTAMj7pkCdoHLHIjl2PCU/mF/BdrAUIFuCNihf648EjMnsBNOhy9G6Oc9EIeh4tQjbgfTf/tsezoxFiLcVMKromEv8EmArvLaKdMlYjeZbHWMMW+xAMaYDxHZV83au7881NOx4RmvSeV1HSJ6UKKRGgDDyuu5TJNUDcupj1hBIvZgyVazBsC4+q29vQAXqm22BoDWam8vwJlqW6u6DEVkXTVrb69w1LMRla5fj4/eT16BsM+JPc+z1QPmI8JngRflcRRD38AeIBpi2w1tni5xPdfhT8G9z5gt4T+Ouw5kErvOh4EJYAs49/z/a/hXogAcxEYORJWqDLFM/+cIqScXOhCIBnDoMczr6RHQBFYGBuFAxrA3nhPgGnh2zw1wir2WNZVmsBAVwf8h/iFCIVp/DVF+ZfthiO6vAjiIFnZP6QIzn9TA/Qx6PEfbAAAAAElFTkSuQmCC'/%3E%3C/defs%3E%3C/svg%3E%0A") center / 100% no-repeat;content:''}
 
-.search_container .search_list {display:flex;flex-wrap:wrap;gap:2.25rem;margin-top:3.75rem}
-.search_container .search_list li {display:inline-block}
 .search_container .search_list .tit {margin-top:0.938rem;color: #d5d5d5;font-size:1.375rem;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search_container .search_list .list_card {display:inline-block;margin:0 1.25rem 2.5rem 0;width:calc(100% - 80% - 1rem);vertical-align:top}
+.search_container .search_list .list_card picture {display:block;border-radius:0.5rem;width:100%;max-height:31.25rem;overflow:hidden}
+.search_container .search_list .list_card picture img  {width:100%;height:100%}
+.search_container .search_list .list_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
+.search_container .search_list .list_card:nth-child(5n) {margin-right:0}
 
 .search_container .search_none {padding-top:20rem;display:flex;align-items:center;justify-content:center;color:#757575;font-size:1.75rem;font-weight:bold}
 
-.item_container {margin:0 auto}
-.list_card {width:18.75rem}
-
 @media screen and (max-width: 768px) {
-    .list_card {width:16.4rem}
-    .ganre_list {padding:0}
+    .search_container .search_input {margin:6.25rem;padding:1rem 0}
+    .search_container .search_input .search_txt {font-size:1rem}
+
+    .search_container .search_list .list_card {width:calc(100% - 68% - 0.25rem)}
+    .search_container .search_list .list_card:nth-child(5n) {margin-right:1.25rem}
+    .search_container .search_list .list_card:nth-child(3n) {margin-right:0}
 }
 </style>
