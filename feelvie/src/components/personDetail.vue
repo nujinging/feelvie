@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <section class="person_detail">
-            <picture class="profile_picture">
+            <picture>
                 <img :src="image(personDetail.profile_path)" alt="Image 2">
             </picture>
             <div class="profile_info">
@@ -37,43 +37,43 @@
                         <dd>{{ (personDetail.gender == 2) ? '남자' : '여자' }}</dd>
                     </dl>
                 </div>
-                
+                <!-- 이번 주 가장 많이 찾아 본 컨텐츠 -->
+                <div class="title">
+                    <h2>유명 작품</h2>
+                </div>
                 <ItemList :movieList="knownWork" :title="title" :photo="knownWork_photo"></ItemList>
+                   <!-- 작품 리스트 -->
+                    <div class="work">
+                        <div class="work_top">
+                            <h3>필모그래피</h3>
+                            <ul class="type_list">
+                                <li>
+                                    <button type="button" class="active" @click="ganreTab(this.movieList)">영화</button>
+                                </li>
+                                <li>
+                                    <button type="button" @click="ganreTab(this.tvList)">TV</button>
+                                </li>
+                            </ul>
+                        </div>
+    
+                        <ul class="work_list">
+                            <template v-for="work in movieList" :key="work.id">
+                                <li v-if="work.title || work.character && work.name" @click="goDetail(work.id)">
+                                    <p class="tit">
+                                        {{ work.name }}
+                                        {{ work.title }}
+                                    </p>
+                                    <span class="char">
+                                        {{ work.character }} 역
+                                    </span>
+                                </li>
+                            </template>
+    
+                        </ul>
+                    </div>
             </div>
-        </section>
-
-
-        <!-- 작품 리스트 -->
-        <section class="work">
-            <div class="work_top">
-                <h3>필모그래피</h3>
-                <ul class="type_list">
-                    <li>
-                        <button type="button" class="active" @click="ganreTab(this.movieList)">영화</button>
-                    </li>
-                    <li>
-                        <button type="button" @click="ganreTab(this.tvList)">TV</button>
-                    </li>
-                </ul>
-            </div>
-
-            <ul class="work_list">
-                <template v-for="work in movieList" :key="work.id">
-                    <li v-if="work.title || work.character && work.name" @click="goDetail(work.id)">
-                        <p class="tit">
-                            {{ work.name }}
-                            {{ work.title }}
-                        </p>
-                        <span class="char">
-                            {{ work.character }} 역
-                        </span>
-                    </li>
-                </template>
-
-            </ul>
         </section>
     </div>
-
 </template>
 
 <script>
@@ -101,14 +101,11 @@ export default {
         };
     },
     methods: {
-        image(img) {
-            if (img == undefined) {
-                // 이미지 없을 때
-                return require(`@/assets/${this.images}`)
-            } else {
-                return `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${img}`
-            }
+         // 포스터
+         image(img) {
+            return `https://image.tmdb.org/t/p/w300/${img}`
         },
+
         // Detail Page
         goDetail(id) {
             this.$router.push(`/detail/${id}`);
@@ -122,7 +119,6 @@ export default {
         // 인물 ID값에 따른 정보
         const { id } = this.$route.params;
         
-
         // 인물 정보
         const personDetail = await movieApi.personDetail(id);
         this.personDetail = personDetail.data;
@@ -166,35 +162,45 @@ export default {
 </script>
 
 <style>
-
-.person_detail {position: relative;display: flex;padding: 3.125vw 3.125vw 5.125vw;color: #fff}
-.person_detail .profile_picture {margin-right:65px}
-.person_detail .profile_info {overflow:hidden}
+.container {position: -webkit-sticky;position:sticky;top:0;bottom:0;left:0}
+.person_detail {display:flex;width:100%;padding:9.375rem 4.375rem 4.375rem;;color: #fff;overflow:hidden}
+.person_detail picture {position:fixed;display:block;width:18.75rem}
+.person_detail picture img {width:100%;border-radius:0.5rem}
+.person_detail .profile_info {margin-left:23.125rem}
 .person_detail .profile_info .item_container {padding:0}
-.person_detail .profile_info .profile_name {display:flex;align-items:center;margin-bottom:50px}
-.person_detail .profile_info .profile_name h1 {font-size:45px;font-weight:bold}
-.person_detail .profile_info .profile_desc dl {display:inline-block;margin-bottom:50px;vertical-align:top;font-size:28px}
-.person_detail .profile_info .profile_desc dl+dl {margin-left:50px}
-.person_detail .profile_info .profile_desc dt {margin-bottom:15px;font-weight:bold}
-.person_detail .profile_info .profile_name .social_links {margin-left:50px}
-.person_detail .profile_info .profile_name .social_links li {display: flex;align-items: center;justify-content: center;width: 72px;height: 72px;border-radius: 50%;background: #fff}
-.person_detail .profile_info .profile_name .social_links li+li {margin-top: 15px}
-.person_detail .profile_info .profile_name .social_links li a {width: 50px;height: 50px;background: #000}
+.person_detail .profile_info .profile_name {display:flex;align-items:center;margin-bottom:3.125rem}
+.person_detail .profile_info .profile_name h1 {font-size:2.813rem;font-weight:bold}
+.person_detail .profile_info .profile_desc dl {display:inline-block;margin-bottom:3.125rem;vertical-align:top;font-size:1.75rem}
+.person_detail .profile_info .profile_desc dl+dl {margin-left:3.125rem}
+.person_detail .profile_info .profile_desc dt {margin-bottom:0.938rem;font-weight:bold}
+.person_detail .profile_info .profile_name .social_links {margin-left:3.125rem}
+.person_detail .profile_info .profile_name .social_links li {display: flex;align-items: center;justify-content: center;width:4.5rem;height:4.5rem;border-radius: 50%;background: #fff}
+.person_detail .profile_info .profile_name .social_links li+li {margin-top:0.938rem}
+.person_detail .profile_info .profile_name .social_links li a {width:3.125rem;height:3.125rem;background: #000}
 .person_detail .profile_info .profile_name .social_links li a.facebook {background: url(./../assets/icon_facebook.png) center no-repeat}
 .person_detail .profile_info .profile_name .social_links li a.tritter {background: url(./../assets/icon_twitter.png) center no-repeat}
 .person_detail .profile_info .profile_name .social_links li a.instargram {background: url(./../assets/icon_instagram.png) center no-repeat}
-.work {padding:3.125vw 3.125vw 10.125vw}
-.work .work_list li{display:flex;align-items:center;font-size:20px;cursor:pointer}
+.work {padding-top:4.375rem}
+.work .work_list li{display:flex;align-items:center;font-size:1.25rem;cursor:pointer}
 .work .work_list li:hover .tit {color:#4876ef}
-.work .work_list li+li {margin-top:15px}
-.work .work_list li .char {margin-left:auto}
-.work_top {display:flex;align-items:center;margin-bottom:30px}
-.work_top h3 {font-size:26px;font-weight:bold}
+.work .work_list li+li {margin-top:0.938rem}
+.work .work_list li .char {max-width:30%;margin-left:auto;text-align:right}
+.work .work_list li p {max-width:50%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.work_top {display:flex;align-items:center;margin-bottom:1.875rem}
+.work_top h3 {font-size:2rem;font-weight:bold}
 .type_list {display:flex;align-items:center;margin-left:0.938rem}
 .type_list li+li {margin-left:0.625rem} 
 .type_list li button {display:flex;align-items:center;height:2.5rem;padding:0 0.938rem;color:#fff;font-size:1.375rem;border:1px solid #fff;border-radius:3.125rem;background:#000}
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
 
+
+@media screen and (max-width: 768px) {
+    .person_detail {display:block;padding:9.375rem 2.5rem 2.5rem}
+    .person_detail picture {position:relative;width:15rem;margin:0 auto}
+    .person_detail .profile_info {margin-left:0}
+    .person_detail .profile_info .profile_name {justify-content:center}
+    .person_detail .profile_info .profile_desc {text-align:center}
+}
 
 </style>
 
