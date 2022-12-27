@@ -2,8 +2,12 @@
     <div class="container">
         <div class="item_container">
             <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper ganre_title" v-if="genreTitle">
-                <swiper-slide class="category_list" v-for="genreList in genreTitle" :key="genreList.id"
-                    @click="GenreList(genreList.id)"  :class="{ active: isActive }">
+
+                
+                <swiper-slide class="category_list" @click="GenreListAll()" :class="{ active : isActive }">All</swiper-slide>
+                
+                <swiper-slide class="category_list" v-for="(genreList, i ) in genreTitle" :key="genreList.id"
+                    @click="GenreList(genreList.id, i)"  :class="{ active: i === activeItem}">
                     {{ genreList.name }}
                 </swiper-slide>
             </swiper>
@@ -38,11 +42,12 @@ export default {
             weekList: {},
             popularList: {},
             list_type: 'movie',
-            isActive: false,
+            isActive: true,
             selected: '',
             result:'',
             typeList: ['영화', 'TV'],
             title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
+            activeItem: null,
         };
     },
 
@@ -57,12 +62,19 @@ export default {
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
         this.list2 = this.list.filter(value => korean.test(value.name) || korean.test(value.title));
         console.log(this.list2)
+        
     },
 
     methods: {
         // 데이터가 두번 도는거 난중에 해결
         // Ganre List - Click
-        async GenreList(value) {
+        async GenreListAll () {
+            const popular = await movieApi.popular(this.linkValue);
+            this.list2 = popular.data.results;
+            this.activeItem = null;
+            this.isActive = true
+        },
+        async GenreList(value, i) {
             this.page = 1;
             this.list = [];
             this.genre = value;
@@ -70,7 +82,8 @@ export default {
             this.list = data.results;
             const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
             this.list2 = this.list.filter(value => korean.test(value.name) || korean.test(value.title));
-            this.isActive = true
+            this.activeItem = i;
+            this.isActive = false;
         },
         // Scroll
         handleNotificationListScroll(e) {
@@ -105,6 +118,7 @@ export default {
 .ganre_title {position:sticky;top:5rem;background:#000}
 .category_list {width: auto;padding: 0.625rem 1.25rem;color: #fff;font-size: 1.25rem;border-radius: 2rem;cursor: pointer;background: #0372D2}
 .category_list:hover {color: #0372D2;background: #fff}
+.category_list.active {color:#0372d2;background:#fff}
 .ganre_list {display:flex;flex-wrap:wrap;gap:2.25rem;margin-top:3.75rem;padding:4.7rem}
 .ganre_list .tit {margin-top:0.938rem;color: #d5d5d5;font-size:1.375rem;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
