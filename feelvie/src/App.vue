@@ -68,6 +68,7 @@ body {color:#fff;background:#000}
     font-size: calc(6px + .5vw);
   }
 }
+.container {overflow:hidden}
 .title {display:flex;align-items:center;margin-bottom:1.875rem}
 .title h2 {color:#fff;font-size:1.875rem;font-weight:bold;line-height:2.5rem}
 @media screen and (max-width: 768px) {
