@@ -41,7 +41,7 @@
                 <div class="title">
                     <h2>유명 작품</h2>
                 </div>
-                <ItemList :movieList="knownWork" :title="title" :photo="knownWork_photo"></ItemList>
+                <ItemList :movieList="knownWork" :type="type" :title="title" :photo="knownWork_photo"></ItemList>
                    <!-- 작품 리스트 -->
                     <div class="work">
                         <div class="work_top">
@@ -58,7 +58,7 @@
     
                         <ul class="work_list">
                             <template v-for="work in movieList" :key="work.id">
-                                <li v-if="work.title || work.character && work.name" @click="goDetail(work.id)">
+                                <li v-if="work.title || work.character && work.name" @click="goDetail(work.media_type, work.id)">
                                     <p class="tit">
                                         {{ work.name }}
                                         {{ work.title }}
@@ -97,7 +97,8 @@ export default {
             test: [],
             list_type: '',
             knownWork_photo:'',
-            title: '가장 평점이 높은 작품'
+            title: '가장 평점이 높은 작품',
+            type:'movie'
         };
     },
     methods: {
@@ -105,12 +106,10 @@ export default {
          image(img) {
             return `https://image.tmdb.org/t/p/w300/${img}`
         },
-
-        // Detail Page
-        goDetail(id) {
-            this.$router.push(`/detail/${id}`);
+        // 영화상세
+        goDetail(type, id) {
+            this.$router.push(`/${type}/${id}`);
         },
-    
         async ganreTab(id) {
             this.list_type = id;
         }
@@ -134,7 +133,6 @@ export default {
         console.log(this.knownWork)
 
         // 정렬하기 전 
-        console.log(this.personWork.cast)
 
         // Tv
         const personTv = await movieApi.personTv(id);
@@ -166,16 +164,16 @@ export default {
 .person_detail {display:flex;width:100%;padding:9.375rem 4.375rem 4.375rem;;color: #fff;overflow:hidden}
 .person_detail picture {position:fixed;display:block;width:18.75rem}
 .person_detail picture img {width:100%;border-radius:0.5rem}
-.person_detail .profile_info {margin-left:23.125rem}
+.person_detail .profile_info {margin-left:23.125rem;overflow:hidden}
 .person_detail .profile_info .item_container {padding:0}
 .person_detail .profile_info .profile_name {display:flex;align-items:center;margin-bottom:3.125rem}
 .person_detail .profile_info .profile_name h1 {font-size:2.813rem;font-weight:bold}
 .person_detail .profile_info .profile_desc dl {display:inline-block;margin-bottom:3.125rem;vertical-align:top;font-size:1.75rem}
 .person_detail .profile_info .profile_desc dl+dl {margin-left:3.125rem}
 .person_detail .profile_info .profile_desc dt {margin-bottom:0.938rem;font-weight:bold}
-.person_detail .profile_info .profile_name .social_links {margin-left:3.125rem}
+.person_detail .profile_info .profile_name .social_links {display:flex;align-items:center;margin-left:3.125rem}
 .person_detail .profile_info .profile_name .social_links li {display: flex;align-items: center;justify-content: center;width:4.5rem;height:4.5rem;border-radius: 50%;background: #fff}
-.person_detail .profile_info .profile_name .social_links li+li {margin-top:0.938rem}
+.person_detail .profile_info .profile_name .social_links li+li {margin-left:0.938rem}
 .person_detail .profile_info .profile_name .social_links li a {width:3.125rem;height:3.125rem;background: #000}
 .person_detail .profile_info .profile_name .social_links li a.facebook {background: url(./../assets/icon_facebook.png) center no-repeat}
 .person_detail .profile_info .profile_name .social_links li a.tritter {background: url(./../assets/icon_twitter.png) center no-repeat}
@@ -198,7 +196,7 @@ export default {
     .person_detail {display:block;padding:9.375rem 2.5rem 2.5rem}
     .person_detail picture {position:relative;width:15rem;margin:0 auto}
     .person_detail .profile_info {margin-left:0}
-    .person_detail .profile_info .profile_name {justify-content:center}
+    .person_detail .profile_info .profile_name {margin:0.938rem 0;justify-content:center}
     .person_detail .profile_info .profile_desc {text-align:center}
 }
 
