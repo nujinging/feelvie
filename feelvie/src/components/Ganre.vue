@@ -26,6 +26,11 @@
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+/**
+ * [review] 상대 경로 말고 절대 경로로 사용하는 방법도 있음.
+ * '@'를 사용하면, 절대 경로로 사용됨 (@는 src 디렉토리부터 시작)
+ * ex) ../utils/axios -> @/utils/axios
+ */
 import { movieApi } from '../utils/axios';
 
 export default {
@@ -43,6 +48,9 @@ export default {
     },
 
     async mounted() {
+      /**
+       * [review] api를 호출할 때는, mounted 대신 created를 사용하는 것이 렌더링 타이밍에 좋음. (vue 라이프사이클 참고)
+       */
         // 장르타이틀
         const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
@@ -50,7 +58,11 @@ export default {
         // 장르리스트 (타이틀이 한글일 경우에만)
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
         const popular = await movieApi.popular(this.linkValue);
-        this.genreList = popular.data.results.filter(value => korean.test(value.name) || korean.test(value.title));
+      /**
+       * [review] 코드가 길어지는 것이 싫다면 destructuring 을 사용할 것.
+       * ex) popular.data.results.filter(({name, title}) => korean.test(name) || korean.test(title));
+       */
+      this.genreList = popular.data.results.filter(value => korean.test(value.name) || korean.test(value.title));
     },
 
     methods: {

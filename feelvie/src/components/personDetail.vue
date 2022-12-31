@@ -48,6 +48,7 @@
                             <h3>필모그래피</h3>
                             <ul class="type_list">
                                 <li>
+                                  <!-- [review] this를 써야되는가? -->
                                     <button type="button" class="active" @click="ganreTab(this.movieList)">영화</button>
                                 </li>
                                 <li>

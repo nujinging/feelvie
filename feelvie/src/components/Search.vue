@@ -54,6 +54,11 @@ export default {
             this.movieList = data.results;
             this.search_photo = this.movieList.map(key => key.poster_path);
             // 검색결과가 없을 때
+
+            /**
+             * [review] 간단하게 할 수 있을 듯.
+             * this.movieList.length === 0 ? true : false -> this.movieList.length === 0
+             */
             this.searchNone = this.movieList.length === 0 ? true : false;
 
             this.movieListName = this.movieList.map(key => key.title)

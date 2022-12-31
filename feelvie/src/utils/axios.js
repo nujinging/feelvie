@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const request = axios.create({
+  /**
+   * [review] api_key 와 같은 보안적인 요소는 커밋에 남지 않도록 하는 것이 좋음. (누군가 커밋 이력을 보고 탈취할 수도 있음)
+   */
   baseURL: "https://api.themoviedb.org/3/",
   params: {
     api_key: "cb772a50acc4cd6917b12854484b9d91",
@@ -9,6 +12,10 @@ const request = axios.create({
 
 });
 export const movieApi = {
+  /**
+   * [review] 공통 api 함수는 함수 이름에 api 라는 이름을 붙혀주면 좋겠음. + 동사형으로 선언 + camel case 로 명명
+   * ex) nowPlaying -> getNowPlaying, topRated -> getTopRated
+   */
   nowPlaying: (type, now) => request.get(`${type}/${now}`),
   popular: (type) => request.get(`${type}/popular`),
   TopRated: (type) =>  request.get(`${type}/top_rated`),

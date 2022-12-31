@@ -11,6 +11,9 @@ export default {
   components: {
     Header
   },
+  /**
+   * [review] 사용하지 않는 코드는 없애주는 게 좋음.
+   */
   data() {
     return {
     }

@@ -28,7 +28,12 @@ export default {
         return {
         }
     },
-    props: ['img', 'width', 'height'],
+  /**
+   * [review] props 를 리스트로 선언해도 문제 없지만,
+   * 객체 형태로 선언해주는게 함께 작업할 때 좋음. (다른 사람이 props에서 데이터타입만 보고도 값을 예상할 수 있음)
+   * ex) props: { width: Number, img: String }
+   */
+  props: ['img', 'width', 'height'],
     methods: {
         image(img) {
             return `https://image.tmdb.org/t/p/w400/${img}`

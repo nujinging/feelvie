@@ -4,6 +4,7 @@
   :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
     <div class="detail_info">
       <h1>
+        <!-- [review] 3개 사용바람 == -> === -->
         {{ this.type ==  "movie" ? movieDetail.title : movieDetail.name }}
       </h1>
       <div class="meta">
@@ -120,6 +121,12 @@ import { movieApi } from '../utils/axios';
 export default {
   name: 'ItemDetail_',
   data() {
+    /**
+     * [review] 사용되는 변수를 모두 선언해주길 바람
+     * ex) videoLink
+     * 또한, 객체 내부에서도 사용되는 값은 모두 선언해주는 것이 좋음 (공동 작업을 위해)
+     * ex) movieDetail : {} -> movieDetail: { genre:[], tagline:'' }
+     */
     return {
       movieDetail: {},
       imageList: [],
