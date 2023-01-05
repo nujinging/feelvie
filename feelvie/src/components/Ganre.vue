@@ -17,7 +17,7 @@
                 <picture>
                     <img :src="image(item.poster_path)" alt="">
                 </picture>
-                <p class="tit"> {{ this.linkValue == "movie" ? item.title : item.name }} </p>
+                <p class="tit"> {{ this.linkValue === "movie" ? item.title : item.name }} </p>
             </li>
         </ul>
     </div>
@@ -26,14 +26,15 @@
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
-import { movieApi } from '../utils/axios';
+import { movieApi } from '@/utils/axios';
 
 export default {
     name: 'Ganre_',
-    props: ['linkValue'],
+    props: {
+        linkValue: String
+    },
     data() {
         return {
-            genre: '',
             genreTitle: {},
             genreList: {},
             page: 1,
@@ -64,8 +65,7 @@ export default {
         // 장르 타이틀 클릭
         async GenreList(value, i) {
             this.page = 1;
-            this.genre = value;
-            const { data } = await movieApi.genreList(this.linkValue, this.genre, this.page);
+            const { data } = await movieApi.genreList(this.linkValue, value, this.page);
             const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
             this.genreList = data.results.filter(value => korean.test(value.name) || korean.test(value.title));
             this.genreTitleActive = i;

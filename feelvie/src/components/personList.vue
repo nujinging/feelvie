@@ -25,7 +25,13 @@ export default {
     Swiper,
     SwiperSlide
   },
-  props: ['movieList', 'title', 'photo', 'type', 'listInfo'],
+  props:  {
+    movieList: Object,
+    title: String,
+    photo: Object,
+    type: String,
+    listInfo: Object
+  },
   methods: {
     image(img) {
       return `https://image.tmdb.org/t/p/w300/${img}`

@@ -115,7 +115,7 @@ import ItemList from './ItemList.vue'
 import bgModal from './bgModal.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
-import { movieApi } from '../utils/axios';
+import { movieApi } from '@/utils/axios';
 
 export default {
   name: 'ItemDetail_',

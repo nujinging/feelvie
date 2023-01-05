@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { movieApi } from '../utils/axios';
+import { movieApi } from '@/utils/axios';
 import { debounce } from 'lodash'
 
 export default {

@@ -82,7 +82,7 @@
 
 <script>
 import ItemList from './ItemList.vue'
-import { movieApi } from '../utils/axios';
+import { movieApi } from '@/utils/axios';
 
 export default {
     name: 'PersonDetail_',
@@ -118,7 +118,7 @@ export default {
             console.log(this.filmoList)
         }
     },
-    async mounted() {
+    async created() {
         // 인물 ID값에 따른 정보
         const { id } = this.$route.params;
 

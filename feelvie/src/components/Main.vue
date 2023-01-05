@@ -60,7 +60,7 @@ import Modal from './Modal.vue'
 import ItemList from './ItemList.vue'
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
-import { movieApi } from '../utils/axios';
+import { movieApi } from '@/utils/axios';
 
 export default {
     name: 'Main_',

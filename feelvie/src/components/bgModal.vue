@@ -9,9 +9,9 @@
             <span class="txt">이미지 클릭하여 원본보기</span>
 
             <p class="size">
-                {{ width }}
+                {{ props.width }}
                 <span>X</span>
-                {{ height }}
+                {{ props.height }}
             </p>
             
             <button type="button" @click="$emit('close')">
@@ -20,26 +20,19 @@
         </div>
     </div>
 </template>
-<script>
-
-export default {
-    name: 'Main_',
-    data() {
-        return {
-        }
-    },
-    props: ['img', 'width', 'height'],
-    methods: {
-        image(img) {
+<script setup>
+import { defineProps } from "vue";
+  const props = defineProps({
+    img: String,
+    width: String,
+    height: String
+  });
+const image = (img) => {
             return `https://image.tmdb.org/t/p/w400/${img}`
-        },
-
-        detailImg(img) {
+        }
+        const detailImg = (img) => {
             return `https://image.tmdb.org/t/p/original/${img}`
         }
-    },
-
-}
 </script>
 
 <style>
