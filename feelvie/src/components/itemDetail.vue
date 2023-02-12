@@ -6,7 +6,7 @@
       <h1 :class="{ skeleton: isLoading }">
         {{ this.type == "movie" ? movieDetail.title : movieDetail.name }}
       </h1>
-      <div class="meta">
+      <div class="meta" :class="{ skeleton: isLoading }">
         <span class="txt" v-for="list in movieDetail.genres" :key="list.id">
           {{ list.name }}
         </span>
@@ -132,7 +132,7 @@ export default {
       width: '',
       height: '',
       images: ['image_none.png'],
-      isLoading: true,
+      isLoading: false,
       recommend_photo: '',
       recommendList: '',
       personList: '',
@@ -166,7 +166,7 @@ export default {
     // 영화 ID값에 따른 정보
     const { type, id } = this.$route.params;
     const { data } = await movieApi.movieDetail(type, id);
-    this.isLoading = false
+    this.isLoading = true;
     this.movieDetail = data;
     // movie or tv
     this.type = type
@@ -260,7 +260,7 @@ export default {
 .media_container .media_list.video .swiper-slide a {display:block;margin-top:0.938rem;width:100%;font-size:1.125rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} 
 
 .detail_container .detail_info .comment.skeleton .quotes {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
-.detail_container .detail_info .comment.skeleton .intro {margin-top:20px;width:1000px;height:55px;border-radius:4px;background:#f4f6fa}
+.detail_container .detail_info .comment.skeleton .intro {margin-top:20px;width:500px;height:55px;border-radius:4px;background:#f4f6fa}
 .detail_container .detail_poster picture.skeleton img {width:25rem;height:35.438rem;background:#f4f6fa}
 
 @media screen and (max-width: 768px) {
@@ -270,7 +270,7 @@ export default {
   .detail_container .detail_info .meta {justify-content:center}
   .detail_container .detail_info .comment .quotes {margin-top:2rem}
   .detail_container .detail_info .comment .intro {margin:0 2rem}
-  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:1.5rem}
+  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:1.5rem;padding:6rem 0 1rem}
   .detail_container .detail_poster .social_links {display:flex;justify-content:center;margin-top:2rem}
   .detail_container .detail_poster .social_links li+li {margin-top:0;margin-left:0.938rem}
   .detail_container .detail_poster picture {margin:0 auto;width:15rem}

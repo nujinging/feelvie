@@ -3,7 +3,7 @@
         <div class="inner">
 
             <a :href="`https://image.tmdb.org/t/p/original/${img}`" class="facebook" target="_blank">
-                <img :src="image(img)" @click="detailImg(this.img)">
+                <img :src="image(img)" @click="detailImg(this.img)" :class="{ skeleton: isLoading }">
             </a>
 
             <span class="txt">이미지 클릭하여 원본보기</span>

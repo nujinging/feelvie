@@ -12,11 +12,15 @@ export default {
     name: 'Main_',
     data() {
         return {
+            isLoading: false,
         }
     },
     methods: {
 
     },
+    async created() {
+    this.isLoading = true;
+    }
 
 }
 </script>
