@@ -264,13 +264,13 @@ export default {
 .detail_container .detail_poster picture.skeleton img {width:25rem;height:35.438rem;background:#f4f6fa}
 
 @media screen and (max-width: 768px) {
-  .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;padding-bottom:0}
+  .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;padding-bottom:0;height:55.688rem}
   .detail_container .detail_info {margin:0;text-align:center}
   .detail_container .detail_info h1 {margin-top:0}
   .detail_container .detail_info .meta {justify-content:center}
   .detail_container .detail_info .comment .quotes {margin-top:2rem}
   .detail_container .detail_info .comment .intro {margin:0 2rem}
-  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:1.5rem;padding:6rem 0 1rem}
+  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:1.5rem}
   .detail_container .detail_poster .social_links {display:flex;justify-content:center;margin-top:2rem}
   .detail_container .detail_poster .social_links li+li {margin-top:0;margin-left:0.938rem}
   .detail_container .detail_poster picture {margin:0 auto;width:15rem}

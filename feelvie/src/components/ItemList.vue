@@ -53,6 +53,7 @@ export default {
 .swiper+.title {margin-top:3.125rem}
 .swiper-wrapper {transform: translateZ(0)}
 
+
 @media screen and (max-width: 768px) { 
   .item_container {padding:2.5rem}
   .item_card {width:12.25rem}

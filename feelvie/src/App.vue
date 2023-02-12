@@ -74,4 +74,6 @@ body {color:#fff;background:#000}
 @media screen and (max-width: 768px) {
   .title h2 {font-size:2.125rem}
 }
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled,
+.swiper-button-next, .swiper-button-prev {color:#fff !important}
 </style>
