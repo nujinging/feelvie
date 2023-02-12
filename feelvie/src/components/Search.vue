@@ -90,7 +90,7 @@ export default {
 .search_container .search_none {padding-top:20rem;display:flex;align-items:center;justify-content:center;color:#757575;font-size:1.75rem;font-weight:bold}
 
 @media screen and (max-width: 768px) {
-    .search_container .search_input {margin:7rem;padding:1rem 0}
+    .search_container .search_input {margin:7rem 3rem;padding:1rem 0}
     .search_container .search_list .list_card {width:calc(100% - 68% - 0.25rem)}
     .search_container .search_list .list_card:nth-child(5n) {margin-right:1.25rem}
     .search_container .search_list .list_card:nth-child(3n) {margin-right:0}
