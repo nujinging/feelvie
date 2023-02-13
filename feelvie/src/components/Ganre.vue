@@ -1,6 +1,6 @@
 <template>
     <div class="item_container">
-        <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle">
+        <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle" >
             <swiper-slide class="genre_item" @click="GenreListAll()"
                 :class="{ active: genreAllActive }">
                 All
@@ -13,7 +13,7 @@
 
         <ul class="ganre_list" v-if="genreList" @scroll="handleNotificationListScroll">
             <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)"
-                class="list_card">
+                class="list_card" :class="{ skeleton: isLoading }">
                 <picture>
                     <img :src="image(item.poster_path)" alt="">
                 </picture>
@@ -40,6 +40,7 @@ export default {
             page: 1,
             genreAllActive: true,
             genreTitleActive: null,
+            isLoading : true
         };
     },
 
@@ -52,6 +53,7 @@ export default {
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
         const popular = await movieApi.popular(this.linkValue);
         this.genreList = popular.data.results.filter(value => korean.test(value.name) || korean.test(value.title));
+        setTimeout(() => { this.isLoading = false }, '500');
     },
 
     methods: {

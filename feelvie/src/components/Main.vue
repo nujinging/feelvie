@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" :class="{ skeleton: isLoading }">
         <swiper :pagination="pagination" :navigation="true" :modules="modules" class="mySwiper home_banner">
             <swiper-slide v-for="list in list" :key='list.id'
                 :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + list.backdrop_path + ')' }"
@@ -92,7 +92,8 @@ export default {
                 { title: '영화', type: 'movie', test: 'now_playing' },
                 { title: 'TV프로그램', type: 'tv', test: 'on_the_air' }
             ],
-            activatedTarget: 'a'
+            activatedTarget: 'a',
+            isLoading : true
         }
     },
     methods: {
@@ -157,6 +158,7 @@ export default {
         // console.log(bannerGenre)
 
         this.backGround = this.popularTv.backdrop_path
+        setTimeout(() => { this.isLoading = false }, '5000');
     },
 
     // 페이지네이션

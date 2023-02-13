@@ -1,5 +1,5 @@
 <template>
-  <swiper :slidesPerView="'auto'"  class="mySwiper">
+  <swiper :slidesPerView="'auto'"  class="mySwiper" :class="{ skeleton: isLoading }">
     <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
       <img :src="image(photo[idx])" alt="Poster" v-if="photo">
       <h3> {{ li.title }}</h3>
@@ -17,6 +17,11 @@ export default {
   components: {
     Swiper,
     SwiperSlide
+  },
+  data() {
+    return {
+      isLoading: true,
+    }
   },
   props: ['movieList', 'title', 'photo', 'type', 'listInfo'],
   methods: {
@@ -38,6 +43,9 @@ export default {
       onSwiper,
       onSlideChange,
     };
+  },
+ async mounted() {
+  setTimeout(() => { this.isLoading = false }, '5000');
   },
 }
 </script>

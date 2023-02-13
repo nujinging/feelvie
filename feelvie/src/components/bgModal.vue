@@ -33,6 +33,7 @@ const image = (img) => {
         const detailImg = (img) => {
             return `https://image.tmdb.org/t/p/original/${img}`
         }
+        
 </script>
 
 <style>

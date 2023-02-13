@@ -202,7 +202,7 @@ export default {
     
   },
   async mounted() {
-    this.isLoading = false;
+  setTimeout(() => { this.isLoading = false }, '100');
   },
   components: {
     Swiper,
