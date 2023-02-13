@@ -132,7 +132,7 @@ export default {
       width: '',
       height: '',
       images: ['image_none.png'],
-      isLoading: false,
+      isLoading: true,
       recommend_photo: '',
       recommendList: '',
       personList: '',
@@ -166,7 +166,7 @@ export default {
     // 영화 ID값에 따른 정보
     const { type, id } = this.$route.params;
     const { data } = await movieApi.movieDetail(type, id);
-    this.isLoading = true;
+    
     this.movieDetail = data;
     // movie or tv
     this.type = type
@@ -201,7 +201,8 @@ export default {
 
     
   },
-  mounted() {
+  async mounted() {
+    this.isLoading = false;
   },
   components: {
     Swiper,
@@ -259,6 +260,8 @@ export default {
 .media_container .media_list.video .swiper-slide iframe {width:100%}
 .media_container .media_list.video .swiper-slide a {display:block;margin-top:0.938rem;width:100%;font-size:1.125rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} 
 
+
+.detail_container .detail_info h1.skeleton {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
 .detail_container .detail_info .comment.skeleton .quotes {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
 .detail_container .detail_info .comment.skeleton .intro {margin-top:20px;width:500px;height:55px;border-radius:4px;background:#f4f6fa}
 .detail_container .detail_poster picture.skeleton img {width:25rem;height:35.438rem;background:#f4f6fa}
