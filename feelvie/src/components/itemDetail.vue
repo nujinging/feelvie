@@ -177,6 +177,7 @@ export default {
     // 등장인물
     const person = await movieApi.person(this.type, this.movieDetail.id);
     this.personList = person.data.cast.splice(0, 10);
+    console.log(this.personList)
 
     // 관련 이미지
     const image = await movieApi.image(this.type, this.movieDetail.id);

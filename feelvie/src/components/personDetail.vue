@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <section class="person_detail">
-            <picture>
+            <picture :class="{ skeleton: isLoading }">
                 <img :src="image(personDetail.profile_path)" alt="Image 2">
             </picture>
             <div class="profile_info">
                 <div class="profile_name">
-                    <h1 v-if="personDetail.also_known_as"> {{ personDetail.also_known_as[1] }}</h1>
+                    <h1 v-if="personDetail.name" :class="{ skeleton: isLoading }"> {{ personDetail.name }}</h1>
                     <ul class="social_links">
                         <li v-if="this.facebookLink">
                             <a :href="`https://facebook.com/${this.facebookLink}`" class="facebook" target="_blank">
@@ -99,7 +99,8 @@ export default {
             facebookLink: {},
             twitterLink: {},
             instagramLink: {},
-            activatedTarget: 'a'
+            activatedTarget: 'a',
+            isLoading: true
         };
     },
     methods: {
@@ -115,7 +116,6 @@ export default {
             this.filmoList = id;
             this.list_type = type;
             this.activatedTarget = tag;
-            console.log(this.filmoList)
         }
     },
     async created() {
@@ -125,6 +125,7 @@ export default {
         // 인물 정보
         const personDetail = await movieApi.personDetail(id);
         this.personDetail = personDetail.data;
+        console.log(this.personDetail)
 
         // 영화
         const personWork = await movieApi.personWork(id);
@@ -152,6 +153,9 @@ export default {
         this.instagramLink = personSocial.data.instagram_id;
         
     },
+      async mounted() {
+  setTimeout(() => { this.isLoading = false }, '500');
+  },
     components: {
         ItemList
     }
@@ -191,6 +195,9 @@ export default {
 .type_list li button {display:flex;align-items:center;height:2.5rem;padding:0 0.938rem;color:#fff;font-size:1.375rem;border:1px solid #fff;border-radius:3.125rem;background:#000}
 .type_list li button.active {color:#000;border-color:#000;background:#fff}
 
+
+.person_detail picture.skeleton {width:18.75rem;height:27.813rem;background:#ddd}
+.person_detail .profile_info .profile_name h1.skeleton {width:200px;height:50px;background:#ddd}
 
 @media screen and (max-width: 768px) {
     .person_detail {display:block;padding:9.375rem 2.5rem 2.5rem}
