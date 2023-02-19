@@ -1,24 +1,22 @@
 <template>
   <!-- 상단 -->
-  <section class="detail_container" v-if="!isLoading" 
+  <section class="detail_container skeleton"
     :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
     <!-- html이 없는데? 조건을 어떻게 걸어 -->
-    <div class="detail_info">
-      <h1 :class="{skeleton: isLoading}">
-        {{ this.type == "movie" ? movieDetail.title : movieDetail.name }}
-      </h1>
-      <div class="meta" :class="{ skeleton: isLoading }">
+    <div class="detail_info" >
+      <h1></h1>
+      <div class="meta">
         <span class="txt" v-for="list in movieDetail.genres" :key="list.id">
           {{ list.name }}
         </span>
       </div>
-      <div class="comment" :class="{ skeleton: isLoading }">
-        <p class="quotes" v-if="movieDetail.tagline">{{ movieDetail.tagline }}</p>
-        <p class="intro">{{ movieDetail.overview }}</p>
+      <div class="comment">
+        <p class="quotes"></p>
+        <p class="intro"></p>
       </div>
     </div>
     <div class="detail_poster">
-      <ul class="social_links" :class="{ skeleton: isLoading }">
+      <ul class="social_links">
         <li v-if="this.facebookLink">
           <a :href="`https://facebook.com/${this.facebookLink}`" class="facebook" target="_blank">
             <span class="blind">페이스북</span>
@@ -35,12 +33,11 @@
           </a>
         </li>
       </ul>
-      <picture :class="{ skeleton: isLoading }">
-        <img :src="image(movieDetail.poster_path)" alt="Image 2">
+      <picture>
+        
       </picture>
     </div>
   </section>
-  <itemDetailSkeleton v-else/>
   <!-- 등장인물 -->
   <div class="item_container movie">
     <div class="title">
@@ -115,7 +112,6 @@
 <script>
 import ItemList from './ItemList.vue'
 import bgModal from './bgModal.vue'
-import itemDetailSkeleton from './itemDetailSkeleton.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '@/utils/axios';
@@ -208,8 +204,7 @@ export default {
     Swiper,
     SwiperSlide,
     ItemList,
-    bgModal,
-    itemDetailSkeleton
+    bgModal
   }
 }
 </script>
@@ -262,10 +257,10 @@ export default {
 .media_container .media_list.video .swiper-slide a {display:block;margin-top:0.938rem;width:100%;font-size:1.125rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} 
 
 
-.detail_container .detail_info.skeleton h1 {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
-.detail_container .detail_info.skeleton .comment .quotes {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
-.detail_container .detail_info.skeleton .comment .intro {margin-top:20px;width:500px;height:55px;border-radius:4px;background:#f4f6fa}
-.detail_container .detail_poster.skeleton picture img {width:25rem;height:35.438rem;background:#f4f6fa}
+.detail_container.skeleton .detail_info h1 {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
+.detail_container.skeleton .detail_info .comment .quotes {width:500px;height:55px;border-radius:4px;background:#f4f6fa}
+.detail_container.skeleton .detail_info .comment .intro {margin-top:20px;width:500px;height:55px;border-radius:4px;background:#f4f6fa}
+.detail_container.skeleton .detail_poster picture {width:25rem;height:35.438rem;background:#f4f6fa}
 
 @media screen and (max-width: 768px) {
   .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;padding-bottom:0;height:55.688rem}
