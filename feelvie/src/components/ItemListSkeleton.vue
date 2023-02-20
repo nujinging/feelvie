@@ -72,6 +72,8 @@ export default {
 </script>
 
 <style>
+
+.mySwiper.skeleton {transition: all 3s;opacity:1}
 .mySwiper.skeleton .item_card {width:18.75rem;height:28.125rem;background:#ddd}
 .mySwiper.skeleton .item_card h3 {width:100%;height:22px;background:#ddd}
 
@@ -81,6 +83,15 @@ export default {
   .item_card {width:12.25rem}
   .item_card+.item_card {margin-left:10px}
   .item_card img {height:18.375rem}
+}
+@keyframes slidein {
+  from {
+    opacity:0;
+  }
+
+  to {
+    opacity:1;
+  }
 }
 
 </style>

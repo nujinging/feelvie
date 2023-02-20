@@ -54,6 +54,7 @@ export default {
 </script>
 
 <style>
+.mySwiper .swiper-wrapper {animation-name:slidein 10s leaner}
 .item_container {padding:3.888rem;overflow:hidden}
 .item_card {width:18.75rem}
 .item_card+.item_card {margin-left:30px}
@@ -72,4 +73,16 @@ export default {
   .item_card img {height:18.375rem}
 }
 
+@keyframes slidein {
+  10% {
+    opacity:0;
+  }
+  50% {
+    opacity:0.5;
+  }
+
+  to {
+    opacity:1;
+  }
+}
 </style>
