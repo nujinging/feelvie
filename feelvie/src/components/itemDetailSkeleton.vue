@@ -105,17 +105,12 @@
     <ItemList :movieList="recommendList" :type="this.type" :title="title[0]" :photo="recommend_photo"></ItemList>
   </div>
 
-  <bgModal v-if="modal" @close="modal = false" :img="img" :width="width" :height="height"></bgModal>
-
 </template>
 
 <script>
 import ItemList from './ItemList.vue'
-import bgModal from './bgModal.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
-import { movieApi } from '@/utils/axios';
-
 export default {
   name: 'ItemDetail_',
   data() {
@@ -160,51 +155,12 @@ export default {
     },
   },
   async created() {
-    
-    
-    // 영화 ID값에 따른 정보
-    const { type, id } = this.$route.params;
-    const { data } = await movieApi.movieDetail(type, id);
-    
-    this.movieDetail = data;
-    // movie or tv
-    this.type = type
-
-    // 배경
-    this.backGround = this.movieDetail.backdrop_path
-
-    // 등장인물
-    const person = await movieApi.person(this.type, this.movieDetail.id);
-    this.personList = person.data.cast.splice(0, 10);
-
-    // 관련 이미지
-    const image = await movieApi.image(this.type, this.movieDetail.id);
-    this.imageList = image.data
-
-
-    // 관련 동영상
-    const video = await movieApi.video(this.type, this.movieDetail.id);
-    this.videoLink = video.data.results
-
-    // 추천 작품
-    const recommend = await movieApi.recommend(this.type, this.movieDetail.id);
-    this.recommendList = recommend.data.results;
-    this.recommend_photo = this.recommendList.map(key => key.poster_path)
-
-    // 소셜
-    const social = await movieApi.social(this.type, this.movieDetail.id);
-    this.facebookLink = social.data.facebook_id
-    this.twitterLink = social.data.twitter_id
-    this.instagramLink = social.data.instagram_id
-
     this.isLoading = false;
-    
   },
   components: {
     Swiper,
     SwiperSlide,
-    ItemList,
-    bgModal
+    ItemList
   }
 }
 </script>

@@ -4,15 +4,15 @@
     :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
     <!-- html이 없는데? 조건을 어떻게 걸어 -->
     <div class="detail_info">
-      <h1 :class="{skeleton: isLoading}">
+      <h1>
         {{ this.type == "movie" ? movieDetail.title : movieDetail.name }}
       </h1>
-      <div class="meta" :class="{ skeleton: isLoading }">
+      <div class="meta">
         <span class="txt" v-for="list in movieDetail.genres" :key="list.id">
           {{ list.name }}
         </span>
       </div>
-      <div class="comment" :class="{ skeleton: isLoading }">
+      <div class="comment">
         <p class="quotes" v-if="movieDetail.tagline">{{ movieDetail.tagline }}</p>
         <p class="intro">{{ movieDetail.overview }}</p>
       </div>

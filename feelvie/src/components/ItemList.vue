@@ -1,22 +1,25 @@
 <template>
-  <swiper :slidesPerView="'auto'"  class="mySwiper" :class="{ skeleton: isLoading }">
+  <swiper :slidesPerView="'auto'"  class="mySwiper" v-if="!isLoading">
     <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
-      <img :src="image(photo[idx])" alt="Poster" v-if="photo">
+      <img :src="image(photo[idx])" alt="Poster">
       <h3> {{ li.title }}</h3>
       <h3> {{ li.name }}</h3>
     </swiper-slide>
   </swiper>
+  <ItemListSkeleton v-else/>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import ItemListSkeleton from './ItemListSkeleton.vue';
 
 export default {
   name: 'ItemList_',
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    ItemListSkeleton
   },
   data() {
     return {
@@ -44,9 +47,9 @@ export default {
       onSlideChange,
     };
   },
- async mounted() {
-  setTimeout(() => { this.isLoading = false }, '5000');
-  },
+  async mounted() {
+    setTimeout(() => { this.isLoading = false }, '2000');
+    },
 }
 </script>
 
