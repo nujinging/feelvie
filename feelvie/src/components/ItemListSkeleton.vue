@@ -20,7 +20,12 @@
       <img src="" alt="Poster">
       <h3></h3>
     </swiper-slide>
+    <swiper-slide class="item_card">
+      <img src="" alt="Poster">
+      <h3></h3>
+    </swiper-slide>
   </swiper>
+  
 
 </template>
 
