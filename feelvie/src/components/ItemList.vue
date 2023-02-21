@@ -1,5 +1,5 @@
 <template>
-  <swiper :slidesPerView="'auto'"  class="mySwiper" v-if="!isLoading">
+  <swiper :slidesPerView="'auto'"  class="mySwiper item_list" v-if="!isLoading">
     <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
       <img :src="image(photo[idx])" alt="Poster">
       <h3> {{ li.title }}</h3>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style>
-.mySwiper .swiper-wrapper {animation-name:slidein 10s leaner}
+
 .item_container {padding:3.888rem;overflow:hidden}
 .item_card {width:18.75rem}
 .item_card+.item_card {margin-left:30px}

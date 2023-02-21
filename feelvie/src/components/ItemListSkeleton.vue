@@ -72,8 +72,7 @@ export default {
 </script>
 
 <style>
-
-.mySwiper.skeleton {transition: all 3s;opacity:1}
+.mySwiper.item_list .swiper-wrapper {animation:slidein 1s}
 .mySwiper.skeleton .item_card {width:18.75rem;height:28.125rem;background:#ddd}
 .mySwiper.skeleton .item_card h3 {width:100%;height:22px;background:#ddd}
 
