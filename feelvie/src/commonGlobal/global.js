@@ -1,14 +1,11 @@
-// [설정 수행 실시]
-///*
+
 export default {
-
-    install(Vue) {
-
-        // [getSum 함수 설정]
-        Vue.config.globalProperties.$getSum = function(one, two){
-            return one + two;
+    image(img) {
+        if (img == undefined) {
+            // 이미지 없을 때
+            return require(`@/assets/${this.images}`)
+        } else {
+            return `https://image.tmdb.org/t/p/w300/${img}`
         }
-        
-    }
+    },
 }
-//*/

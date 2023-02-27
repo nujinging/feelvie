@@ -2,7 +2,6 @@
   <!-- 상단 -->
   <section class="detail_container" v-if="!isLoading" 
     :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
-    <!-- html이 없는데? 조건을 어떻게 걸어 -->
     <div class="detail_info">
       <h1>
         {{ this.type == "movie" ? movieDetail.title : movieDetail.name }}

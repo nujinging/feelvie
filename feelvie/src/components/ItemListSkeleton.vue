@@ -1,32 +1,9 @@
 <template>
   <swiper :slidesPerView="'auto'"  class="mySwiper skeleton">
-    <swiper-slide class="item_card">
-      <img src="" alt="Poster">
-      <h3></h3>
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <img src="" alt="Poster">
-      <h3></h3>
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <img src="" alt="Poster">
-      <h3></h3>
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <img src="" alt="Poster">
-      <h3></h3>
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <img src="" alt="Poster">
-      <h3></h3>
-    </swiper-slide>
-    <swiper-slide class="item_card">
-      <img src="" alt="Poster">
-      <h3></h3>
+    <swiper-slide class="item_card" v-for="li in count" :key="li.id">
+      <img :src="require(`@/assets/${this.images}`)"/>
     </swiper-slide>
   </swiper>
-  
-
 </template>
 
 <script>
@@ -42,55 +19,37 @@ export default {
   data() {
     return {
       isLoading: true,
+      images: ['image_none.png'],
+      count: 6
     }
-  },
-  props: ['movieList', 'title', 'photo', 'type', 'listInfo'],
-  methods: {
-    image(img) {
-      return `https://image.tmdb.org/t/p/w342/${img}`
-    },
-    goDetail(type, id) {
-      this.$router.push(`/${type}/${id}`);
-    },
-  },
-  setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log('slide change');
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-    };
-  },
- async mounted() {
-  setTimeout(() => { this.isLoading = false }, '5000');
   },
 }
 </script>
 
 <style>
-.mySwiper.item_list .swiper-wrapper {animation:slidein 1s}
+.mySwiper.item_list .swiper-wrapper {animation:slidein 0.5s}
 .mySwiper.skeleton .item_card {width:18.75rem;height:28.125rem;background:#ddd}
-.mySwiper.skeleton .item_card h3 {width:100%;height:22px;background:#ddd}
-
-
-@media screen and (max-width: 768px) { 
-  .item_container {padding:2.5rem}
-  .item_card {width:12.25rem}
-  .item_card+.item_card {margin-left:10px}
-  .item_card img {height:18.375rem}
-}
+.mySwiper.skeleton .swiper-wrapper {overflow:hidden;position:relative;width:100%;height:100%}
+.mySwiper.skeleton .swiper-wrapper::before {position:absolute;top:0;left:-100px;width:40px;height:100%;background:#ffffff3b;animation:skeletonMove 2s infinite;transform:rotate(15deg);content:"";filter:blur(15px);-webkit-filter:blur(15px);z-index:1}
+@keyframes skeletonMove {from {left:-100px;
+    }
+    to {left:calc(100% + 100px);
+    }}
 @keyframes slidein {
-  from {
+  10% {
     opacity:0;
+  }
+  50% {
+    opacity:0.5;
   }
 
   to {
     opacity:1;
   }
 }
-
+@media screen and (max-width: 768px) {
+  .mySwiper.skeleton .item_card {width:12.25rem;height:100%;border-radius:0.5rem}
+  .mySwiper.skeleton .item_card+.item_card {margin-left:10px}
+  .mySwiper.skeleton .item_card img {height:18.375rem}
+}
 </style>

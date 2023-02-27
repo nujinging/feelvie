@@ -1,12 +1,12 @@
 <template>
-  <swiper :slidesPerView="'auto'"  class="mySwiper item_list" v-if="!isLoading">
+  <swiper :slidesPerView="'auto'" class="mySwiper item_list" v-if="!isLoading">
     <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
       <img :src="image(photo[idx])" alt="Poster">
       <h3> {{ li.title }}</h3>
       <h3> {{ li.name }}</h3>
     </swiper-slide>
   </swiper>
-  <ItemListSkeleton v-else/>
+  <ItemListSkeleton v-else />
 </template>
 
 <script>
@@ -35,6 +35,9 @@ export default {
       this.$router.push(`/${type}/${id}`);
     },
   },
+  async mounted() {
+    setTimeout(() => { this.isLoading = false }, '800');
+  },
   setup() {
     const onSwiper = (swiper) => {
       console.log(swiper);
@@ -47,14 +50,11 @@ export default {
       onSlideChange,
     };
   },
-  async mounted() {
-    setTimeout(() => { this.isLoading = false }, '2000');
-    },
+
 }
 </script>
 
 <style>
-
 .item_container {padding:3.888rem;overflow:hidden}
 .item_card {width:18.75rem}
 .item_card+.item_card {margin-left:30px}
@@ -64,25 +64,9 @@ export default {
 .swiper {overflow:visible}
 .swiper+.title {margin-top:3.125rem}
 .swiper-wrapper {transform: translateZ(0)}
-
-
 @media screen and (max-width: 768px) { 
   .item_container {padding:2.5rem}
   .item_card {width:12.25rem}
   .item_card+.item_card {margin-left:10px}
   .item_card img {height:18.375rem}
-}
-
-@keyframes slidein {
-  10% {
-    opacity:0;
-  }
-  50% {
-    opacity:0.5;
-  }
-
-  to {
-    opacity:1;
-  }
-}
-</style>
+}</style>

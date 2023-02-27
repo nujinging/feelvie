@@ -11,9 +11,7 @@
             </swiper-slide>
         </swiper>
 
-
         <div class="item_container">
-
             <!-- 지금 상영중인 영화 -->
             <div class="title">
                 <h2>지금 상영중이에요!</h2>

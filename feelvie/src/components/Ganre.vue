@@ -1,8 +1,8 @@
 <template>
     <div class="item_container">
-        <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle" >
-            <swiper-slide class="genre_item" @click="GenreListAll()"
-                :class="{ active: genreAllActive }">
+        <!-- 장르 탭 -->
+        <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle">
+            <swiper-slide class="genre_item" @click="GenreListAll()" :class="{ active: genreAllActive }">
                 All
             </swiper-slide>
             <swiper-slide class="genre_item" v-for="(genreList, i ) in genreTitle" :key="genreList.id"
@@ -10,10 +10,10 @@
                 {{ genreList.name }}
             </swiper-slide>
         </swiper>
-
+        <!-- 리스트 -->
         <ul class="ganre_list" v-if="genreList" @scroll="handleNotificationListScroll">
-            <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)"
-                class="list_card" :class="{ skeleton: isLoading }">
+            <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)" class="list_card"
+                :class="{ skeleton: isLoading }">
                 <picture>
                     <img :src="image(item.poster_path)" alt="">
                 </picture>
@@ -40,12 +40,13 @@ export default {
             page: 1,
             genreAllActive: true,
             genreTitleActive: null,
-            isLoading : true
+            isLoading: true
         };
     },
 
     async mounted() {
         // 장르타이틀
+        // linkValue = Header에서 받아온 값
         const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
 
@@ -88,9 +89,13 @@ export default {
 
         // 포스터
         image(img) {
-            return `https://image.tmdb.org/t/p/w300/${img}`
+            if (img == undefined) {
+                // 이미지 없을 때
+                return require(`@/assets/${this.images}`)
+            } else {
+                return `https://image.tmdb.org/t/p/w300/${img}`
+            }
         },
-
         // 영화상세내용으로
         goDetail(type, id) {
             this.$router.push(`/${type}/${id}`);
