@@ -1,9 +1,9 @@
 <template>
   <!-- 상단 -->
-  <section class="detail_container" v-if="!isLoading" 
-    :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.backGround + ')' }">
+  <section class="detail_container" 
+    :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + this.topBg + ')' }">
     <div class="detail_info">
-      <h1>
+      <h1 v-if="!isLoading">
         {{ this.type == "movie" ? movieDetail.title : movieDetail.name }}
       </h1>
       <div class="meta">
@@ -34,12 +34,12 @@
           </a>
         </li>
       </ul>
-      <picture :class="{ skeleton: isLoading }">
-        <img :src="image(movieDetail.poster_path)" alt="Image 2">
+      <picture>
+        <img :src="image(movieDetail.poster_path)" alt="Image 2" v-if="!isLoading" loading="lazy">
+        <img :src="require(`@/assets/${this.images}`)" v-else/>
       </picture>
     </div>
   </section>
-  <itemDetailSkeleton v-else/>
   <!-- 등장인물 -->
   <div class="item_container movie">
     <div class="title">
@@ -114,16 +114,28 @@
 <script>
 import ItemList from './ItemList.vue'
 import bgModal from './bgModal.vue'
-import itemDetailSkeleton from './itemDetailSkeleton.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '@/utils/axios';
+const io = new IntersectionObserver((entries, observer) => {
+
+entries.forEach(entry => {
+    if (entry.isIntersecting) { // 감지대상이 교차영역에 진입 할 경우
+        entry.target.src = entry.target.dataset.src;
+        observer.unobserve(entry.target); // 이미지 로딩 이후론 관찰할 필요 x
+    }
+})
+})
+
+const images = document.querySelectorAll('.io-img');
+images.forEach((el) => io.observe(el));
 
 export default {
   name: 'ItemDetail_',
+  
   data() {
     return {
-      backGround: '',
+      topBg: '',
       movieDetail: {},
       imageList: [],
       currentTab: 0,
@@ -161,6 +173,7 @@ export default {
     goPeronDetail(id) {
       this.$router.push(`/person/${id}`);
     },
+    
   },
   async created() {
     
@@ -174,7 +187,7 @@ export default {
     this.type = type
 
     // 배경
-    this.backGround = this.movieDetail.backdrop_path
+    this.topBg = this.movieDetail.backdrop_path
 
     // 등장인물
     const person = await movieApi.person(this.type, this.movieDetail.id);
@@ -207,8 +220,7 @@ export default {
     Swiper,
     SwiperSlide,
     ItemList,
-    bgModal,
-    itemDetailSkeleton
+    bgModal
   }
 }
 </script>
@@ -227,7 +239,8 @@ export default {
 .detail_container .detail_info .comment .intro {display: -webkit-box;font-size:1.5rem;line-height:2.125rem;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
 .detail_container .detail_poster {position: relative;display: flex;justify-content: flex-end;width: 100%;z-index: 1}
 .detail_container .detail_poster picture {margin-left:1.875rem;width:25rem}
-.detail_container .detail_poster picture img {width:100%}
+.detail_container .detail_poster picture img {width:100%;animation:slidein 0.5s}
+
 .detail_container .detail_poster .social_links li {display: flex;align-items: center;justify-content: center;width:4.5rem;height:4.5rem;border-radius:50%;background: #fff}
 .detail_container .detail_poster .social_links li+li {margin-top:0.938rem}
 .detail_container .detail_poster .social_links li a {width:3.125rem;height:3.125rem;background: #000}

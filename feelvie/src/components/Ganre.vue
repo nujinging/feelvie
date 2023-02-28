@@ -15,7 +15,9 @@
             <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)" class="list_card"
                 :class="{ skeleton: isLoading }">
                 <picture>
-                    <img :src="image(item.poster_path)" alt="">
+                    <img :src="image(item.poster_path)" class="poster"
+                        :alt="this.linkValue === `movie` ? item.title : item.name" v-if="!isLoading" loading="lazy">
+                    <img :src="require(`@/assets/${this.images}`)" v-else />
                 </picture>
                 <p class="tit"> {{ this.linkValue === "movie" ? item.title : item.name }} </p>
             </li>
@@ -40,28 +42,34 @@ export default {
             page: 1,
             genreAllActive: true,
             genreTitleActive: null,
-            isLoading: true
+            images: ['image_none.png'],
+            isLoading: true,
+            isScrollDown: false,
+            scrollTop: 0,
+            target: null,
         };
     },
 
     async mounted() {
         // 장르타이틀
-        // linkValue = Header에서 받아온 값
+        // linkValue = Header에서 받아온 값 (movie, tv)
         const { data } = await movieApi.genre(this.linkValue);
         this.genreTitle = data.genres;
 
-        // 장르리스트 (타이틀이 한글일 경우에만)
+        // 장르리스트 
+        // 가장 인기있고 한국어 타이틀인 작품 1페이지만 보여줌
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
         const popular = await movieApi.popular(this.linkValue);
         this.genreList = popular.data.results.filter(value => korean.test(value.name) || korean.test(value.title));
-        setTimeout(() => { this.isLoading = false }, '500');
+        setTimeout(() => { this.isLoading = false }, '500')
     },
 
     methods: {
         // 장르 All 클릭
         async GenreListAll() {
             const popular = await movieApi.popular(this.linkValue);
-            this.genreList = popular.data.results;
+            const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+            this.genreList = popular.data.results.filter(value => korean.test(value.name) || korean.test(value.title));
             this.genreTitleActive = null;
             this.genreAllActive = true
         },
@@ -74,17 +82,16 @@ export default {
             this.genreTitleActive = i;
             this.genreAllActive = false;
         },
-
-        // Scroll
+        // 스크롤
         handleNotificationListScroll(e) {
             const { scrollHeight, scrollTop, clientHeight } = e.target;
             const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
             if (isAtTheBottom) this.handleLoadMore();
         },
-        async handleLoadMore() {
+        async handleLoadMore(value) {
             this.page++
-            const { data } = await movieApi.genreList(this.genre, this.page)
-            this.list = [...this.list, ...data.results]
+            const { data } = await movieApi.genreList(this.linkValue, value, this.page)
+            this.genreList = [...this.genreList, ...data.results]
         },
 
         // 포스터
@@ -114,10 +121,12 @@ export default {
 .genre_title .genre_item+.genre_item {margin-left:1.25rem}
 .genre_title .genre_item:hover,
 .genre_title .genre_item.active {color:#0372d2;background:#fff}
+.ganre_list {max-height:calc(100vh - 18.75rem);overflow-y:auto}
 .ganre_list .tit {margin-top:0.938rem;color: #d5d5d5;font-size:1.375rem;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ganre_list .list_card {display:inline-block;margin:0 1.25rem 2.5rem 0;width:calc(100% - 80% - 1rem)}
 .ganre_list .list_card picture {display:block;border-radius:0.5rem;width:100%;max-height:31.25rem;overflow:hidden}
 .ganre_list .list_card picture img  {width:100%;height:100%}
+.ganre_list .list_card picture img.poster {animation:slidein 0.5s}
 .ganre_list .list_card:hover {transform: translate3d(0,-0.75rem,0);transition: transform .3s ease-in-out;cursor:pointer}
 .ganre_list .list_card:nth-child(5n) {margin-right:0}
 @media screen and (max-width: 768px) {

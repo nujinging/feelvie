@@ -1,7 +1,7 @@
 <template>
-    <div class="container" :class="{ skeleton: isLoading }">
+    <div class="container">
         <swiper :pagination="pagination" :navigation="true" :modules="modules" class="mySwiper home_banner">
-            <swiper-slide v-for="list in list" :key='list.id'
+            <swiper-slide v-for="list in banner" :key='list.id'
                 :style="{ backgroundImage: 'url( https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/' + list.backdrop_path + ')' }"
                 @click="goDetail(list_type, list.id)" class="banner">
                 <div class="banner_txt">
@@ -25,19 +25,19 @@
                     </li>
                 </ul>
             </div>
-            <ItemList :movieList="nowPlaying" :type="list_type" :title="title[0]" :photo="now_photo"></ItemList>
+            <ItemList :movieList="nowPlaying" :type="list_type" :photo="now_photo"></ItemList>
 
             <!-- 가장 인기있는 컨텐츠 -->
             <div class="title">
                 <h2>가장 인기있는 컨텐츠</h2>
             </div>
-            <ItemList :movieList="TopRatedList" :type="list_type" :title="title[2]" :photo="top_photo"></ItemList>
+            <ItemList :movieList="TopRatedList" :type="list_type" :photo="top_photo"></ItemList>
 
             <!-- 오늘 가장 많이 찾아 본 컨텐츠 -->
             <div class="title">
                 <h2>오늘 가장 많이 찾아 본 컨텐츠</h2>
             </div>
-            <ItemList v-if="dayList" :movieList="dayList" :type="list_type" :title="title[0]" :photo="day_photo">
+            <ItemList v-if="dayList" :movieList="dayList" :type="list_type" :photo="day_photo">
             </ItemList>
 
 
@@ -45,7 +45,7 @@
             <div class="title">
                 <h2>이번 주 가장 많이 찾아 본 컨텐츠</h2>
             </div>
-            <ItemList :movieList="weekList" :title="title[1]" :photo="week_photo"></ItemList>
+            <ItemList :movieList="weekList" :photo="week_photo"></ItemList>
         </div>
 
         <Modal v-if="modal" @close="modal = false"></Modal>
@@ -64,41 +64,22 @@ export default {
     name: 'Main_',
     data() {
         return {
-            nowPlaying: {},
-            popular: {},
-            TopRatedList: {},
-
-            title: ['지금 상영중인 영화', '인기있는 영화', '최고의 등급'],
-            popularTv: [],
-            popularMovie: [],
-            dayList: [],
+            banner: [],
             list_type: 'movie',
-            list: [],
-            list2: [],
+            nowPlaying: {},
+            TopRatedList: {},
+            popularTv: [],
+            dayList: [],
             weekList: [],
             nowType: '',
-            listInfo:
-                [
-                    { title: '지금 상영중인 영화', photo: this.now_photo },
-                    { title: '인기있는 영화', photo: this.pop_photo },
-                    { title: '최고의 등급', photo: this.pop_photo },
-                ],
             modal: false,
-            genreTitle: '',
-            selected: '',
-            btnList: [
-                { title: '영화', type: 'movie', test: 'now_playing' },
-                { title: 'TV프로그램', type: 'tv', test: 'on_the_air' }
-            ],
-            activatedTarget: 'a',
-            isLoading : true
+            activatedTarget: 'a'
         }
     },
     methods: {
         goDetail(type, id) {
             this.$router.push(`/${type}/${id}`);
         },
-
         async ganreTab(id, nowType, tag) {
             this.list_type = id;
             const now = await movieApi.nowPlaying(this.list_type, nowType);
@@ -115,6 +96,12 @@ export default {
         Modal
     },
     async mounted() {
+        // 배너 - TV 프로그램 중 가장 인기있고 한국어 타이틀인 작품 5개 선정
+        const popularTv = await movieApi.popularTv('movie');
+        this.popularTv = popularTv.data.results;
+        this.backGround = this.popularTv.backdrop_path
+        const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+        this.banner = this.popularTv.filter(value => korean.test(value.title) && korean.test(value.overview)).splice(0, 5);
 
         const now = await movieApi.nowPlaying(this.list_type, 'now_playing');
         this.nowPlaying = now.data.results;
@@ -131,32 +118,8 @@ export default {
 
         this.dayList = trendingDay.data.results
         this.weekList = trendingWeek.data.results
-
         this.day_photo = this.dayList.map(key => key.poster_path)
         this.week_photo = this.weekList.map(key => key.poster_path)
-
-
-        // 배너
-        const popularTv = await movieApi.popularTv('movie');
-        this.popularTv = popularTv.data.results;
-        const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-        this.list = this.popularTv.filter(value => korean.test(value.title) && korean.test(value.overview)).splice(0, 5);
-
-
-        const genre = await movieApi.genre('movie');
-        this.genreTitle = genre.data.genres;
-        // // 장르
-        // const bannerGenre = this.list.forEach(item => {
-        //     this.genreTitle.forEach(genre => {
-        //         console.log(item.genre_ids)
-        //         console.log(genre)
-        //     })
-        // })
-
-        // console.log(bannerGenre)
-
-        this.backGround = this.popularTv.backdrop_path
-        setTimeout(() => { this.isLoading = false }, '5000');
     },
 
     // 페이지네이션
