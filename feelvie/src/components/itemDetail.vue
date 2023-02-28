@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="detail_poster">
-      <ul class="social_links" :class="{ skeleton: isLoading }">
+      <ul class="social_links" v-if="this.facebookLink || this.twitterLink || this.instagramLink">
         <li v-if="this.facebookLink">
           <a :href="`https://facebook.com/${this.facebookLink}`" class="facebook" target="_blank">
             <span class="blind">페이스북</span>
@@ -35,7 +35,7 @@
         </li>
       </ul>
       <picture>
-        <img :src="image(movieDetail.poster_path)" alt="Image 2" v-if="!isLoading" loading="lazy">
+        <img :src="image(movieDetail.poster_path)" :alt="this.type == `movie` ? movieDetail.title : movieDetail.name" v-if="!isLoading">
         <img :src="require(`@/assets/${this.images}`)" v-else/>
       </picture>
     </div>
@@ -101,7 +101,7 @@
       </div>
     </div>
 
-    <div class="title">
+    <div class="title" v-if="!this.recommendList.length == 0">
       <h2>추천 작품</h2>
     </div>
     <ItemList :movieList="recommendList" :type="this.type" :title="title[0]" :photo="recommend_photo"></ItemList>
@@ -238,8 +238,8 @@ export default {
 .detail_container .detail_info .comment .quotes {margin-bottom:2rem;color: #3A7CDF;font-size:1.875rem;font-style: italic;}
 .detail_container .detail_info .comment .intro {display: -webkit-box;font-size:1.5rem;line-height:2.125rem;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
 .detail_container .detail_poster {position: relative;display: flex;justify-content: flex-end;width: 100%;z-index: 1}
-.detail_container .detail_poster picture {margin-left:1.875rem;width:25rem}
-.detail_container .detail_poster picture img {width:100%;animation:slidein 0.5s}
+.detail_container .detail_poster picture {margin-left:1.875rem;width:25rem;border-radius:0.5rem;overflow:hidden}
+.detail_container .detail_poster picture img {width:100%;height:33.75rem;animation:slidein 0.5s;background:url('@/assets/image_none.png') center / 100% no-repeat}
 
 .detail_container .detail_poster .social_links li {display: flex;align-items: center;justify-content: center;width:4.5rem;height:4.5rem;border-radius:50%;background: #fff}
 .detail_container .detail_poster .social_links li+li {margin-top:0.938rem}
@@ -280,16 +280,17 @@ export default {
 .detail_container .detail_poster.skeleton picture img {width:25rem;height:35.438rem;background:#f4f6fa}
 
 @media screen and (max-width: 768px) {
-  .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;padding-bottom:0;height:55.688rem}
+  .detail_container {flex-direction: row-reverse;flex-wrap:wrap-reverse;height:100%}
   .detail_container .detail_info {margin:0;text-align:center}
   .detail_container .detail_info h1 {margin-top:0}
-  .detail_container .detail_info .meta {justify-content:center}
+  .detail_container .detail_info .meta {justify-content:center;margin-bottom:2rem}
   .detail_container .detail_info .comment .quotes {margin-top:2rem}
   .detail_container .detail_info .comment .intro {margin:0 2rem}
-  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:1.5rem;padding:6rem 0 1rem}
+  .detail_container .detail_poster {flex-direction: column-reverse;justify-content:center;margin-bottom:2rem}
   .detail_container .detail_poster .social_links {display:flex;justify-content:center;margin-top:2rem}
   .detail_container .detail_poster .social_links li+li {margin-top:0;margin-left:0.938rem}
   .detail_container .detail_poster picture {margin:0 auto;width:15rem}
+  .detail_container .detail_poster picture img {height:21rem}
   .detail_container .detail_info .comment {position:relative}
 
   .person_list .person_card  {width:75px}

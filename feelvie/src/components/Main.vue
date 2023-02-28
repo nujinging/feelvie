@@ -45,7 +45,7 @@
             <div class="title">
                 <h2>이번 주 가장 많이 찾아 본 컨텐츠</h2>
             </div>
-            <ItemList :movieList="weekList" :photo="week_photo"></ItemList>
+            <ItemList :movieList="weekList" :type="list_type" :photo="week_photo"></ItemList>
         </div>
 
         <Modal v-if="modal" @close="modal = false"></Modal>

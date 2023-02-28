@@ -1,12 +1,13 @@
 <template>
     <div class="container">
         <section class="person_detail">
-            <picture :class="{ skeleton: isLoading }">
-                <img :src="image(personDetail.profile_path)" alt="Image 2">
+            <picture>
+                <img :src="image(personDetail.profile_path)" :alt="personDetail.name" v-if="!isLoading">
+                <img :src="require(`@/assets/${this.images}`)" v-else/>
             </picture>
             <div class="profile_info">
                 <div class="profile_name">
-                    <h1 v-if="personDetail.name" :class="{ skeleton: isLoading }"> {{ personDetail.name }}</h1>
+                    <h1 v-if="personDetail.name"> {{ personDetail.name }}</h1>
                     <ul class="social_links">
                         <li v-if="this.facebookLink">
                             <a :href="`https://facebook.com/${this.facebookLink}`" class="facebook" target="_blank">
@@ -100,7 +101,8 @@ export default {
             twitterLink: {},
             instagramLink: {},
             activatedTarget: 'a',
-            isLoading: true
+            isLoading: true,
+      images: ['image_none.png'],
         };
     },
     methods: {
@@ -139,19 +141,16 @@ export default {
         // 영화 날짜순으로 정렬
         this.movieList = this.personWork.cast.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
         this.filmoList = this.movieList;
-        console.log(this.filmoList)
 
         // Tv 날짜순으로 정렬
         const personTv = await movieApi.personTv(id);
         this.tvList = personTv.data.cast.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
-        console.log(this.tvList)
 
         // 소셜
         const personSocial = await movieApi.personSocial(id);
         this.facebookLink = personSocial.data.facebook_id
         this.twitterLink = personSocial.data.twitter_id
         this.instagramLink = personSocial.data.instagram_id;
-        
     },
       async mounted() {
   setTimeout(() => { this.isLoading = false }, '500');
@@ -165,7 +164,7 @@ export default {
 <style>
 .container {position: -webkit-sticky;position:sticky;top:0;bottom:0;left:0}
 .person_detail {display:flex;width:100%;padding:9.375rem 4.375rem 4.375rem;;color: #fff;overflow:hidden}
-.person_detail picture {position:fixed;display:block;width:18.75rem}
+.person_detail picture {position:fixed;display:block;width:18.75rem;overflow:hidden}
 .person_detail picture img {width:100%;border-radius:0.5rem}
 .person_detail .profile_info {margin-left:23.125rem;overflow:hidden}
 .person_detail .profile_info .item_container {padding:0}
@@ -178,9 +177,9 @@ export default {
 .person_detail .profile_info .profile_name .social_links li {display: flex;align-items: center;justify-content: center;width:4.5rem;height:4.5rem;border-radius: 50%;background: #fff}
 .person_detail .profile_info .profile_name .social_links li+li {margin-left:0.938rem}
 .person_detail .profile_info .profile_name .social_links li a {width:3.125rem;height:3.125rem;background: #000}
-.person_detail .profile_info .profile_name .social_links li a.facebook {background: url(./../assets/icon_facebook.png) center no-repeat}
-.person_detail .profile_info .profile_name .social_links li a.tritter {background: url(./../assets/icon_twitter.png) center no-repeat}
-.person_detail .profile_info .profile_name .social_links li a.instargram {background: url(./../assets/icon_instagram.png) center no-repeat}
+.person_detail .profile_info .profile_name .social_links li a.facebook {background: url(./../assets/icon_facebook.png) center / 100% no-repeat}
+.person_detail .profile_info .profile_name .social_links li a.tritter {background: url(./../assets/icon_twitter.png) center / 100% no-repeat}
+.person_detail .profile_info .profile_name .social_links li a.instargram {background: url(./../assets/icon_instagram.png) center / 100% no-repeat}
 .work {padding-top:4.375rem}
 .work .work_list li{display:flex;align-items:center;font-size:1.25rem;cursor:pointer}
 .work .work_list li:hover .tit {color:#4876ef}
@@ -203,7 +202,8 @@ export default {
     .person_detail {display:block;padding:9.375rem 2.5rem 2.5rem}
     .person_detail picture {position:relative;width:15rem;margin:0 auto}
     .person_detail .profile_info {margin-left:0}
-    .person_detail .profile_info .profile_name {margin:0.938rem 0;justify-content:center}
+    .person_detail .profile_info .profile_name {display:block;margin:0.938rem 0;text-align:center}
+    .person_detail .profile_info .profile_name .social_links {margin:2rem 0;justify-content:center}
     .person_detail .profile_info .profile_desc {text-align:center}
 }
 

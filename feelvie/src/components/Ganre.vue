@@ -1,5 +1,5 @@
 <template>
-    <div class="item_container">
+    <div class="item_container ganre"  @scroll="handleNotificationListScroll">
         <!-- 장르 탭 -->
         <swiper :slidesPerView="'auto'" class="mySwiper genre_title" v-if="genreTitle">
             <swiper-slide class="genre_item" @click="GenreListAll()" :class="{ active: genreAllActive }">
@@ -11,7 +11,7 @@
             </swiper-slide>
         </swiper>
         <!-- 리스트 -->
-        <ul class="ganre_list" v-if="genreList" @scroll="handleNotificationListScroll">
+        <ul class="ganre_list" v-if="genreList">
             <li v-for="item in genreList" :key="item.id" @click="goDetail(this.linkValue, item.id)" class="list_card"
                 :class="{ skeleton: isLoading }">
                 <picture>
@@ -43,10 +43,7 @@ export default {
             genreAllActive: true,
             genreTitleActive: null,
             images: ['image_none.png'],
-            isLoading: true,
-            isScrollDown: false,
-            scrollTop: 0,
-            target: null,
+            isLoading: true
         };
     },
 
@@ -61,7 +58,7 @@ export default {
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
         const popular = await movieApi.popular(this.linkValue);
         this.genreList = popular.data.results.filter(value => korean.test(value.name) || korean.test(value.title));
-        setTimeout(() => { this.isLoading = false }, '500')
+        setTimeout(() => { this.isLoading = false }, '500');
     },
 
     methods: {
@@ -87,11 +84,13 @@ export default {
             const { scrollHeight, scrollTop, clientHeight } = e.target;
             const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
             if (isAtTheBottom) this.handleLoadMore();
+
         },
         async handleLoadMore(value) {
             this.page++
             const { data } = await movieApi.genreList(this.linkValue, value, this.page)
             this.genreList = [...this.genreList, ...data.results]
+            console.log(this.genreList)
         },
 
         // 포스터
@@ -116,12 +115,12 @@ export default {
 </script>
 
 <style>
+.item_container.ganre {height:100vh;overflow-y:auto}
 .genre_title {margin:5rem 0 3rem}
 .genre_title .genre_item {width: auto;padding: 0.625rem 1.25rem;color: #fff;font-size: 1.25rem;border-radius: 2rem;cursor: pointer;background: #0372D2}
 .genre_title .genre_item+.genre_item {margin-left:1.25rem}
 .genre_title .genre_item:hover,
 .genre_title .genre_item.active {color:#0372d2;background:#fff}
-.ganre_list {max-height:calc(100vh - 18.75rem);overflow-y:auto}
 .ganre_list .tit {margin-top:0.938rem;color: #d5d5d5;font-size:1.375rem;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ganre_list .list_card {display:inline-block;margin:0 1.25rem 2.5rem 0;width:calc(100% - 80% - 1rem)}
 .ganre_list .list_card picture {display:block;border-radius:0.5rem;width:100%;max-height:31.25rem;overflow:hidden}
