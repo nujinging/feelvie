@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         updateScroll(){
-           this.scrollPosition = window.scrollY
+          this.scrollPosition = window.scrollY
         }
     },
 }

@@ -2,8 +2,7 @@
   <swiper :slidesPerView="'auto'" class="mySwiper item_list">
     <swiper-slide class="item_card" v-for="(li, idx) in movieList" :key="li.id" @click="goDetail(type, li.id)">
       <img :src="image(photo[idx])" alt="Poster" v-if="!isLoading">
-      <img :src="require(`@/assets/${this.images}`)" v-else/>
-      <h3> {{ this.type  }}</h3>
+      <img :src="require(`@/assets/${this.images}`)" v-else />
       <h3 v-if="!isLoading"> {{ this.type === `movie` ? li.title : li.name }}</h3>
     </swiper-slide>
   </swiper>
@@ -28,8 +27,14 @@ export default {
   props: ['movieList', 'photo', 'type', 'listInfo'],
   methods: {
     image(img) {
-      return `https://image.tmdb.org/t/p/w342/${img}`
+      if (img == undefined) {
+        // 이미지 없을 때
+        return require(`@/assets/${this.images}`)
+      } else {
+        return `https://image.tmdb.org/t/p/w300/${img}`
+      }
     },
+
     goDetail(type, id) {
       this.$router.push(`/${type}/${id}`);
     },
@@ -68,4 +73,5 @@ export default {
   .item_card {width:12.25rem}
   .item_card+.item_card {margin-left:10px}
   .item_card img {height:18.375rem}
-}</style>
+}
+</style>

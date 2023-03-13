@@ -117,22 +117,9 @@ import bgModal from './bgModal.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { movieApi } from '@/utils/axios';
-const io = new IntersectionObserver((entries, observer) => {
-
-entries.forEach(entry => {
-    if (entry.isIntersecting) { // 감지대상이 교차영역에 진입 할 경우
-        entry.target.src = entry.target.dataset.src;
-        observer.unobserve(entry.target); // 이미지 로딩 이후론 관찰할 필요 x
-    }
-})
-})
-
-const images = document.querySelectorAll('.io-img');
-images.forEach((el) => io.observe(el));
 
 export default {
   name: 'ItemDetail_',
-  
   data() {
     return {
       topBg: '',
@@ -213,8 +200,8 @@ export default {
     this.twitterLink = social.data.twitter_id
     this.instagramLink = social.data.instagram_id
 
+    // 로딩
     this.isLoading = false;
-    
   },
   components: {
     Swiper,
@@ -237,9 +224,9 @@ export default {
 .detail_container .detail_info .comment {position: absolute;bottom: 0}
 .detail_container .detail_info .comment .quotes {margin-bottom:2rem;color: #3A7CDF;font-size:1.875rem;font-style: italic;}
 .detail_container .detail_info .comment .intro {display: -webkit-box;font-size:1.5rem;line-height:2.125rem;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical}
-.detail_container .detail_poster {position: relative;display: flex;justify-content: flex-end;width: 100%;z-index: 1}
-.detail_container .detail_poster picture {margin-left:1.875rem;width:25rem;border-radius:0.5rem;overflow:hidden}
-.detail_container .detail_poster picture img {width:100%;height:33.75rem;animation:slidein 0.5s;background:url('@/assets/image_none.png') center / 100% no-repeat}
+.detail_container .detail_poster {position: relative;display:flex;justify-content: flex-end;width:25rem;z-index: 1;flex-shrink:0}
+.detail_container .detail_poster picture {margin-left:1.875rem;border-radius:0.5rem;overflow:hidden}
+.detail_container .detail_poster picture img {width:100%;height:100%;animation:slidein 0.5s;background:url('@/assets/image_none.png') center / 100% no-repeat}
 
 .detail_container .detail_poster .social_links li {display: flex;align-items: center;justify-content: center;width:4.5rem;height:4.5rem;border-radius:50%;background: #fff}
 .detail_container .detail_poster .social_links li+li {margin-top:0.938rem}
